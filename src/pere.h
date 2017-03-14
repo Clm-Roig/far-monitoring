@@ -25,6 +25,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Gestion du temps
+#include <time.h>
+
 
 // ---- CONSTANTES ---- //
 const char* NOM_PIPE_PF;
