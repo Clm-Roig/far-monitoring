@@ -20,7 +20,8 @@
 
 
 // ---- CONSTANTES ---- //
-
+const char* NOM_PIPE_PF;
+const char* NOM_PIPE_FF;
 
 // ---- FONCTIONS ---- //
 
