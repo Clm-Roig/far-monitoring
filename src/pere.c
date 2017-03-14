@@ -23,7 +23,6 @@ int creerPipeR(char* nomPipe) {
 
 
 // COMMUNICATION AVEC LES FILS
-
 int pereEnvoiFils(int numFils, char* donnees){
     return 1;
 }
