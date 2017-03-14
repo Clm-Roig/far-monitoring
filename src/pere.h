@@ -1,7 +1,13 @@
 #ifndef DEF_PERE
 #define DEF_PERE
 
-// EN-TETE pere.h
+/**
+ * \file pere.h
+ * \brief Header du fichier pere.c
+ *
+ * Le fichier pere.c gère les processus fils (qui s'occupent de la saisie de coordonnées) et 
+ * communique ces coordonnées au serveur.
+ */
 
 // Sockets / HTTP / IP
 #include <sys/types.h>
