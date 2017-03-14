@@ -6,7 +6,8 @@
  * \brief Header du fichier pere.c
  *
  * Le fichier pere.c gère les processus fils (qui s'occupent de la saisie de coordonnées) et 
- * communique ces coordonnées au serveur.
+ * communique ces coordonnées au serveur. Il s'occupe également de gérer les tokens et de contrôler
+ * que ceux-ci transitent correctement.
  */
 
 // Sockets / HTTP / IP
