@@ -1,7 +1,12 @@
 #ifndef DEF_SERVEUR
 #define DEF_SERVEUR
 
-// EN-TETE serveur.h
+/**
+ * \file serveur.h
+ * \brief Header du fichier serveur.c
+ *
+ * Le fichier serveur.c gère la communication avec les robots.
+ */
 
 // Sockets / HTTP / IP
 #include <sys/types.h>
