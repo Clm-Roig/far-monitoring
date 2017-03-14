@@ -5,6 +5,7 @@
  * \file main.h
  * \brief Header du fichier main.c
  *
+ * Le fichier main.c est la porte d'entrée du programme. 
  */
 
 // Sockets / HTTP / IP
