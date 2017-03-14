@@ -6,7 +6,8 @@ Développement du serveur de position (projet FAR IG3 2017, Polytech Montpellier
 - Clément ROIG 
 
 # Arborescence
-- src     : Dossier des fichier C et des entetes
-- obj	  : Dossier des fichier compilés .o
-- bin     : Dossier comportant l'executable du projet
-- doc     : Dossier comportant la documentation
+- data      : Données, images... 
+- src       : Fichiers C et en-teêes
+- obj       : Fichier compilés .o
+- bin       : Exécutable du projet
+- doc       : Documentation du projet
