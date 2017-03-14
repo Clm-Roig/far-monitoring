@@ -24,5 +24,10 @@
 
 // ---- FONCTIONS ---- //
 
+/**
+    @brief Fonction principale (porte d'entrée) du projet
+    @return int, 0 si tout s'est bien passé
+*/
+ int main(int argc,char* args[]);
 
 #endif
