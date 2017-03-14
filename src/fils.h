@@ -20,7 +20,8 @@
 
 
 // ---- CONSTANTES ---- //
-
+const int LONGUEUR_GRILLE;
+const int LARGEUR_GRILLE;
 
 // ---- FONCTIONS ---- //
 
@@ -29,17 +30,42 @@
     @return int, pid du fils si tout s'est bien passé, 0 sinon
 */
 int creerFils(); 
- 
+
+// ---- COMMUNICATION PERE ---- //
 /**
     @brief gère l'envoie d'informations du fils vers un autre processus
+    @param char* nomPipe, le nom du pipe
+    @param char* donnees, le contenu des données envoyées
     @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int filsEnvoi(char* nomPipe);
+int filsEnvoiPere(char* nomPipe, char* donnees);
+
 
 /**
     @brief gère la reception d'informations du fils depuis un autre processus
+    @param char* nomPipe, le nom du pipe
     @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int filsReception(char* nomPipe);
+char* filsReceptionPere(char* nomPipe);
 
+
+/**
+    @brief permet la saisie de deux entiers dans un tableau.
+    @return int*, [x,y] avec x la coordonnée en longueur et y en largueur si tout s'est bien passé, [-1,-1] sinon
+*/
+int* saisirCoord();
+
+
+// ---- COMMUNICATION FILS ---- //
+
+/**
+    @brief 
+    @param char* nomPipe, le nom du pipe
+    @param char* donnees, le contenu des données envoyées
+    @return int, 1 si tout s'est bien passé, 0 sinon
+*/
+int filsEnvoiFils(char* nomPipe, char* donnees);
+
+
+int filsReceptionFils();
 #endif
