@@ -31,5 +31,19 @@
 */
 int creerServeur();
  
+/**
+    @brief créer un pipe nommé en écriture 
+    @param char* nomPipe, le nom du pipe dans lequel on écrira 
+    @return int, 1 si tout s'est bien passé, 0 sinon 
+*/
+int creerPipeW(char* nomPipe);
+
+/**
+    @brief créer un pipe nommé en lecture
+    @param char* nomPipe, le nom du pipe dans lequel on écrira 
+    @return int, 1 si tout s'est bien passé, 0 sinon 
+*/
+int creerPipeR(char* nomPipe);
+
 
 #endif
