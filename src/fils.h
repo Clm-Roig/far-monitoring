@@ -67,7 +67,7 @@ int* saisirCoord();
 /**
     @brief 
     @param char* nomPipe, le nom du pipe
-    @param char* donnees, le contenu des données envoyées
+    @param char* donnees, le token de communication
     @return int, 1 si tout s'est bien passé, 0 sinon
 */
 int filsEnvoiFils(char* nomPipe, char* donnees);
