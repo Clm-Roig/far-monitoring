@@ -1,7 +1,7 @@
-#ifndef DEF_MAIN
-#define DEF_MAIN
+#ifndef DEF_INIT
+#define DEF_INIT
 
-// EN-TETE main.h
+// EN-TETE init.h
 
 // Sockets / HTTP / IP
 #include <sys/types.h>
