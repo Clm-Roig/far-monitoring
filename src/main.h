@@ -1,7 +1,11 @@
 #ifndef DEF_MAIN
 #define DEF_MAIN
 
-// EN-TETE main.h
+/**
+ * \file main.h
+ * \brief Header du fichier main.c
+ *
+ */
 
 // Sockets / HTTP / IP
 #include <sys/types.h>
