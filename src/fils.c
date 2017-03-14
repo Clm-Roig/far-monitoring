@@ -21,16 +21,19 @@ int creerFils()
 int filsEnvoiPere(char* nomPipe, char* donnees)
 {
 
+    return 1;
 }
 
 char* filsReceptionPere(char* nomPipe)
 {
 
+    return "toto";
 }
 
 int* saisirCoord()
 {
 
+    return aze;
 }
 
 
@@ -39,9 +42,11 @@ int* saisirCoord()
 int filsEnvoiFils(char* nomPipe, char* donnees)
 {
 
+    return 1;
 }
 
 char* filsReceptionFils(char* nomPipe)
 {
 
+    return "toto";
 }
