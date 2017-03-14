@@ -33,7 +33,7 @@ int creerFils();
 
 // ---- COMMUNICATION PERE ---- //
 /**
-    @brief gère l'envoie d'informations du fils vers un autre processus
+    @brief gère l'envoie d'informations du fils vers son père
     @param char* nomPipe, le nom du pipe
     @param char* donnees, le contenu des données envoyées
     @return int, 1 si tout s'est bien passé, 0 sinon
@@ -42,9 +42,9 @@ int filsEnvoiPere(char* nomPipe, char* donnees);
 
 
 /**
-    @brief gère la reception d'informations du fils depuis un autre processus
+    @brief gère la reception d'informations du fils depuis son père
     @param char* nomPipe, le nom du pipe
-    @return int, 1 si tout s'est bien passé, 0 sinon
+    @return char*, le token reçu
 */
 char* filsReceptionPere(char* nomPipe);
 
@@ -66,6 +66,10 @@ int* saisirCoord();
 */
 int filsEnvoiFils(char* nomPipe, char* donnees);
 
-
-int filsReceptionFils();
+/**
+    @brief 
+    @param char* nomPipe, le nom du pipe
+    @return char*, le jeton de communication
+*/
+char* filsReceptionFils(char* nomPipe);
 #endif
