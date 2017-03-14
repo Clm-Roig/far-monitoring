@@ -33,7 +33,7 @@ const char* NOM_PIPE_FF;
 // ---- FONCTIONS ---- //
 
 
-// CREATION
+// INITIALISATION
 /**
     @brief créer le serveur de position à partir d'un tableau de 6 IPs de robots
     @param char** tabIPs, le tableau des IPs des robots
@@ -55,6 +55,12 @@ int creerPipeW(char* nomPipe);
 */
 int creerPipeR(char* nomPipe);
 
+// TOKEN 
+/**
+    @brief créer un token permettant de saisir des coordonnées
+    @return char*, le token généré
+*/
+char* genererToken(); 
 
 // COMMUNICATION AVEC LES FILS
 /**
@@ -68,11 +74,9 @@ int pereEnvoiFils(int numFils, char* donnees);
 /**
     @brief envoie une string au fils ciblé 
     @param int numFils, le fils auquel on souhaite envoyer la donnée
-    @return char*,  
+    @return char*, la string envoyée par le fils
 */
 char* pereReceptionFils(int numFils);
-
-
 
 
 #endif
