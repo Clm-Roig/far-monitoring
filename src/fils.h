@@ -1,7 +1,13 @@
 #ifndef DEF_FILS
 #define DEF_FILS
 
-// EN-TETE fils.h
+/**
+ * \file fils.h
+ * \brief Header du fichier fils.c
+ *
+ * Le fichier fils.c gère les processus qui permettent aux pilotes de saisir les coordonnées ainsi que le passage
+ * du token entre eux.
+ */
 
 // Sockets / HTTP / IP
 #include <sys/types.h>
