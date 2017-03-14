@@ -9,7 +9,7 @@ const int LARGEUR_GRILLE = 10; // TODO
 
 // ---- FONCTIONS ---- //
 
-int creerFils(); 
+int creerFils()
 {
 
 
@@ -18,17 +18,17 @@ int creerFils();
 
 // ---- COMMUNICATION PERE ---- //
 
-int filsEnvoiPere(char* nomPipe, char* donnees);
+int filsEnvoiPere(char* nomPipe, char* donnees)
 {
 
 }
 
-char* filsReceptionPere(char* nomPipe);
+char* filsReceptionPere(char* nomPipe)
 {
 
 }
 
-int* saisirCoord();
+int* saisirCoord()
 {
 
 }
@@ -36,7 +36,7 @@ int* saisirCoord();
 
 // ---- COMMUNICATION FILS ---- //
 
-int filsEnvoiFils(char* nomPipe, char* donnees);
+int filsEnvoiFils(char* nomPipe, char* donnees)
 {
 
 }
