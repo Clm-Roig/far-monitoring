@@ -6,7 +6,7 @@
 
 // ---- FONCTIONS ---- //
 
-int initSocket(int port, int IP) {
+int initSocket(int port, char* IP) {
     int sock;
     struct sockaddr_in sin;
 
