@@ -32,9 +32,10 @@
 /**
 @brief créer + connecte un socket sur le port demandé (protocole IP)
 @param int port : le port sur lequel l'on doit se connecter
-@return int, le socket créé et connecté
+@param char* IP : l'ip sur laquelle on veut se connecter 
+@return int, le socket créé et connecté, -1 si la création échoue
 */
-int initSocket(int port);
+int initSocket(int port, char* IP);
 
 /**
 @brief envoie des données par un socket
