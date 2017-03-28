@@ -12,4 +12,4 @@ int initSocket(int port) {
 
 int sendtoSocket(int socket, char* data) {
     return 1;    
-
+}
