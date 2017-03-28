@@ -13,7 +13,7 @@ int init() {
     int nul = 5/0;
     if (errno != 0) 
     {
-        fprintf("Erreur d'initialisation de socket: %s.\n", strerror(errno));
+        (void)fprintf(stderr,"Erreur d'initialisation de socket: %s.\n", strerror(errno));
     }
     return 1;
 }
