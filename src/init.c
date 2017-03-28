@@ -18,7 +18,6 @@ int initServeur(char* addrIp)
     
 }
 
-
 int init() {
     int verif = initSocket(PORT);
     if (errno != 0) 
@@ -26,10 +25,14 @@ int init() {
         (void)fprintf(stderr,"Erreur d'initialisation de socket: %s.\n", strerror(errno)); // A TESTER
     }
     //FAIRE BOUCLE POUR RECEVOIR LES DONNEES DE LA SOCKET
-    char* addrIp[100] // Contient les addresses IP
+    
+    char** addrIp; // Contient les addresses IP
+    
     //fermer la socket
+    
     //initPere enverra aussi le tableau des 6 adresses IP au père
     initPere();
+    
     //initServer enverra aussi le tableau des 6 adresses IP au serveur
     initServeur();
     
