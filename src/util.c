@@ -56,6 +56,15 @@ int initSocket(int port, char* IP) {
     return socket;
 }
 
-int sendtoSocket(int socket, char* data) {
-    return 1;    
+int sendToSocket(int socket, char* data) {
+    send(sock,data,sizeof(data),0);
+    
+    // Erreur ?
+    if(errno) {
+        printf("Erreur envoi données socket (sendToSocket() dans util.c) par le socket %d", socket);
+        perror();
+        exit(-1);        
+    }
+    
+    return 0;    
 }
