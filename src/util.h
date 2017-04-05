@@ -45,4 +45,12 @@ int initSocket(int port, char* IP);
 */
 int sendToSocket(int socket, char* data);
 
+/**
+@brief reçoit des données par un socket
+@param int socket : le socket sur lequel on reçoit les données
+@param char** buffer : l'adresse du buffer à remplir
+@return bool, 1 si ok, -1 sinon
+*/
+int receiveFromSocket(int socket, char** buffer);
+
 #endif
