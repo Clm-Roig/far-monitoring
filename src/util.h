@@ -18,6 +18,9 @@
 // Threads 
 #include <pthread.h>
 
+// Erreurs
+#include <errno.h>
+
 // Base 
 #include <stdio.h>
 #include <stdlib.h>
