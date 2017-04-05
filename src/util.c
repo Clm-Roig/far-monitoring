@@ -49,7 +49,6 @@ int initSocket(int port, char* IP) {
         perror();
         exit(-1)
     }
-    
     printf("Connexion à %s sur le port %d réussie.\n", inet_ntoa(sin.sin_addr),
          htons(sin.sin_port));   
     
@@ -57,14 +56,12 @@ int initSocket(int port, char* IP) {
 }
 
 int sendToSocket(int socket, char* data) {
-    send(sock,data,sizeof(data),0);
-    
+    send(sock,data,sizeof(data),0);    
     // Erreur ?
     if(errno) {
         printf("Erreur envoi données socket (sendToSocket() dans util.c) par le socket %d", socket);
         perror();
         exit(-1);        
     }
-    
     return 0;    
 }
