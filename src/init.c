@@ -4,37 +4,34 @@
 
 // ---- CONSTANTES ---- //
 const int PORT = 2000;
-
+const char* IPMONITOR; //TO DO
 // ---- FONCTIONS ---- //
 int errno = 0;
 
-int initPere(char* addrIp)
+int initPere(char** addrIp)
 {
 
 }
     
-int initServeur(char* addrIp)
+int initServeur(char** addrIp)
 {
     
 }
 
 int init() {
-    int verif = initSocket(PORT);
-    if (errno != 0) 
-    {
-        (void)fprintf(stderr,"Erreur d'initialisation de socket: %s.\n", strerror(errno)); // A TESTER
-    }
+    int sock = initSocket(PORT, IPMONITOR);
     //FAIRE BOUCLE POUR RECEVOIR LES DONNEES DE LA SOCKET
-    
-    char** addrIp; // Contient les addresses IP
-    
-    //fermer la socket
-    
+    char buffer[512]; // Contient les addresses IP
+    recieveFromSocket(sock, &buffer);
+    for (int i = 0; i<6; i++)
+    {
+    //Traitement et mise des addresses IP dans un tableau d'adresses char** addrIp
+    }
     //initPere enverra aussi le tableau des 6 adresses IP au père
-    initPere();
+    initPere(&AddrIp);
     
     //initServer enverra aussi le tableau des 6 adresses IP au serveur
-    initServeur();
+    initServeur(&AddrIp);
     
     return 1;
 }
