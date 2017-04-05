@@ -6,7 +6,6 @@
 const int PORT = 2000;
 const char* IPMONITOR; //TO DO
 // ---- FONCTIONS ---- //
-int errno = 0;
 
 int initPere(char** addrIp)
 {
@@ -25,12 +24,12 @@ int init() {
     recieveFromSocket(sock, &buffer);
     for (int i = 0; i<6; i++)
     {
-    //Traitement et mise des addresses IP dans un tableau d'adresses char** addrIp
+    //TO DO Traitement et mise des addresses IP dans un tableau d'addresses char** addrIp
     }
-    //initPere enverra aussi le tableau des 6 adresses IP au père
+    //TO DO initPere enverra aussi le tableau des 6 addresses IP au père
     initPere(&AddrIp);
     
-    //initServer enverra aussi le tableau des 6 adresses IP au serveur
+    //TO DO initServer enverra aussi le tableau des 6 addresses IP au serveur
     initServeur(&AddrIp);
     
     return 1;
