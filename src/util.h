@@ -41,9 +41,8 @@ int initSocket(int port, char* IP);
 @brief envoie des données par un socket
 @param int socket : le socket sur lequel on envoie les données
 @param char* data : la String à envoyer
-@return bool, 1 si ok, 0 sinon
+@return bool, 1 si ok, -1 sinon
 */
 int sendToSocket(int socket, char* data);
-
 
 #endif
