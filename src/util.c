@@ -11,12 +11,20 @@ int initSocket(int port, char* IP) {
     struct sockaddr_in sin;
 
     // Creation de la socket
+    errno = 0;
     sock = socket(AF_INET, SOCK_STREAM, 0);
+    
+    // Erreur création socket ?     
+    if (errno) {
+        printf("Erreur création socket (initSocket() dans util.c.",IP);
+        perror();
+        exit(-1);
+    }
 
     // Configuration de la connexion 
     sin.sin_family = AF_INET;
 
-    // Calcul de l'IP de l'hote
+    // Calcul de l'IP de l'hote (pas nécessaire ici)
     // struct hostent *hostinfo;
     // hostinfo = gethostbyname(url); 
 
@@ -32,12 +40,20 @@ int initSocket(int port, char* IP) {
     sin.sin_port = htons(strtoul(port,NULL,10));
     
     // Tentative de connexion au serveur 
+    errno = 0;
     connect(sock, (struct sockaddr*)&sin, sizeof(sin));
 
-    printf("Connexion à %s sur le port %d\n", inet_ntoa(sin.sin_addr),
+    // Erreur connexion ?     
+    if (errno) {
+        printf("Erreur initialisation socket (initSocket() dans util.c sur l'adresse %s",IP);
+        perror();
+        exit(-1)
+    }
+    
+    printf("Connexion à %s sur le port %d réussie.\n", inet_ntoa(sin.sin_addr),
          htons(sin.sin_port));   
     
-    return 1;
+    return socket;
 }
 
 int sendtoSocket(int socket, char* data) {
