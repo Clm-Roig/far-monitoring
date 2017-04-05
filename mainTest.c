@@ -13,8 +13,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "src/util.c"
+// Erreur
 #include <errno.h>
+
+#include "src/util.c"
 
 int main() {
 	initSocket(80,"127.0.0.1");
