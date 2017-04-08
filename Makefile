@@ -20,4 +20,4 @@ clean:
 	touch $(obj_dir)hello.c
 
 start:
-	./bin/serverPosition.exe
+	./$(bin_dir)serverPosition.exe

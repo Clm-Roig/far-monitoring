@@ -65,8 +65,7 @@ int initSocket(int port, char* IP) {
         perror("");
         exit(-1);
     }
-    printf("Connexion à %s sur le port %d réussie.\n", inet_ntoa(sin.sin_addr),
-         htons(sin.sin_port));
+    printf("Connexion réussie sur l'IP %s sur le port %d.\n", inet_ntoa(sin.sin_addr), htons(sin.sin_port));
 
     return sock;
 }

@@ -14,7 +14,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <netdb.h> // getaddrinfo()
 
 // Threads
 #include <pthread.h>
