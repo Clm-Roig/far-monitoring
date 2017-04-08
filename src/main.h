@@ -5,7 +5,7 @@
  * \file main.h
  * \brief Header du fichier main.c
  *
- * Le fichier main.c est la porte d'entrée du programme. 
+ * Le fichier main.c est la porte d'entrée du programme.
  */
 
 // Sockets / HTTP / IP
@@ -15,13 +15,15 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-// Threads 
+// Threads
 #include <pthread.h>
 
-// Base 
+// Base
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "util.h"
 
 
 // ---- CONSTANTES ---- //

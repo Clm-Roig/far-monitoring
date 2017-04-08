@@ -7,6 +7,6 @@
 // ---- FONCTIONS ---- //
 
  int main(int argc,char* args[]) {
-   init();
+   initSocket(80,"localhost");
    return 0;
  }

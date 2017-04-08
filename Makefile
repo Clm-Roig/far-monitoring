@@ -8,15 +8,16 @@ EXEC=$(bin_dir)serverPosition.exe
 
 all: $(EXEC)
 
-$(bin_dir)serverPosition.exe: $(obj_dir)init.o
+$(bin_dir)serverPosition.exe: $(obj_dir)util.o $(obj_dir)main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(obj_dir)%.o: $(src_dir)%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	find . -type f | xargs -n 5 touch
 	rm -f $(obj_dir)* $(bin_dir)*
+	touch $(bin_dir)hello.c
+	touch $(obj_dir)hello.c
 
 start:
 	./bin/serverPosition.exe
