@@ -24,6 +24,10 @@
 #include <string.h>
 
 // Autres fichiers du projet
+#include "fils.h"
+#include "init.h"
+#include "pere.h"
+#include "serveur.h"
 #include "util.h"
 
 
