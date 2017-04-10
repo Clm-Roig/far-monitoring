@@ -8,7 +8,7 @@ EXEC=$(bin_dir)serverPosition.exe
 
 all: $(EXEC)
 
-$(bin_dir)serverPosition.exe: $(obj_dir)util.o $(obj_dir)main.o
+$(bin_dir)serverPosition.exe: $(obj_dir)fils.o  $(obj_dir)main.o $(obj_dir)pere.o $(obj_dir)serveur.o  $(obj_dir)util.o 
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(obj_dir)%.o: $(src_dir)%.c

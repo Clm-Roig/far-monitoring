@@ -10,14 +10,17 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-// Threads 
+// Threads
 #include <pthread.h>
 
-// Base 
+// Base
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+
+// fichiers
+#include "util.h"
 
 // ---- CONSTANTES ---- //
 const int PORT;
@@ -35,8 +38,12 @@ int init();
   @brief Crée le processus père et lui fournit les addresses ip des robots
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
+int initPere(char** addrIp);
+
 /**
   @brief Crée le serveur de communication et lui fournit les addresses ip des robots
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
+int initServeur(char** addrIp);
+
 #endif

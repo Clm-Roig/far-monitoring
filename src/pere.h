@@ -5,7 +5,7 @@
  * \file pere.h
  * \brief Header du fichier pere.c
  *
- * Le fichier pere.c gère les processus fils (qui s'occupent de la saisie de coordonnées) et 
+ * Le fichier pere.c gère les processus fils (qui s'occupent de la saisie de coordonnées) et
  * communique ces coordonnées au serveur. Il s'occupe également de gérer les tokens et de contrôler
  * que ceux-ci transitent correctement.
  */
@@ -17,10 +17,10 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-// Threads 
+// Threads
 #include <pthread.h>
 
-// Base 
+// Base
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,53 +28,53 @@
 // Gestion du temps
 #include <time.h>
 
-
 // ---- CONSTANTES ---- //
-const char* NOM_PIPE_PF;
-const char* NOM_PIPE_FF;
+const char* NOM_PIPE_PF;    // Pipe Père-Fils
+const char* NOM_PIPE_FF;    // Pipe Fils-Fils
 
 
 // ---- FONCTIONS ---- //
+
 // INITIALISATION
 /**
     @brief créer le serveur de position à partir d'un tableau de 6 IPs de robots
     @param char** tabIPs, le tableau des IPs des robots
-    @return int, 1 si tout s'est bien passé, 0 sinon 
+    @return int, 1 si tout s'est bien passé, 0 sinon
 */
 int creerServeur();
- 
+
 /**
-    @brief créer un pipe nommé en écriture 
-    @param char* nomPipe, le nom du pipe dans lequel on écrira 
-    @return int, 1 si tout s'est bien passé, 0 sinon 
+    @brief créer un pipe nommé en écriture
+    @param char* nomPipe, le nom du pipe dans lequel on écrira
+    @return int, 1 si tout s'est bien passé, 0 sinon
 */
 int creerPipeW(char* nomPipe);
 
 /**
     @brief créer un pipe nommé en lecture
-    @param char* nomPipe, le nom du pipe dans lequel on écrira 
-    @return int, 1 si tout s'est bien passé, 0 sinon 
+    @param char* nomPipe, le nom du pipe dans lequel on écrira
+    @return int, 1 si tout s'est bien passé, 0 sinon
 */
 int creerPipeR(char* nomPipe);
 
-// TOKEN 
+// TOKEN
 /**
     @brief créer un token permettant de saisir des coordonnées
     @return char*, le token généré
 */
-char* genererToken(); 
+char* genererToken();
 
 // COMMUNICATION AVEC LES FILS
 /**
-    @brief envoie une string au fils ciblé 
+    @brief envoie une string au fils ciblé
     @param int numFils, le fils auquel on souhaite envoyer la donnée
     @param char* donnees, la string à envoyer au fils
-    @return int, 1 si tout s'est bien passé, 0 sinon 
+    @return int, 1 si tout s'est bien passé, 0 sinon
 */
 int pereEnvoiFils(int numFils, char* donnees);
 
 /**
-    @brief envoie une string au fils ciblé 
+    @brief envoie une string au fils ciblé
     @param int numFils, le fils auquel on souhaite envoyer la donnée
     @return char*, la string envoyée par le fils
 */
