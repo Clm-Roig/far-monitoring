@@ -16,10 +16,10 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-// Threads 
+// Threads
 #include <pthread.h>
 
-// Base 
+// Base
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,7 +35,7 @@ const int LARGEUR_GRILLE;
     @brief génère un fils en dupliquant le processus, puis renvoie le pid
     @return int, pid du fils si tout s'est bien passé, 0 sinon
 */
-int creerFils(); 
+int creerFils();
 
 // ---- COMMUNICATION PERE ---- //
 /**
@@ -65,7 +65,7 @@ int* saisirCoord();
 // ---- COMMUNICATION FILS ---- //
 
 /**
-    @brief 
+    @brief
     @param char* nomPipe, le nom du pipe
     @param char* donnees, le token de communication
     @return int, 1 si tout s'est bien passé, 0 sinon
@@ -73,7 +73,7 @@ int* saisirCoord();
 int filsEnvoiFils(char* nomPipe, char* donnees);
 
 /**
-    @brief 
+    @brief
     @param char* nomPipe, le nom du pipe
     @return char*, le jeton de communication
 */

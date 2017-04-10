@@ -11,8 +11,11 @@
      // Pour créer un serveur en local sur le terminal :
      // nc -l localhost "numDuPort"
      // nc -l localhost 1234
-     int sock = initSocket(1234,"localhost");
-     sendToSocket(sock,"coucou");
-     
+
+     // Test fils
+     int* p = saisirCoord();
+     printf("\nx = %d",p[0]);
+     printf("\ny = %d",p[1]);
+
      return 0;
  }

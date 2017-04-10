@@ -26,6 +26,6 @@
 #include "src/util.c"
 
 int main() {
-	initSocket(80,"127.0.0.1");
+
 	return 0;
 }
