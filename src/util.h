@@ -32,7 +32,7 @@
 
 
 // ---- CONSTANTES ---- //
-
+const char* CHEMIN_PIPE;
 
 // ---- FONCTIONS ---- //
 

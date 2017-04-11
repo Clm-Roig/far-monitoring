@@ -3,6 +3,7 @@
 #include "util.h"
 
 // ---- CONSTANTES ---- //
+const char* CHEMIN_PIPE = "data/pipes/";
 
 // ---- FONCTIONS ---- //
 
@@ -98,6 +99,7 @@ int receiveFromSocket(int socket, char** data) {
 
 char* creerPipe(char* nomPipe) {
     char* pipeName = malloc(64*sizeof(char));
+    strcat(pipeName,CHEMIN_PIPE);
     strcat(pipeName,nomPipe);
     // Par convention, les tubes nommés se terminent par .fifo
     strcat(pipeName,".fifo");
@@ -114,8 +116,12 @@ char* creerPipe(char* nomPipe) {
 }
 
 int openPipeW(char* nomPipe) {
+    char* pipeName = malloc(64*sizeof(char));
+    strcat(pipeName,CHEMIN_PIPE);
+    strcat(pipeName,nomPipe);
+
     errno = 0;
-    int desc = open(nomPipe,O_WRONLY);
+    int desc = open(pipeName,O_WRONLY);
     if (desc == -1) {
         printf("Erreur ouverture en écriture tube nommé (openPipeW() dans util.c).");
         perror("");
@@ -125,8 +131,12 @@ int openPipeW(char* nomPipe) {
 }
 
 int openPipeR(char* nomPipe) {
+    char* pipeName = malloc(64*sizeof(char));
+    strcat(pipeName,CHEMIN_PIPE);
+    strcat(pipeName,nomPipe);
+
     errno = 0;
-    int desc = open(nomPipe,O_RDONLY);
+    int desc = open(pipeName,O_WRONLY);
     if (desc == -1) {
         printf("Erreur ouverture en lecture tube nommé (openPipeR() dans util.c).");
         perror("");
