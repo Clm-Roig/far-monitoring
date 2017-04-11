@@ -17,7 +17,7 @@
 
      printf("%s",pipe);
      int descPipe = openPipeW(pipe);
-//     close(descPipe);
+     close(descPipe);
 
      return 0;
  }

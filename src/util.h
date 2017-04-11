@@ -67,22 +67,22 @@ int receiveFromSocket(int socket, char** buffer);
 /**
     @brief créer un pipe nommé
     @param char* nomPipe, le nom du pipe dans lequel on écrira
-    @return char*, le nom du tube nommé créé (nomPipe.fifo)
+    @return char*, le chemin vers le tube nommé créé (nomPipe.fifo)
 */
 char* creerPipe(char* nomPipe);
 
 /**
     @brief ouvre un pipe nommé en écriture
-    @param char* nomPipe, le nom du pipe dans lequel on écrira
+    @param char* cheminPipe, le chemin vers le pipe dans lequel on écrira
     @return int, le descripteur du pipe si ok, sinon -1
 */
-int openPipeW(char* nomPipe);
+int openPipeW(char* cheminPipe);
 
 /**
     @brief ouvre un pipe nommé en lecture
-    @param char* nomPipe, le nom du pipe dans lequel on lira
+    @param char* cheminPipe, le chemin vers le pipe dans lequel on lira
     @return int, le descripteur du pipe si ok, sinon -1
 */
-int openPipeR(char* nomPipe);
+int openPipeR(char* cheminPipe);
 
 #endif

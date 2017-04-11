@@ -115,11 +115,9 @@ char* creerPipe(char* nomPipe) {
     return pipeName;
 }
 
-int openPipeW(char* nomPipe) {
-    printf("\nChemin du pipe : %s",nomPipe);
-
+int openPipeW(char* cheminPipe) {
     errno = 0;
-    int desc = open(nomPipe,O_WRONLY);
+    int desc = open(cheminPipe,O_WRONLY);
     if (desc == -1) {
         printf("Erreur ouverture en écriture tube nommé (openPipeW() dans util.c).");
         perror("");
@@ -128,13 +126,9 @@ int openPipeW(char* nomPipe) {
     return desc;
 }
 
-int openPipeR(char* nomPipe) {
-    char* pipeName = malloc(64*sizeof(char));
-    strcat(pipeName,CHEMIN_PIPE);
-    strcat(pipeName,nomPipe);
-
+int openPipeR(char* cheminPipe) {
     errno = 0;
-    int desc = open(pipeName,O_WRONLY);
+    int desc = open(cheminPipe,O_WRONLY);
     if (desc == -1) {
         printf("Erreur ouverture en lecture tube nommé (openPipeR() dans util.c).");
         perror("");
