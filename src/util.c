@@ -112,7 +112,7 @@ char* creerPipeW(char* nomPipe) {
 
     // Ouverture du tube en écriture
     if (open(pipeName,O_WRONLY) == -1) {
-        printf("Erreur ouverture tube nommé (creerPipeW() dans pere.c).");
+        printf("Erreur ouverture tube nommé en écriture (creerPipeW() dans pere.c).");
         perror("");
         exit(EXIT_FAILURE);
     }
@@ -121,5 +121,25 @@ char* creerPipeW(char* nomPipe) {
 }
 
 char* creerPipeR(char* nomPipe) {
-    return "pipe.fifo";
+    errno = 0;
+    char* pipeName = malloc(64*sizeof(char));
+    strcat(pipeName,nomPipe);
+    // Par convention, les tubes nommés se terminent par .fifo
+    strcat(pipeName,".fifo");
+
+    // Création du tube avec tous les droits pour tout le monde (USER, GROUP et OTHERS)
+    if (mkfifo((pipeName), S_IRWXU | S_IRWXG | S_IRWXO) == -1) {
+        printf("Erreur création tube nommé (creerPipeW() dans pere.c).");
+        perror("");
+        exit(EXIT_FAILURE);
+    }
+
+    // Ouverture du tube en écriture
+    if (open(pipeName,O_RDONLY) == -1) {
+        printf("Erreur ouverture en lecture tube nommé (creerPipeR() dans pere.c).");
+        perror("");
+        exit(EXIT_FAILURE);
+    }
+
+    return pipeName;
 }
