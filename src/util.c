@@ -16,15 +16,13 @@ int initSocket(int port, char* IP) {
 
     // Erreur création socket ?
     if (errno) {
-        printf("Erreur création socket (initSocket() dans util.c.");
+        printf("Erreur création socket (initSocket() dans util.c).");
         perror("");
         exit(-1);
     }
 
     // Configuration de la connexion
     sin.sin_family = AF_INET;
-
-    // TODO : format de l'addresse IP + config
 
     // Calcul de l'IP de l'hote (si jamais on veut utiliser un nom de domaine au lieu de l'IP)
     /*
