@@ -67,7 +67,7 @@ int receiveFromSocket(int socket, char** buffer);
 /**
     @brief créer un pipe nommé
     @param char* nomPipe, le nom du pipe dans lequel on écrira
-    @return char*, le nom du tube nommé créé
+    @return char*, le nom du tube nommé créé (nomPipe.fifo)
 */
 char* creerPipe(char* nomPipe);
 

@@ -16,7 +16,7 @@
      char* pipe = creerPipe("coucou");
 
      printf("%s",pipe);
-     int descPipe = open(pipe,O_RDONLY);
+     int descPipe = openPipeW(pipe);
 //     close(descPipe);
 
      return 0;
