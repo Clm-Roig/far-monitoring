@@ -3,7 +3,7 @@
 #include "util.h"
 
 // ---- CONSTANTES ---- //
-const char* CHEMIN_PIPE = "data/pipes/";
+const char* CHEMIN_PIPE = "./data/pipes/";
 
 // ---- FONCTIONS ---- //
 
@@ -116,12 +116,10 @@ char* creerPipe(char* nomPipe) {
 }
 
 int openPipeW(char* nomPipe) {
-    char* pipeName = malloc(64*sizeof(char));
-    strcat(pipeName,CHEMIN_PIPE);
-    strcat(pipeName,nomPipe);
+    printf("\nChemin du pipe : %s",nomPipe);
 
     errno = 0;
-    int desc = open(pipeName,O_WRONLY);
+    int desc = open(nomPipe,O_WRONLY);
     if (desc == -1) {
         printf("Erreur ouverture en écriture tube nommé (openPipeW() dans util.c).");
         perror("");
