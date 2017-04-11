@@ -96,23 +96,16 @@ int receiveFromSocket(int socket, char** data) {
 
 // PIPES
 
-char* creerPipeW(char* nomPipe) {
-    errno = 0;
+char* creerPipe(char* nomPipe) {
     char* pipeName = malloc(64*sizeof(char));
     strcat(pipeName,nomPipe);
     // Par convention, les tubes nommés se terminent par .fifo
     strcat(pipeName,".fifo");
 
+    errno = 0;
     // Création du tube avec tous les droits pour tout le monde (USER, GROUP et OTHERS)
     if (mkfifo((pipeName), S_IRWXU | S_IRWXG | S_IRWXO) == -1) {
-        printf("Erreur création tube nommé (creerPipeW() dans pere.c).");
-        perror("");
-        exit(EXIT_FAILURE);
-    }
-
-    // Ouverture du tube en écriture
-    if (open(pipeName,O_WRONLY) == -1) {
-        printf("Erreur ouverture tube nommé en écriture (creerPipeW() dans pere.c).");
+        printf("Erreur création tube nommé (creerPipe() dans util.c).");
         perror("");
         exit(EXIT_FAILURE);
     }
@@ -120,26 +113,24 @@ char* creerPipeW(char* nomPipe) {
     return pipeName;
 }
 
-char* creerPipeR(char* nomPipe) {
+int openPipeW(char* nomPipe) {
     errno = 0;
-    char* pipeName = malloc(64*sizeof(char));
-    strcat(pipeName,nomPipe);
-    // Par convention, les tubes nommés se terminent par .fifo
-    strcat(pipeName,".fifo");
-
-    // Création du tube avec tous les droits pour tout le monde (USER, GROUP et OTHERS)
-    if (mkfifo((pipeName), S_IRWXU | S_IRWXG | S_IRWXO) == -1) {
-        printf("Erreur création tube nommé (creerPipeW() dans pere.c).");
+    int desc = open(nomPipe,O_WRONLY);
+    if (desc == -1) {
+        printf("Erreur ouverture en écriture tube nommé (openPipeW() dans util.c).");
         perror("");
-        exit(EXIT_FAILURE);
+        exit(-1);
     }
+    return desc;
+}
 
-    // Ouverture du tube en écriture
-    if (open(pipeName,O_RDONLY) == -1) {
-        printf("Erreur ouverture en lecture tube nommé (creerPipeR() dans pere.c).");
+int openPipeR(char* nomPipe) {
+    errno = 0;
+    int desc = open(nomPipe,O_RDONLY);
+    if (desc == -1) {
+        printf("Erreur ouverture en lecture tube nommé (openPipeR() dans util.c).");
         perror("");
-        exit(EXIT_FAILURE);
+        exit(-1);
     }
-
-    return pipeName;
+    return desc;
 }

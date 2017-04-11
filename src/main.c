@@ -13,7 +13,11 @@
      // nc -l localhost 1234
 
      // Test fils
-     char* pipe = creerPipeW("monPipe");
+     char* pipe = creerPipe("coucou");
+
+     printf("%s",pipe);
+     int descPipe = open(pipe,O_RDONLY);
+//     close(descPipe);
 
      return 0;
  }

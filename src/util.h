@@ -18,8 +18,9 @@
 // Threads
 #include <pthread.h>
 
-// pipe
-#include <sys/stat.h>
+// Pipes
+#include <sys/stat.h> // mkfifo
+#include <fcntl.h> // open()
 
 // Erreurs
 #include <errno.h>
@@ -64,17 +65,24 @@ int receiveFromSocket(int socket, char** buffer);
 // PIPES
 
 /**
-    @brief créer un pipe nommé en écriture
+    @brief créer un pipe nommé
     @param char* nomPipe, le nom du pipe dans lequel on écrira
     @return char*, le nom du tube nommé créé
 */
-char* creerPipeW(char* nomPipe);
+char* creerPipe(char* nomPipe);
 
 /**
-    @brief créer un pipe nommé en lecture
+    @brief ouvre un pipe nommé en écriture
     @param char* nomPipe, le nom du pipe dans lequel on écrira
-    @return char*, le nom du tube nommé créé
+    @return int, le descripteur du pipe si ok, sinon -1
 */
-char* creerPipeR(char* nomPipe);
+int openPipeW(char* nomPipe);
+
+/**
+    @brief ouvre un pipe nommé en lecture
+    @param char* nomPipe, le nom du pipe dans lequel on lira
+    @return int, le descripteur du pipe si ok, sinon -1
+*/
+int openPipeR(char* nomPipe);
 
 #endif
