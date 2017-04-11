@@ -39,23 +39,23 @@ const char* NOM_PIPE_FF;    // Pipe Fils-Fils
 /**
     @brief créer le serveur de position à partir d'un tableau de 6 IPs de robots
     @param char** tabIPs, le tableau des IPs des robots
-    @return int, 1 si tout s'est bien passé, 0 sinon
+    @return int, 1 si tout s'est bien passé, -1 sinon
 */
-int creerServeur();
+int creerServeur(char** tabIPs);
 
 /**
     @brief créer un pipe nommé en écriture
     @param char* nomPipe, le nom du pipe dans lequel on écrira
-    @return int, 1 si tout s'est bien passé, 0 sinon
+    @return char*, le nom du tube nommé créé
 */
-int creerPipeW(char* nomPipe);
+char* creerPipeW(char* nomPipe);
 
 /**
     @brief créer un pipe nommé en lecture
     @param char* nomPipe, le nom du pipe dans lequel on écrira
-    @return int, 1 si tout s'est bien passé, 0 sinon
+    @return char*, le nom du tube nommé créé
 */
-int creerPipeR(char* nomPipe);
+char* creerPipeR(char* nomPipe);
 
 // TOKEN
 /**
@@ -69,7 +69,7 @@ char* genererToken();
     @brief envoie une string au fils ciblé
     @param int numFils, le fils auquel on souhaite envoyer la donnée
     @param char* donnees, la string à envoyer au fils
-    @return int, 1 si tout s'est bien passé, 0 sinon
+    @return int, 1 si tout s'est bien passé, -1 sinon
 */
 int pereEnvoiFils(int numFils, char* donnees);
 

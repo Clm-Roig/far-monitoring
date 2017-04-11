@@ -9,16 +9,16 @@ const char* NOM_PIPE_FF = "pipeFF-";
 // ---- FONCTIONS ---- //
 
 // CREATION
-int creerServeur() {
+int creerServeur(char** tabIPs) {
     return 1;
 }
 
-int creerPipeW(char* nomPipe) {
-    return 1;
+char* creerPipeW(char* nomPipe) {
+    return "pipe.fifo";
 }
 
-int creerPipeR(char* nomPipe) {
-    return 1;
+char* creerPipeR(char* nomPipe) {
+    return "pipe.fifo";
 }
 
 
@@ -29,4 +29,4 @@ int pereEnvoiFils(int numFils, char* donnees){
 
 char* pereReceptionFils(int numFils) {
     return "toto";
-}   
+}
