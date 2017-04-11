@@ -32,6 +32,7 @@
 
 // ---- FONCTIONS ---- //
 
+// Sockets
 /**
 @brief créer + connecte un socket sur le port demandé (protocole IP)
 @param int port : le port sur lequel l'on doit se connecter
@@ -55,5 +56,22 @@ int sendToSocket(int socket, char* data);
 @return bool, 1 si ok, -1 sinon
 */
 int receiveFromSocket(int socket, char** buffer);
+
+
+// PIPES
+
+/**
+    @brief créer un pipe nommé en écriture
+    @param char* nomPipe, le nom du pipe dans lequel on écrira
+    @return char*, le nom du tube nommé créé
+*/
+char* creerPipeW(char* nomPipe);
+
+/**
+    @brief créer un pipe nommé en lecture
+    @param char* nomPipe, le nom du pipe dans lequel on écrira
+    @return char*, le nom du tube nommé créé
+*/
+char* creerPipeR(char* nomPipe);
 
 #endif

@@ -43,20 +43,6 @@ const char* NOM_PIPE_FF;    // Pipe Fils-Fils
 */
 int creerServeur(char** tabIPs);
 
-/**
-    @brief créer un pipe nommé en écriture
-    @param char* nomPipe, le nom du pipe dans lequel on écrira
-    @return char*, le nom du tube nommé créé
-*/
-char* creerPipeW(char* nomPipe);
-
-/**
-    @brief créer un pipe nommé en lecture
-    @param char* nomPipe, le nom du pipe dans lequel on écrira
-    @return char*, le nom du tube nommé créé
-*/
-char* creerPipeR(char* nomPipe);
-
 // TOKEN
 /**
     @brief créer un token permettant de saisir des coordonnées
