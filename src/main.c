@@ -13,9 +13,7 @@
      // nc -l localhost 1234
 
      // Test fils
-     int* p = saisirCoord();
-     printf("\nx = %d",p[0]);
-     printf("\ny = %d",p[1]);
+     char* pipe = creerPipeW("monPipe");
 
      return 0;
  }

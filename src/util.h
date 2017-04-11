@@ -18,6 +18,9 @@
 // Threads
 #include <pthread.h>
 
+// pipe
+#include <sys/stat.h>
+
 // Erreurs
 #include <errno.h>
 
