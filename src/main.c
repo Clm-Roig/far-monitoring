@@ -12,7 +12,7 @@
      // nc -l localhost "numDuPort"
      // nc -l localhost 1234
 
-     // Test fils
+     // Test pipe
      char* pipe = creerPipe("coucou");
 
      printf("%s",pipe);
