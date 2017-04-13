@@ -63,7 +63,7 @@ int initSocket(int port, char* IP) {
 
     // Erreur connexion ?
     if (errno) {
-        printf("Erreur initialisation socket (initSocket() dans util.c) sur l'adresse %s",newIP);
+        printf("\nErreur initialisation socket (initSocket() dans util.c) sur l'adresse %s",newIP);
         perror("");
         exit(-1);
     }
@@ -76,7 +76,7 @@ int sendToSocket(int socket, char* data) {
     send(socket,data,sizeof(data),0);
     // Erreur ?
     if(errno) {
-        printf("Erreur envoi données socket (sendToSocket() dans util.c) par le socket %d", socket);
+        printf("\nErreur envoi données socket (sendToSocket() dans util.c) par le socket %d", socket);
         perror("");
         exit(-1);
     }
@@ -87,7 +87,7 @@ int receiveFromSocket(int socket, char** data) {
     recv(socket,&data,sizeof(&data)-1,0);
     // Erreur ?
     if(errno) {
-        printf("Erreur reception données socket (receiveFromSocket() dans util.c) par le socket %d", socket);
+        printf("\nErreur reception données socket (receiveFromSocket() dans util.c) par le socket %d", socket);
         perror("");
         exit(-1);
     }
@@ -107,9 +107,12 @@ char* creerPipe(char* nomPipe) {
     errno = 0;
     // Création du tube avec tous les droits pour tout le monde (USER, GROUP et OTHERS)
     if (mkfifo((pipeName), S_IRWXU | S_IRWXG | S_IRWXO) == -1) {
-        printf("Erreur création tube nommé (creerPipe() dans util.c).");
-        perror("");
-        exit(EXIT_FAILURE);
+
+        // On néglige l'erreur "tube déjà existant" qui correspond à errno == 17
+        if(errno != 17) {
+            printf("\nErreur création tube nommé %s (creerPipe() dans util.c).",nomPipe);
+            perror("");
+        }
     }
 
     return pipeName;
@@ -117,9 +120,9 @@ char* creerPipe(char* nomPipe) {
 
 int openPipeW(char* cheminPipe) {
     errno = 0;
-    int desc = open(cheminPipe, O_RDONLY | O_NONBLOCK);
+    int desc = open(cheminPipe, O_WRONLY | O_NONBLOCK);
     if (desc == -1) {
-        printf("Erreur ouverture en écriture tube nommé (openPipeW() dans util.c).");
+        printf("\nErreur ouverture en écriture tube nommé %s (openPipeW() dans util.c).",cheminPipe);
         perror("");
         exit(-1);
     }
@@ -128,11 +131,33 @@ int openPipeW(char* cheminPipe) {
 
 int openPipeR(char* cheminPipe) {
     errno = 0;
-    int desc = open(cheminPipe, O_WRONLY | O_NONBLOCK);
+    int desc = open(cheminPipe, O_RDONLY | O_NONBLOCK);
     if (desc == -1) {
-        printf("Erreur ouverture en lecture tube nommé (openPipeR() dans util.c).");
+        printf("\nErreur ouverture en lecture tube nommé %s (openPipeR() dans util.c).",cheminPipe);
         perror("");
         exit(-1);
     }
     return desc;
+}
+
+int writeInPipe(int descPipe, char* data) {
+    errno = 0;
+    int nbByte = write(descPipe, data, sizeof(data));
+    if(nbByte == -1) {
+        printf("\nErreur écriture dans le tube nommé %d (writeInPipe() dans util.c).",descPipe);
+        perror("");
+        exit(-1);
+    }
+    return nbByte;
+}
+
+int readInPipe(int descPipe, char* data) {
+    errno = 0;
+    int nbByte = read(descPipe, data, sizeof(data));
+    if(nbByte == -1) {
+        printf("\nErreur lecture dans le tube nommé %d (readInPipe() dans util.c).",descPipe);
+        perror("");
+        exit(-1);
+    }
+    return nbByte;
 }

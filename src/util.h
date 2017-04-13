@@ -65,7 +65,7 @@ int receiveFromSocket(int socket, char** buffer);
 // PIPES
 
 /**
-    @brief créer un pipe nommé
+    @brief créer un pipe nommé. Ne génère pas d'erreur si le tube existe déjà
     @param char* nomPipe, le nom du pipe dans lequel on écrira
     @return char*, le chemin vers le tube nommé créé (nomPipe.fifo)
 */
@@ -84,5 +84,21 @@ int openPipeW(char* cheminPipe);
     @return int, le descripteur du pipe si ok, sinon -1
 */
 int openPipeR(char* cheminPipe);
+
+/**
+    @brief écrit dans un pipe nommé ouvert en écriture au préalable  (voir fonction openPipe ci-dessus)
+    @param int descPipe, le descripteur du pipe dans lequel on veut écrire
+    @param char* data, les données à envoyer par le biais du pipe
+    @return int, le nombre d'octets écrit, sinon, en cas d'erreur, -1
+*/
+int writeInPipe(int descPipe, char* data);
+
+/**
+    @brief lit dans un pipe nommé ouvert en lecture au préalable (voir fonction openPipe ci-dessus)
+    @param int descPipe, le descripteur du pipe dans lequel on veut lire
+    @param char* data, les données dans lesquelles on stockera le message lu
+    @return int, le nombre d'octets lu, sinon, en cas d'erreur, -1
+*/
+int readInPipe(int descPipe, char* data);
 
 #endif
