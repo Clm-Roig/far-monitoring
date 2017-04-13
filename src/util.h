@@ -33,6 +33,7 @@
 
 // ---- CONSTANTES ---- //
 const char* CHEMIN_PIPE;
+const int TAILLE_MESSAGE;
 
 // ---- FONCTIONS ---- //
 

@@ -4,6 +4,7 @@
 
 // ---- CONSTANTES ---- //
 const char* CHEMIN_PIPE = "./data/pipes/";
+const int TAILLE_MESSAGE = 256;
 
 // ---- FONCTIONS ---- //
 
@@ -120,7 +121,7 @@ char* creerPipe(char* nomPipe) {
 
 int openPipeW(char* cheminPipe) {
     errno = 0;
-    int desc = open(cheminPipe, O_WRONLY | O_NONBLOCK);
+    int desc = open(cheminPipe, O_WRONLY);
     if (desc == -1) {
         printf("\nErreur ouverture en écriture tube nommé %s (openPipeW() dans util.c).",cheminPipe);
         perror("");
@@ -131,7 +132,7 @@ int openPipeW(char* cheminPipe) {
 
 int openPipeR(char* cheminPipe) {
     errno = 0;
-    int desc = open(cheminPipe, O_RDONLY | O_NONBLOCK);
+    int desc = open(cheminPipe, O_RDONLY);
     if (desc == -1) {
         printf("\nErreur ouverture en lecture tube nommé %s (openPipeR() dans util.c).",cheminPipe);
         perror("");
@@ -142,7 +143,7 @@ int openPipeR(char* cheminPipe) {
 
 int writeInPipe(int descPipe, char* data) {
     errno = 0;
-    int nbByte = write(descPipe, data, sizeof(data));
+    int nbByte = write(descPipe, data, strlen(data)*sizeof(char));
     if(nbByte == -1) {
         printf("\nErreur écriture dans le tube nommé %d (writeInPipe() dans util.c).",descPipe);
         perror("");
@@ -153,7 +154,7 @@ int writeInPipe(int descPipe, char* data) {
 
 int readInPipe(int descPipe, char* data) {
     errno = 0;
-    int nbByte = read(descPipe, data, sizeof(data));
+    int nbByte = read(descPipe, data, TAILLE_MESSAGE);
     if(nbByte == -1) {
         printf("\nErreur lecture dans le tube nommé %d (readInPipe() dans util.c).",descPipe);
         perror("");

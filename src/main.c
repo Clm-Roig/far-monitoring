@@ -18,16 +18,16 @@
          char* pipeL = creerPipe("pipeTest");
          printf("\nTube %s créé",pipeL);
          int descPipeL = openPipeR(pipeL);
+         printf("\nPipe ouvert !");
 
          char donnees[128];
          int nb = 0;
-         while(nb >= 0) {
-             nb = readInPipe(descPipeL,donnees);
-             if(nb != 0){
-                 printf("\nJ'ai reçu %d octets.",nb);
-                 printf("\nJ'ai lu ça : \n%s",donnees);
-             }
-        }
+
+         nb = readInPipe(descPipeL,donnees);
+
+         printf("\nJ'ai reçu %d octets.",nb);
+         printf("\nJ'ai lu ça : \n%s",donnees);
+
      }
      else {
          printf("\nJe suis le serveur, je vais envoyer un message.");
