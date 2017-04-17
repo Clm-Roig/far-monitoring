@@ -28,6 +28,12 @@ int init() {
 }
 
 int initPere(char** addrIp) {
+    pid_t pid = fork();
+    if (pid == 0)
+    {
+    creerServeur(&addrIp);
+    char* token = genererToken();
+    }
     return 0;
 }
 
