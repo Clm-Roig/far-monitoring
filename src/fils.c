@@ -85,10 +85,16 @@ int* saisirCoord() {
 // ---- COMMUNICATION FILS ---- //
 
 int filsEnvoiFils(char* nomPipe, char* donnees) {
+    int descPipe = openPipeW(nomPipe);
+    
+    // TODO : boucle while(donnees) pas totalement envoyée
+    int nbBytes = writeInPipe(descPipe,donnees);
     return 1;
 }
 
 char* filsReceptionFils(char* nomPipe) {
-
-    return "toto";
+    int descPipe = openPipeR(nomPipe);
+    char* donneesLues = malloc(TAILLE_MESSAGE*sizeof(char));
+    int nbBytes = readInPipe(descPipe,donneesLues);    
+    return donneesLues;
 }
