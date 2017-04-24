@@ -4,12 +4,14 @@
 
 // ---- CONSTANTES ---- //
 const int PORT = 2000;
-const char* IPMONITOR; // TODO : IP du serveur de monitoring
+const char* IP_MONITOR; // TODO : IP du serveur de monitoring
+const char* PIPE_PERE_SERVEUR = "PS";
+const char* PIPE_SERVEUR_PERE = "SP";
 
 // ---- FONCTIONS ---- //
 
 int init() {
-    int sock = initSocket(PORT, IPMONITOR);
+    int sock = initSocket(PORT, IP_MONITOR);
 
     //FAIRE BOUCLE POUR RECEVOIR LES DONNEES DE LA SOCKET
     char buffer[512]; // Contient les addresses IP
@@ -18,25 +20,20 @@ int init() {
     //TODO Traitement et mise des addresses IP dans un tableau d'addresses char** addrIp
     }
 
-    //TODO initPere enverra aussi le tableau des 6 addresses IP au père
     initPere(&AddrIp);
-
-    //TODO initServer enverra aussi le tableau des 6 addresses IP au serveur
     initServeur(&AddrIp);
 
     return 1;
 }
 
 int initPere(char** addrIp) {
-    pid_t pid = fork();
-    if (pid == 0)
-    {
-    creerServeur(&addrIp);
-    char* token = genererToken();
-    }
+    creerPere(&addrIp);
+    char* cheminPS = creerPipe(PIPE_PERE_SERVEUR);
     return 0;
 }
 
 int initServeur(char** addrIp) {
+    creerServeur(&addrIp);
+    char* cheminSP = creerPipe(PIPE_SERVEUR_PERE);
     return 0;
 }
