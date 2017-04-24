@@ -4,7 +4,7 @@
 
 // ---- CONSTANTES ---- //
 const char* CHEMIN_PIPE = "./data/pipes/";
-const int TAILLE_MESSAGE = 256;
+const int TAILLE_MESSAGE = 128;
 
 // ---- FONCTIONS ---- //
 
@@ -143,7 +143,7 @@ int openPipeR(char* cheminPipe) {
 
 int writeInPipe(int descPipe, char* data) {
     errno = 0;
-    int nbByte = write(descPipe, data, strlen(data)*sizeof(char));
+    int nbByte = write(descPipe, data, TAILLE_MESSAGE);
     if(nbByte == -1) {
         printf("\nErreur écriture dans le tube nommé %d (writeInPipe() dans util.c).",descPipe);
         perror("");
