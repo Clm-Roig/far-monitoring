@@ -86,10 +86,9 @@ int* saisirCoord() {
 
 int filsEnvoiFils(char* nomPipe, char* donnees) {
     int descPipe = openPipeW(nomPipe);
-    int nbBytesSentTotal = 0;
-    while(nbBytesSentTotal < strlen(donneees)) {
-        nbBytesSentTotal += writeInPipe(descPipe,donnees);       
-    }    
+    
+    // TODO : boucle while(donnees) pas totalement envoyée (utiliser TAILLE_MESSAGE_PIPE)    
+    int nbBytes = writeInPipe(descPipe,donnees);
     return 1;
 }
 
