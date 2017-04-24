@@ -39,5 +39,7 @@
          printf("\nres vaut %d",res);
      }
 
+     printf("test commit");
+
      return 0;
  }
