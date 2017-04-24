@@ -9,7 +9,7 @@ const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir c
 // ---- FONCTIONS ---- //
 
 // CREATION
-int creerServeur(char** tabIPs) {
+int creerPere(char** tabIPs) {
     return 1;
 }
 
