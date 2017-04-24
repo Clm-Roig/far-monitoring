@@ -43,6 +43,7 @@ const char* NOM_PIPE_FF;    // Pipe Fils-Fils
 */
 int creerPere(char** tabIPs);
 
+
 // TOKEN
 /**
     @brief créer un token permettant de saisir des coordonnées
@@ -61,10 +62,25 @@ int pereEnvoiFils(int numFils, char* donnees);
 
 /**
     @brief envoie une string au fils ciblé
-    @param int numFils, le fils auquel on souhaite envoyer la donnée
+    @param int numFils, le fils duquel on souhaite recevoir la donnée
     @return char*, la string envoyée par le fils
 */
-char* pereReceptionFils(int numFils);
+char* pereReceptionFilsChar(int numFils);
 
+/**
+    @brief envoie une string au fils ciblé
+    @param int numFils, le fils duquel on souhaite recevoir la donnée
+    @return int, la string envoyée par le fils
+*/
+int pereReceptionFilsInt(int numFils);
+
+//COMMUNICATION AVEC LE SERVEUR
+
+/**
+    @brief Envoie une string au serveur de communication
+    @param 
+    @return 
+*/
+char* pereEnvoiServeur(char* donnees);
 
 #endif
