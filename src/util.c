@@ -4,7 +4,7 @@
 
 // ---- CONSTANTES ---- //
 const char* CHEMIN_PIPE = "./data/pipes/";
-const int TAILLE_MESSAGE = 128;
+const int TAILLE_MESSAGE_PIPE = 128;
 
 // ---- FONCTIONS ---- //
 
