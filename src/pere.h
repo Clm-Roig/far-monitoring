@@ -78,9 +78,15 @@ int pereReceptionFilsInt(int numFils);
 
 /**
     @brief Envoie une string au serveur de communication
-    @param 
-    @return 
+    @param char* donnees, la string à envoyer au serveur
+    @return int, 1 si tout s'est bien passé, -1 sinon
 */
 char* pereEnvoiServeur(char* donnees);
+
+/**
+    @brief Envoie une string au serveur de communication
+    @return char*, la string envoyée par le serveur
+*/
+char* pereReceptionServeur();
 
 #endif
