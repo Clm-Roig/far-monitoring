@@ -33,6 +33,6 @@
   @brief Initialisation du serveur
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int init();
+int creerServeur();
 
 #endif
