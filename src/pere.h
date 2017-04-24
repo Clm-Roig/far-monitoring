@@ -37,11 +37,11 @@ const char* NOM_PIPE_FF;    // Pipe Fils-Fils
 
 // INITIALISATION
 /**
-    @brief créer le serveur de position à partir d'un tableau de 6 IPs de robots
+    @brief créer le serveur "père" à partir d'un tableau de 6 IPs de robots. Il gèrera les fils et le token.
     @param char** tabIPs, le tableau des IPs des robots
     @return int, 1 si tout s'est bien passé, -1 sinon
 */
-int creerServeur(char** tabIPs);
+int creerPere(char** tabIPs);
 
 // TOKEN
 /**
