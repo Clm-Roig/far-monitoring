@@ -31,8 +31,9 @@
 
 /**
   @brief Initialisation du serveur
+  @param Le tableau des adresses IP des robots
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int creerServeur();
+int creerServeur(char** AddrIp);
 
 #endif
