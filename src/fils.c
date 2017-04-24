@@ -88,7 +88,10 @@ int filsEnvoiFils(char* nomPipe, char* donnees) {
     int descPipe = openPipeW(nomPipe);
     
     // TODO : boucle while(donnees) pas totalement envoyée (utiliser TAILLE_MESSAGE_PIPE)    
-    int nbBytes = writeInPipe(descPipe,donnees);
+    int nbBytesSent = 0;
+    while(nbBytesSent < strlen(donnees)) {
+        nbBytesSent = writeInPipe(descPipe,donnees);
+    }
     return 1;
 }
 
