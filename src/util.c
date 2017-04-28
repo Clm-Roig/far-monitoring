@@ -143,7 +143,7 @@
  
  int writeInPipe(int descPipe, char* data) {
      errno = 0;
-     int nbByte = write(descPipe, data, TAILLE_MESSAGE);
+     int nbByte = write(descPipe, data, TAILLE_MESSAGE_PIPE);
      if(nbByte == -1) {
          printf("\nErreur écriture dans le tube nommé %d (writeInPipe() dans util.c).",descPipe);
          perror("");
@@ -154,7 +154,7 @@
  
  int readInPipe(int descPipe, char* data) {
      errno = 0;
-     int nbByte = read(descPipe, data, TAILLE_MESSAGE);
+     int nbByte = read(descPipe, data, TAILLE_MESSAGE_PIPE);
      if(nbByte == -1) {
          printf("\nErreur lecture dans le tube nommé %d (readInPipe() dans util.c).",descPipe);
          perror("");
