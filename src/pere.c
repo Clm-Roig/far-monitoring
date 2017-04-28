@@ -16,6 +16,8 @@ int creerPere(char** tabIPs) {
         tableauPID[i] = fork();
         
     }
+
+    return 1;
 }
 
 char* genererToken() {
@@ -37,7 +39,7 @@ int pereReceptionFilsInt(int numFils) {
 
 //COMMUNICATION AVEC LE SERVEUR
 
-char* pereEnvoiServeur() {
+int pereEnvoiServeur() {
 	return 1;
 }
 
