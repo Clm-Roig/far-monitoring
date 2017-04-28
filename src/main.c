@@ -13,7 +13,7 @@
      // nc -l localhost 1234
 
      // Test socket
-    initSocket(80,"null","google.fr");
+    initSocket(80,"localhost","null");
 
      return 0;
  }
