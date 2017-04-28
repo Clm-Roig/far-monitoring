@@ -30,7 +30,7 @@ int initSocket(int port, char* IP, char* URL) {
     sin.sin_family = AF_INET;
 
     // Calcul de l'IP de l'hote (si jamais on veut utiliser un nom de domaine au lieu de l'IP)
-    if(URL[0] == '\0') {        
+    if(strcmp(URL,"null") == 0) {        
         struct hostent *hostinfo;
         hostinfo = gethostbyname(IP);
 
@@ -66,7 +66,7 @@ int initSocket(int port, char* IP, char* URL) {
 
     // Erreur connexion ?
     if (errno) {
-        printf("\nErreur initialisation socket (initSocket() dans util.c) sur l'adresse %s",newIP);
+        printf("\nErreur initialisation socket (initSocket() dans util.c) sur l'adresse %s",inet_ntoa(sin.sin_addr));
         perror("");
         exit(-1);
     }
@@ -145,7 +145,7 @@ int openPipeR(char* cheminPipe) {
 
 int writeInPipe(int descPipe, char* data) {
     errno = 0;
-    int nbByte = write(descPipe, data, TAILLE_MESSAGE);
+    int nbByte = write(descPipe, data, TAILLE_MESSAGE_PIPE);
     if(nbByte == -1) {
         printf("\nErreur écriture dans le tube nommé %d (writeInPipe() dans util.c).",descPipe);
         perror("");
@@ -156,7 +156,7 @@ int writeInPipe(int descPipe, char* data) {
 
 int readInPipe(int descPipe, char* data) {
     errno = 0;
-    int nbByte = read(descPipe, data, TAILLE_MESSAGE);
+    int nbByte = read(descPipe, data, TAILLE_MESSAGE_PIPE);
     if(nbByte == -1) {
         printf("\nErreur lecture dans le tube nommé %d (readInPipe() dans util.c).",descPipe);
         perror("");
