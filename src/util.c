@@ -27,12 +27,12 @@ int initSocket(int port, char* IP, char* URL) {
     }
 
     // Configuration de la connexion
-    sin.sin_family = AF_INET;
-
     // Calcul de l'IP de l'hote (si jamais on veut utiliser un nom de domaine au lieu de l'IP)
-    if(strcmp(URL,"null") == 0) {        
+    
+    /*
+    if(strcmp(URL,"null") != 0) {     
         struct hostent *hostinfo;
-        hostinfo = gethostbyname(IP);
+        hostinfo = gethostbyname(URL);
 
         if (hostinfo) {
             struct in_addr **pptr;
@@ -40,11 +40,14 @@ int initSocket(int port, char* IP, char* URL) {
             adr[0] = IP;
             pptr = (struct in_addr **)adr;
             sin.sin_addr = **pptr;
+            sin.sin_addr.s_addr = htonl(INADDR_ANY);
             printf("Adresse IP de l'hote : %s\n",inet_ntoa(sin.sin_addr));
         }
     }
     // On passe directement par l'IP
     else {
+    */
+
         // Conversion de localhost en IP
         char* newIP = malloc(64*sizeof(char));
         if(strcmp(IP,"localhost") == 0){
@@ -54,7 +57,8 @@ int initSocket(int port, char* IP, char* URL) {
             strcpy(newIP,IP);
         }           
         sin.sin_addr.s_addr = inet_addr(newIP);  
-    }   
+    
+    //}   
 
     // Configuration IP et port  du socket
     sin.sin_family = AF_INET;
