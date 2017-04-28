@@ -30,6 +30,7 @@ int initSocket(int port, char* IP) {
     // Calcul de l'IP de l'hote (si jamais on veut utiliser un nom de domaine au lieu de l'IP)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     /*
     if(strcmp(URL,"null") != 0) {     
@@ -46,6 +47,8 @@ int initSocket(int port, char* IP) {
             printf("Adresse IP de l'hote : %s\n",inet_ntoa(sin.sin_addr));
         }
 =======
+=======
+>>>>>>> parent of e959119... [pere] socket par IP ET par URL
 =======
 >>>>>>> parent of e959119... [pere] socket par IP ET par URL
     /*
@@ -67,6 +70,7 @@ int initSocket(int port, char* IP) {
     if(strcmp(IP,"localhost") == 0){
         strcpy(newIP,"127.0.0.1");
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of e959119... [pere] socket par IP ET par URL
     }
     else {
@@ -85,6 +89,12 @@ int initSocket(int port, char* IP) {
     
     //}   
 =======
+        strcpy(newIP,IP);
+    }
+>>>>>>> parent of e959119... [pere] socket par IP ET par URL
+=======
+    }
+    else {
         strcpy(newIP,IP);
     }
 >>>>>>> parent of e959119... [pere] socket par IP ET par URL

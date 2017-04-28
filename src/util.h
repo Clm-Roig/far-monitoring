@@ -41,7 +41,11 @@ const int TAILLE_MESSAGE_PIPE;
 /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 @brief crée + connecte un socket sur le port demandé (protocole IP) par IP ou URL (l'un doit être  initialisé à "null" pour pouvoir utiliser l'autre)
+=======
+@brief créer + connecte un socket sur le port demandé (protocole IP)
+>>>>>>> parent of e959119... [pere] socket par IP ET par URL
 =======
 @brief créer + connecte un socket sur le port demandé (protocole IP)
 >>>>>>> parent of e959119... [pere] socket par IP ET par URL
