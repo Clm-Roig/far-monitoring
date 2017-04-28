@@ -5,18 +5,18 @@
 // ---- CONSTANTES ---- //
 const char* NOM_PIPE_PF = "pipePF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter 
+
+// Variables
+int tableauPID[6];
+
 // ---- FONCTIONS ---- //
-int* tableauPID [6];
 
 // CREATION
 int creerPere(char** tabIPs) {
-    
-    for (int i = 0; i <6; i++)    
-    {
-        tableauPID[i] = fork();
-        
+    int i = 0;
+    for (i; i <6 ; i++) {
+        tableauPID[i] = fork();        
     }
-
     return 1;
 }
 
@@ -39,7 +39,7 @@ int pereReceptionFilsInt(int numFils) {
 
 //COMMUNICATION AVEC LE SERVEUR
 
-int pereEnvoiServeur() {
+int pereEnvoiServeur(char* donnees) {
 	return 1;
 }
 
