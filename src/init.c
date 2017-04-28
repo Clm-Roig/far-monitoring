@@ -14,7 +14,7 @@ int init() {
     int sock = initSocket(PORT, IP_MONITOR);
 
     //FAIRE BOUCLE POUR RECEVOIR LES DONNEES DE LA SOCKET
-    char buffer[512]; // Contient les addresses IP
+    char* buffer = malloc(sizeof(char)*512);  // Contient les addresses IP
     receiveFromSocket(sock, &buffer);
     for (int i = 0; i<6; i++) {
     //TODO Traitement et mise des addresses IP dans un tableau d'addresses char** addrIp
@@ -22,7 +22,8 @@ int init() {
 
     initPere(&AddrIp);
     initServeur(&AddrIp);
-
+    
+    free(buffer);
     return 1;
 }
 
