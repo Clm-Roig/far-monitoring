@@ -6,7 +6,15 @@
 
 // ---- FONCTIONS ---- //
 
- int init() {
+int init() {
    
-   return 1;
- }
+    return 1;
+}
+
+int envoiDweet(int* Coordonnees){
+    return 1;
+}
+
+int envoiRobot(int* Coordonnees, char* AddrRobot){
+    return 1;
+}
