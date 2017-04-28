@@ -47,10 +47,10 @@
      // Conversion de localhost en IP
      char* newIP = malloc(64*sizeof(char));
      if(strcmp(IP,"localhost") == 0){
-         strcpy(newIP,"127.0.0.1");
+        strcpy(newIP,"127.0.0.1");
      }
      else {
-         strcpy(newIP,IP);
+        strcpy(newIP,IP);
      }
  
      // Configuration IP et port  du socket
