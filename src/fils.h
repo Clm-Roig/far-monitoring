@@ -24,6 +24,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "util.h"
+
 
 // ---- CONSTANTES ---- //
 const int LONGUEUR_GRILLE;

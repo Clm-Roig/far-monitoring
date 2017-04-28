@@ -97,7 +97,7 @@ int filsEnvoiFils(char* nomPipe, char* donnees) {
 
 char* filsReceptionFils(char* nomPipe) {
     int descPipe = openPipeR(nomPipe);
-    char* donneesLues = malloc(TAILLE_MESSAGE*sizeof(char));
+    char* donneesLues = malloc(TAILLE_MESSAGE_PIPE*sizeof(char));
     int nbBytes = readInPipe(descPipe,donneesLues);    
     return donneesLues;
 }
