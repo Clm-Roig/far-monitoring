@@ -6,7 +6,7 @@
 
 // ---- FONCTIONS ---- //
 
-int init() {
+int creerServeur(char** AddrIp) {
    
     return 1;
 }
