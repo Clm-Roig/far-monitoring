@@ -39,38 +39,26 @@ const int TAILLE_MESSAGE_PIPE;
 
 // Sockets
 /**
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-@brief crée + connecte un socket sur le port demandé (protocole IP) par IP ou URL (l'un doit être  initialisé à "null" pour pouvoir utiliser l'autre)
-=======
-@brief créer + connecte un socket sur le port demandé (protocole IP)
->>>>>>> parent of e959119... [pere] socket par IP ET par URL
-=======
-@brief créer + connecte un socket sur le port demandé (protocole IP)
->>>>>>> parent of e959119... [pere] socket par IP ET par URL
-=======
-@brief créer + connecte un socket sur le port demandé (protocole IP)
->>>>>>> parent of e959119... [pere] socket par IP ET par URL
-@param int port : le port sur lequel l'on doit se connecter
-@param char* IP : l'ip sur laquelle on veut se connecter
-@return int, le socket créé et connecté, -1 si la création échoue
+    @brief crée + connecte un socket sur le port demandé (protocole IP) par IP ou URL (l'un doit être  initialisé à "null" pour pouvoir utiliser l'autre)
+    @param int port : le port sur lequel l'on doit se connecter
+    @param char* IP : l'ip sur laquelle on veut se connecter
+    @return int, le socket créé et connecté, -1 si la création échoue
 */
 int initSocket(int port, char* IP);
 
 /**
-@brief envoie des données par un socket
-@param int socket : le socket sur lequel on envoie les données
-@param char* data : la String à envoyer
-@return bool, 1 si ok, -1 sinon
+    @brief envoie des données par un socket
+    @param int socket : le socket sur lequel on envoie les données
+    @param char* data : la String à envoyer
+    @return bool, 1 si ok, -1 sinon
 */
 int sendToSocket(int socket, char* data);
 
 /**
-@brief reçoit des données par un socket
-@param int socket : le socket sur lequel on reçoit les données
-@param char** buffer : l'adresse du buffer à remplir
-@return bool, 1 si ok, -1 sinon
+    @brief reçoit des données par un socket
+    @param int socket : le socket sur lequel on reçoit les données
+    @param char** buffer : l'adresse du buffer à remplir
+    @return bool, 1 si ok, -1 sinon
 */
 int receiveFromSocket(int socket, char** buffer);
 
