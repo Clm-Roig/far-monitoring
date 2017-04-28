@@ -14,6 +14,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <netdb.h>
 
 // Threads
 #include <pthread.h>
@@ -42,9 +43,10 @@ const int TAILLE_MESSAGE_PIPE;
     @brief crée + connecte un socket sur le port demandé (protocole IP) par IP ou URL (l'un doit être  initialisé à "null" pour pouvoir utiliser l'autre)
     @param int port : le port sur lequel l'on doit se connecter
     @param char* IP : l'ip sur laquelle on veut se connecter
+    @param char* URL : l'url sur laquelle on souhaite se connecter
     @return int, le socket créé et connecté, -1 si la création échoue
 */
-int initSocket(int port, char* IP);
+int initSocket(int port, char* IP, char* URL);
 
 /**
     @brief envoie des données par un socket
