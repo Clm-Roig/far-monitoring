@@ -17,6 +17,8 @@ int creerPere(char** tabIPs) {
     for (i; i <6 ; i++) {
         tableauPID[i] = fork();        
     }
+
+    
     return 1;
 }
 
