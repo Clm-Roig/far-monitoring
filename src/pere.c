@@ -37,4 +37,10 @@ int pereReceptionFilsInt(int numFils) {
 
 //COMMUNICATION AVEC LE SERVEUR
 
-int pereEnvoie
+char* pereEnvoiServeur() {
+	return 1;
+}
+
+char* pereReceptionServeur() {
+	return "toto";
+}
