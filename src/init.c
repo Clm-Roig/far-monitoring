@@ -22,7 +22,8 @@ int init() {
 
     initPere(&AddrIp);
     initServeur(&AddrIp);
-
+    
+    free(buffer);
     return 1;
 }
 
