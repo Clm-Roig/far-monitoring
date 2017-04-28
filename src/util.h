@@ -39,12 +39,13 @@ const int TAILLE_MESSAGE_PIPE;
 
 // Sockets
 /**
-@brief créer + connecte un socket sur le port demandé (protocole IP)
+@brief crée + connecte un socket sur le port demandé (protocole IP) par IP ou URL (l'un doit être nul pour pouvoir utiliser l'autre)
 @param int port : le port sur lequel l'on doit se connecter
 @param char* IP : l'ip sur laquelle on veut se connecter
+@param char* URL : l'URL auquel l'on souhaite accéder
 @return int, le socket créé et connecté, -1 si la création échoue
 */
-int initSocket(int port, char* IP);
+int initSocket(int port, char* IP, char* URL);
 
 /**
 @brief envoie des données par un socket

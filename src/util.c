@@ -11,7 +11,7 @@ const int TAILLE_MESSAGE_PIPE = 128;
 
 // SOCKETS
 
-int initSocket(int port, char* IP) {
+int initSocket(int port, char* IP, char* URL) {
     int sock;
     struct sockaddr_in sin;
 
@@ -30,31 +30,33 @@ int initSocket(int port, char* IP) {
     sin.sin_family = AF_INET;
 
     // Calcul de l'IP de l'hote (si jamais on veut utiliser un nom de domaine au lieu de l'IP)
-    /*
-    struct hostent *hostinfo;
-    hostinfo = gethostbyname(IP);
+    if(URL[0] == '\0') {        
+        struct hostent *hostinfo;
+        hostinfo = gethostbyname(IP);
 
-    if (hostinfo) {
-        struct in_addr **pptr;
-        char** adr = malloc(512*sizeof(char));
-        adr[0] = IP;
-        pptr = (struct in_addr **)adr;
-        sin.sin_addr = **pptr;
-        printf("Adresse IP de l'hote : %s\n",inet_ntoa(sin.sin_addr));
+        if (hostinfo) {
+            struct in_addr **pptr;
+            char** adr = malloc(512*sizeof(char));
+            adr[0] = IP;
+            pptr = (struct in_addr **)adr;
+            sin.sin_addr = **pptr;
+            printf("Adresse IP de l'hote : %s\n",inet_ntoa(sin.sin_addr));
+        }
     }
-    */
-
-    // Conversion de localhost en IP
-    char* newIP = malloc(64*sizeof(char));
-    if(strcmp(IP,"localhost") == 0){
-        strcpy(newIP,"127.0.0.1");
-    }
+    // On passe directement par l'IP
     else {
-        strcpy(newIP,IP);
-    }
+        // Conversion de localhost en IP
+        char* newIP = malloc(64*sizeof(char));
+        if(strcmp(IP,"localhost") == 0){
+            strcpy(newIP,"127.0.0.1");
+        }
+        else {
+            strcpy(newIP,IP);
+        }           
+        sin.sin_addr.s_addr = inet_addr(newIP);  
+    }   
 
     // Configuration IP et port  du socket
-    sin.sin_addr.s_addr = inet_addr(newIP);
     sin.sin_family = AF_INET;
     sin.sin_port = htons(port);
 
