@@ -7,20 +7,15 @@
 const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour éviter les saisies hors grile
 const int LARGEUR_GRILLE = 10; // TODO
 
+const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter 
+
+// ---- VARIABLES ---- //
+int tableauPID[6];
+
 // ---- FONCTIONS ---- //
 
 int creerFils() {
     return 1;
-}
-
-// ---- COMMUNICATION PERE ---- //
-
-int filsEnvoiPere(char* nomPipe, char* donnees) {
-    return 1;
-}
-
-char* filsReceptionPere(char* nomPipe) {
-    return "toto";
 }
 
 int* saisirCoord() {
@@ -79,6 +74,11 @@ int* saisirCoord() {
     }
 
     return res;
+}
+
+
+char* genererToken() {
+    return "toto";
 }
 
 

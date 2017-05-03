@@ -7,6 +7,7 @@
  *
  * Le fichier fils.c gère les processus qui permettent aux pilotes de saisir les coordonnées ainsi que le passage
  * du token entre eux.
+ * Il permet également d'envoyer les coordonnées saisies aux robots.
  */
 
 // Sockets / HTTP / IP
@@ -34,34 +35,23 @@ const int LARGEUR_GRILLE;
 // ---- FONCTIONS ---- //
 
 /**
-    @brief génère un fils en dupliquant le processus, puis renvoie le pid
-    @return int, pid du fils si tout s'est bien passé, 0 sinon
-*/
-int creerFils();
-
-// ---- COMMUNICATION PERE ---- //
-/**
-    @brief gère l'envoie d'informations du fils vers son père
-    @param char* nomPipe, le nom du pipe
-    @param char* donnees, le contenu des données envoyées
+    @brief génère 6 modules fils, 1 par robot, en forkant()
     @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int filsEnvoiPere(char* nomPipe, char* donnees);
-
-
-/**
-    @brief gère la reception d'informations du fils depuis son père
-    @param char* nomPipe, le nom du pipe
-    @return char*, le token reçu
-*/
-char* filsReceptionPere(char* nomPipe);
-
+int creerFils();
 
 /**
     @brief permet la saisie de deux entiers dans un tableau.
     @return int*, [x,y] avec x la coordonnée en longueur et y en largueur si tout s'est bien passé, [-1,-1] sinon
 */
 int* saisirCoord();
+
+// TOKEN
+/**
+    @brief créer un token permettant de saisir des coordonnées
+    @return char*, le token généré
+*/
+char* genererToken();
 
 
 // ---- COMMUNICATION FILS ---- //
@@ -80,4 +70,21 @@ int filsEnvoiFils(char* nomPipe, char* donnees);
     @return char*, le jeton de communication
 */
 char* filsReceptionFils(char* nomPipe);
+
+
+// ---- COMMUNICATION SERVEUR ---- //
+
+/**
+    @brief Envoie une string au serveur de communication
+    @param char* donnees, la string à envoyer au serveur
+    @return int, 1 si tout s'est bien passé, -1 sinon
+*/
+int filsEnvoiServeur(char* donnees);
+
+/**
+    @brief Envoie une string au serveur de communication
+    @return char*, la string envoyée par le serveur
+*/
+char* filsReceptionServeur();
+
 #endif
