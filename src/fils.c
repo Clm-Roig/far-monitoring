@@ -10,11 +10,22 @@ const int LARGEUR_GRILLE = 10; // TODO
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter 
 
 // ---- VARIABLES ---- //
-int tableauPID[6];
+int tableauPIDs[6];
+char* tableauIPs[6];
 
 // ---- FONCTIONS ---- //
 
-int creerFils() {
+int creerFils(char** tab) {
+
+    // Recopie du tableau des IPs
+    int i = 0;
+    for(i; i<6 ; i++) {        
+        tableauIPs[i] = malloc(6*20*sizeof(char));
+        memcpy(tableauIPs[i], tab[i], strlen(tab[i])+1);
+    }
+
+    // Fork et stockage des PIDs 
+
     return 1;
 }
 
