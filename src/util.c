@@ -2,14 +2,14 @@
 
  #include "util.h"
 
-  // ---- CONSTANTES ---- //
-  const char* CHEMIN_PIPE = "./data/pipes/";
- const int TAILLE_MESSAGE_PIPE = 128;
+// ---- CONSTANTES ---- //
+const char* CHEMIN_PIPE = "./data/pipes/";
+const int TAILLE_MESSAGE_PIPE = 128;
 
-  // ---- FONCTIONS ---- //
+// ---- FONCTIONS ---- //
 
 
- // SOCKETS
+// SOCKETS
 
 int initSocket(int port, char* IP, char* URL) {
     int sock;
@@ -21,9 +21,9 @@ int initSocket(int port, char* IP, char* URL) {
 
     // Erreur création socket ?
     if (errno) {
-     printf("Erreur création socket (initSocket() dans util.c).");
-     perror("");
-     exit(-1);
+        printf("Erreur création socket (initSocket() dans util.c).");
+        perror("");
+        exit(-1);
     }
 
     // Configuration de la connexion
@@ -114,7 +114,6 @@ int initSocket(int port, char* IP, char* URL) {
              perror("");
          }
      }
-
      return pipeName;
  }
 
@@ -163,6 +162,6 @@ int initSocket(int port, char* IP, char* URL) {
  }
 
 void waitFor (unsigned int secs) {
-    unsigned int retTime = time(0) + secs;   
+    unsigned int retTime = time(0) + secs;
     while (time(0) < retTime);
 }
