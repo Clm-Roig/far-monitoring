@@ -15,10 +15,10 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-// Threads 
+// Threads
 #include <pthread.h>
 
-// Base 
+// Base
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,7 +40,7 @@ int creerServeur(char** AddrIp);
   @brief Envoi des logs de coordonnées sur Dweet.io
   @param Coordonnees, Les coordonnées à envoyer sous forme de log
   @return int, 1 si tout s'est bien passé, 0 sinon
-  
+
 */
 int envoiDweet(int* Coordonnees);
 
@@ -51,5 +51,11 @@ int envoiDweet(int* Coordonnees);
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
 int envoiRobot(int* Coordonnees, char* AddrRobot);
+
+/**
+    @brief Vérifie si la partie a commencé
+    @return int, 1 si la partie a commencé, 0 sinon
+*/
+int checkDebutPartie();
 
 #endif

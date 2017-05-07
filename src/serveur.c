@@ -7,7 +7,7 @@
 // ---- FONCTIONS ---- //
 
 int creerServeur(char** AddrIp) {
-   
+
     return 1;
 }
 
@@ -17,4 +17,8 @@ int envoiDweet(int* Coordonnees){
 
 int envoiRobot(int* Coordonnees, char* AddrRobot){
     return 1;
+}
+
+int checkDebutPartie() {
+    return 0;
 }
