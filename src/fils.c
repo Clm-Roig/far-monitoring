@@ -82,14 +82,19 @@ int creerFils(char** tab) {
         break;
     }
 
-    fprintf(stderr, "This is process %d with ID %ld and parent id %ld\n",
+    fprintf(stderr, "\nProcess %d with ID %ld and parent id %ld",
         i, (long)getpid(), (long)getppid());
 
-    // Le premier fils génère un token puis tout le monde attend
+    // Le premier fils génère un token puis il attend pour lancer le début de la partie
+    // Les autres fils act() (en attente de token)
     if (i == 1) {
         char* token = genererToken();
         fprintf(stderr,"\nTOKEN : %s",token);
+        signalDebutPartie();
     }
+
+    act();
+
     return 0;
 }
 
@@ -151,6 +156,15 @@ int* saisirCoord() {
     return res;
 }
 
+void signalDebutPartie() {
+    fprintf(stderr,"\n===========================");
+    fprintf(stderr,"\nEn attente du début de la partie...");
+
+    // Vérification si la partie a commencé toutes les secondes
+    while (checkDebutPartie() == 0){
+        waitFor((unsigned int)1);
+    }
+}
 
 char* genererToken() {
     time_t seconds;
@@ -158,6 +172,10 @@ char* genererToken() {
     char* token = malloc(32*sizeof(char));
     sprintf(token,"%ld",seconds*5+42 + seconds%2*23);
     return token;
+}
+
+void act() {
+    
 }
 
 

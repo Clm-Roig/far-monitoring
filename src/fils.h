@@ -29,6 +29,7 @@
 #include <string.h>
 
 #include "util.h"
+#include "serveur.h"
 
 
 // ---- CONSTANTES ---- //
@@ -50,12 +51,21 @@ int creerFils();
 */
 int* saisirCoord();
 
-// TOKEN
 /**
     @brief créer un token permettant de saisir des coordonnées
     @return char*, le token généré
 */
 char* genererToken();
+
+/**
+    @brief Bloque le premier fils tant qu'on n'a pas appuyé sur une touche du clavier (début de la partie)
+*/
+void signalDebutPartie();
+
+/**
+    @brief Algorithme de comportement d'un fils
+*/
+void act();
 
 
 // ---- COMMUNICATION FILS ---- //
