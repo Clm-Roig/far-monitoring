@@ -6,16 +6,16 @@
 
 // ---- FONCTIONS ---- //
 
-int creerServeur(char** AddrIp) {
+int creerServeur(char** addrIp) {
 
     return 1;
 }
 
-int envoiDweet(int* Coordonnees){
+int envoiDweet(char* coordonnees){
     return 1;
 }
 
-int envoiRobot(int* Coordonnees, char* AddrRobot){
+int envoiRobot(char* donnees, char* addrRobot){
     return 1;
 }
 

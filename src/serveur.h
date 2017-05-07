@@ -31,26 +31,26 @@
 
 /**
   @brief Initialisation du serveur
-  @param int AddrIp, Le tableau des adresses IP des robots
+  @param int addrIp, Le tableau des adresses IP des robots
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int creerServeur(char** AddrIp);
+int creerServeur(char** addrIp);
 
 /**
-  @brief Envoi des logs de coordonnées sur Dweet.io
-  @param Coordonnees, Les coordonnées à envoyer sous forme de log
+  @brief Envoi des logs de coordonnées sur dweet.io
+  @param donnees, les donnees à envoyer sous forme de log
   @return int, 1 si tout s'est bien passé, 0 sinon
 
 */
-int envoiDweet(int* Coordonnees);
+int envoiDweet(char* donnees);
 
 /**
-  @brief Envoi des coordonnées aux robots
-  @param int* Coordonnees, Les coordonnées à envoyer au robot
-  @param char* AddrRobot, l'adresse IP du robot auquel on envoie les coordonnées
+  @brief Envoi des donnes à un robot
+  @param int* donnees, les données à envoyer au robot
+  @param char* addrRobot, l'adresse IP du robot auquel on envoie les coordonnées
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int envoiRobot(int* Coordonnees, char* AddrRobot);
+int envoiRobot(char* donnees, char* addrRobot);
 
 /**
     @brief Vérifie si la partie a commencé
