@@ -36,6 +36,7 @@
 const int LONGUEUR_GRILLE;
 const int LARGEUR_GRILLE;
 const char* SALT;
+const int DELAI_SAISIE;
 
 // ---- FONCTIONS ---- //
 

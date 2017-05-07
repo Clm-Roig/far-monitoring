@@ -7,9 +7,9 @@
 const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour éviter les saisies hors grile
 const int LARGEUR_GRILLE = 10; // TODO
 
-const char* SALT = "F6";
-
+const char* SALT = "F6"; // Sel aléatoire pour crypter le token
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
+const int DELAI_SAISIE = 30; // Délai avant de passer le jeton à un frère
 
 // ---- VARIABLES ---- //
 char* tableauIPs[6];
@@ -175,7 +175,13 @@ char* genererToken() {
 }
 
 void act() {
-    
+    // while(jetonNotReçu) {}
+
+    // while(< DELAI_SAISIE ou saisirCoord())
+
+    // if(saisirCoord()) envoieCoord
+
+    // passerJeton()
 }
 
 
