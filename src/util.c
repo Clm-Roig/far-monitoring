@@ -1,16 +1,16 @@
  // Fichier util.c
- 
+
  #include "util.h"
-  
+
   // ---- CONSTANTES ---- //
   const char* CHEMIN_PIPE = "./data/pipes/";
  const int TAILLE_MESSAGE_PIPE = 128;
-  
+
   // ---- FONCTIONS ---- //
-  
- 
+
+
  // SOCKETS
- 
+
 int initSocket(int port, char* IP, char* URL) {
     int sock;
     struct sockaddr_in sin;
@@ -71,7 +71,7 @@ int initSocket(int port, char* IP, char* URL) {
 
     return sock;
 }
- 
+
  int sendToSocket(int socket, char* data) {
      send(socket,data,sizeof(data),0);
      // Erreur ?
@@ -82,7 +82,7 @@ int initSocket(int port, char* IP, char* URL) {
      }
      return 0;
  }
- 
+
  int receiveFromSocket(int socket, char** data) {
      recv(socket,&data,sizeof(&data)-1,0);
      // Erreur ?
@@ -93,31 +93,31 @@ int initSocket(int port, char* IP, char* URL) {
      }
      return 0;
  }
- 
- 
+
+
  // PIPES
- 
+
  char* creerPipe(char* nomPipe) {
      char* pipeName = malloc(64*sizeof(char));
      strcat(pipeName,CHEMIN_PIPE);
      strcat(pipeName,nomPipe);
      // Par convention, les tubes nommés se terminent par .fifo
      strcat(pipeName,".fifo");
- 
+
      errno = 0;
      // Création du tube avec tous les droits pour tout le monde (USER, GROUP et OTHERS)
      if (mkfifo((pipeName), S_IRWXU | S_IRWXG | S_IRWXO) == -1) {
- 
+
          // On néglige l'erreur "tube déjà existant" qui correspond à errno == 17
          if(errno != 17) {
              printf("\nErreur création tube nommé %s (creerPipe() dans util.c).",nomPipe);
              perror("");
          }
      }
- 
+
      return pipeName;
  }
- 
+
  int openPipeW(char* cheminPipe) {
      errno = 0;
      int desc = open(cheminPipe, O_WRONLY);
@@ -128,7 +128,7 @@ int initSocket(int port, char* IP, char* URL) {
      }
      return desc;
  }
- 
+
  int openPipeR(char* cheminPipe) {
      errno = 0;
      int desc = open(cheminPipe, O_RDONLY);
@@ -139,7 +139,7 @@ int initSocket(int port, char* IP, char* URL) {
      }
      return desc;
  }
- 
+
  int writeInPipe(int descPipe, char* data) {
      errno = 0;
      int nbByte = write(descPipe, data, TAILLE_MESSAGE_PIPE);
@@ -150,7 +150,7 @@ int initSocket(int port, char* IP, char* URL) {
      }
      return nbByte;
  }
- 
+
  int readInPipe(int descPipe, char* data) {
      errno = 0;
      int nbByte = read(descPipe, data, TAILLE_MESSAGE_PIPE);
@@ -161,3 +161,8 @@ int initSocket(int port, char* IP, char* URL) {
      }
      return nbByte;
  }
+
+void waitFor (unsigned int secs) {
+    unsigned int retTime = time(0) + secs;   
+    while (time(0) < retTime);
+}

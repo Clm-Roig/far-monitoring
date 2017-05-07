@@ -104,4 +104,10 @@ int writeInPipe(int descPipe, char* data);
 */
 int readInPipe(int descPipe, char* data);
 
+/**
+    @brief Bloque le processus pendant secs secondes
+    @param int secs, le nb de secondes
+*/
+void waitFor(unsigned int secs);
+
 #endif
