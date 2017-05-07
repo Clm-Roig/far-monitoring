@@ -10,13 +10,11 @@ const int LARGEUR_GRILLE = 10; // TODO
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
 
 // ---- VARIABLES ---- //
-int tableauPIDs[6];
 char* tableauIPs[6];
 
 // ---- FONCTIONS ---- //
 
 int creerFils(char** tab) {
-
     // Recopie du tableau des IPs
     int i = 0;
     for(i=0; i<6 ; i++) {
@@ -61,10 +59,12 @@ int creerFils(char** tab) {
             return 1;
         }
 
-        if (childpid > 0)               /* for parent process, reassign stdout */
+        if (childpid > 0) {               /* for parent process, reassign stdout */
             error = dup2(fd[1], STDOUT_FILENO);
-        else                              /* for child process, reassign stdin */
+        }
+        else {                              /* for child process, reassign stdin */
             error = dup2(fd[0], STDIN_FILENO);
+        }
 
         if (error == -1) {
             fprintf(stderr, "[%ld]: erreur dup pipe %d: %s\n",
@@ -82,7 +82,12 @@ int creerFils(char** tab) {
 
     fprintf(stderr, "This is process %d with ID %ld and parent id %ld\n",
         i, (long)getpid(), (long)getppid());
-        
+
+    // Le premier fils génère un token puis tout le monde attend
+    if (i == 1) {
+        char* token = genererToken();
+    }
+
     return 0;
 }
 
