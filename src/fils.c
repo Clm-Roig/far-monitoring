@@ -7,6 +7,8 @@
 const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour éviter les saisies hors grile
 const int LARGEUR_GRILLE = 10; // TODO
 
+const char* SALT = "F6";
+
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
 
 // ---- VARIABLES ---- //
@@ -86,8 +88,8 @@ int creerFils(char** tab) {
     // Le premier fils génère un token puis tout le monde attend
     if (i == 1) {
         char* token = genererToken();
+        fprintf(stderr,"\nTOKEN : %s",token);
     }
-
     return 0;
 }
 
@@ -151,7 +153,11 @@ int* saisirCoord() {
 
 
 char* genererToken() {
-    return "toto";
+    time_t seconds;
+    seconds = time(NULL);
+    char* token = malloc(32*sizeof(char));
+    sprintf(token,"%ld",seconds*5+42 + seconds%2*23);
+    return token;
 }
 
 

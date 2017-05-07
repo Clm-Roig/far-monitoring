@@ -20,6 +20,9 @@
 // Threads
 #include <pthread.h>
 
+// Temps + Token
+#include <time.h>
+
 // Base
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,6 +34,7 @@
 // ---- CONSTANTES ---- //
 const int LONGUEUR_GRILLE;
 const int LARGEUR_GRILLE;
+const char* SALT;
 
 // ---- FONCTIONS ---- //
 
