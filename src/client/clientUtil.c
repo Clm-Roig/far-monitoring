@@ -1,6 +1,6 @@
- // Fichier clientutil.c
+ // Fichier clientUtil.c
 
- #include "clientutil.h"
+ #include "clientUtil.h"
 
   // ---- FONCTIONS ---- //
 

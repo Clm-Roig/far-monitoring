@@ -5,11 +5,11 @@ src_dir=src/
 CC=gcc
 CFLAGS=-Wall  -g
 LDFLAGS= -g
-EXEC=$(bin_dir)serverPosition.exe
+EXEC=$(bin_dir)clientServeurPosition.exe
 
 all: $(EXEC)
 
-$(bin_dir)serverPosition.exe: $(obj_dir)fils.o  $(obj_dir)main.o $(obj_dir)serveur.o  $(obj_dir)util.o
+$(bin_dir)serverPosition.exe: $(obj_dir)client.o  $(obj_dir)clientUtil.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(obj_dir)%.o: $(src_dir)%.c
@@ -17,10 +17,8 @@ $(obj_dir)%.o: $(src_dir)%.c
 
 clean:
 	rm -f $(obj_dir)* $(bin_dir)*
-	rm -f $(data_dir)pipes/*
-	touch $(bin_dir)hello.c
-	touch $(obj_dir)hello.c
-	touch $(data_dir)pipes/hello.fifo
+	touch $(bin_dir)binHolder
+	touch $(obj_dir)objHolder
 
 start:
-	./$(bin_dir)serverPosition.exe
+	./$(bin_dir)clientServeurPosition.exe
