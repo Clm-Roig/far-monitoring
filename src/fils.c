@@ -25,13 +25,12 @@ int creerFils(char** tab) {
         memcpy(tableauIPs[i], tab[i], strlen(tab[i])+1);
     }
 
-    // Mise en place du jeton Ring
+    // Mise en place du Token Ring
     // cf "Unix Systems Programming", chapitre 7, page 286
-
-    pid_t childpid;     /* indicates process should spawn another     */
-    int error;          /* return value from dup2 call                */
-    int* fd = malloc(2*sizeof(int));          /* file descriptors returned by pipe          */
-    int nprocs = NOMBRE_JOUEURS;     /* total number of processes in ring          */
+    pid_t childpid;                     /* indicates process should spawn another     */
+    int error;                          /* return value from dup2 call                */
+    int* fd = malloc(2*sizeof(int));    /* file descriptors returned by pipe          */
+    int nprocs = NOMBRE_JOUEURS;        /* total number of processes in ring          */
 
     if (pipe (fd) == -1) {      /* connect std input to std output via a pipe */
        perror("Erreur création premier pipe jeton Ring.");
@@ -51,14 +50,12 @@ int creerFils(char** tab) {
 
     for (i = 0; i < nprocs-1;  i++) {         /* create the remaining processes */
         if (pipe (fd) == -1) {
-            fprintf(stderr, "[%ld]: erreur création pipe %d: %s\n",
-                (long)getpid(), i, strerror(errno));
+            fprintf(stderr, "[%ld]: erreur création pipe %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
         }
 
         if ((childpid = fork()) == -1) {
-            fprintf(stderr, "[%ld]: erreur création fils pid %d: %s\n",
-                (long)getpid(), i, strerror(errno));
+            fprintf(stderr, "[%ld]: erreur création fils pid %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
         }
 
@@ -70,21 +67,18 @@ int creerFils(char** tab) {
         }
 
         if (error == -1) {
-            fprintf(stderr, "[%ld]: erreur dup pipe %d: %s\n",
-                (long)getpid(), i, strerror(errno));
+            fprintf(stderr, "[%ld]: erreur dup pipe %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
         }
         if ((close(fd[0]) == -1) || (close(fd[1]) == -1)) {
-            fprintf(stderr, "[%ld]: erreur fermeture descripteurs %d: %s\n",
-                (long)getpid(), i, strerror(errno));
+            fprintf(stderr, "[%ld]: erreur fermeture descripteurs %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
         }
         if (childpid)
         break;
     }
 
-    fprintf(stderr, "\nProcess %d with ID %ld and parent id %ld",
-        i, (long)getpid(), (long)getppid());
+    fprintf(stderr, "\nProcess %d with ID %ld and parent id %ld",i, (long)getpid(), (long)getppid());
 
     // Le premier fils génère un jeton puis il attend pour lancer le début de la partie
     // Les autres fils act() (en attente de jeton)
