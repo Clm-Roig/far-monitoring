@@ -10,17 +10,18 @@ const int LARGEUR_GRILLE = 10; // TODO
 const char* SALT = "F6"; // Sel aléatoire pour crypter le token
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
 const int DELAI_SAISIE = 30; // Délai avant de passer le jeton à un frère
+const int NOMBRE_JOUEURS = 6;
 
 // ---- VARIABLES ---- //
-char* tableauIPs[6];
+char* tableauIPs[NOMBRE_JOUEURS];
 
 // ---- FONCTIONS ---- //
 
 int creerFils(char** tab) {
     // Recopie du tableau des IPs
     int i = 0;
-    for(i=0; i<6 ; i++) {
-        tableauIPs[i] = malloc(6*20*sizeof(char));
+    for(i=0; i<NOMBRE_JOUEURS ; i++) {
+        tableauIPs[i] = malloc(NOMBRE_JOUEURS*20*sizeof(char));
         memcpy(tableauIPs[i], tab[i], strlen(tab[i])+1);
     }
 
@@ -30,7 +31,7 @@ int creerFils(char** tab) {
     pid_t childpid;     /* indicates process should spawn another     */
     int error;          /* return value from dup2 call                */
     int fd[2];          /* file descriptors returned by pipe          */
-    int nprocs = 6;     /* total number of processes in ring          */
+    int nprocs = NOMBRE_JOUEURS;     /* total number of processes in ring          */
 
     if (pipe (fd) == -1) {      /* connect std input to std output via a pipe */
        perror("Erreur création premier pipe Token Ring.");
