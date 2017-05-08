@@ -37,6 +37,7 @@ int creerFils(char** tab) {
        return 1;
     }
 
+    // ==== ERREURS ? ==== //
     if ((dup2(fd[0], STDIN_FILENO) == -1) ||
         (dup2(fd[1], STDOUT_FILENO) == -1)) {
        perror("Erreur connexion pipe.");
@@ -47,8 +48,11 @@ int creerFils(char** tab) {
        perror("Erreur fermeture descripteur de fichier.");
        return 1;
     }
+    // =================== //
 
     for (i = 0; i < nprocs-1;  i++) {         /* create the remaining processes */
+
+        // ==== ERREURS ? ==== //
         if (pipe (fd) == -1) {
             fprintf(stderr, "[%ld]: erreur création pipe %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
@@ -58,14 +62,17 @@ int creerFils(char** tab) {
             fprintf(stderr, "[%ld]: erreur création fils pid %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
         }
+        // =================== //
 
-        if (childpid > 0) {               /* for parent process, reassign stdout */
+        // Assignation stdin et stdout
+        if (childpid > 0){      /* for parent process, reassign stdout */
             error = dup2(fd[1], STDOUT_FILENO);
         }
-        else {                              /* for child process, reassign stdin */
+        else {                  /* for child process, reassign stdin */
             error = dup2(fd[0], STDIN_FILENO);
         }
 
+        // ==== ERREURS ? ==== //
         if (error == -1) {
             fprintf(stderr, "[%ld]: erreur dup pipe %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
@@ -74,6 +81,8 @@ int creerFils(char** tab) {
             fprintf(stderr, "[%ld]: erreur fermeture descripteurs %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
         }
+        // =================== //
+
         if (childpid)
         break;
     }
@@ -85,7 +94,7 @@ int creerFils(char** tab) {
     if (i == 0) {
         char* jeton = genererJeton();
         fprintf(stderr,"\nJeton : %s",jeton);
-        signalDebutPartie();
+        //signalDebutPartie();
         act(i,jeton,fd);
     }
     else {
@@ -98,9 +107,22 @@ int creerFils(char** tab) {
 }
 
 void act(int num, char* jeton, int* fd) {
+    
     // Attente de réception d'un jeton
-    while(strcmp(jeton,"") == 0) {
-        // lire pipe précédent
+    char* buffer = malloc(32*sizeof(char));
+    if(num == 0){
+        int c;
+        for(c=0; c<5; c++){
+            waitFor(1);
+            read(fd[0], buffer, sizeof(buffer));
+            fprintf(stderr,"\n%d a lu %s",num,buffer);
+        }
+    }
+    if(num == 3){
+        jeton="test"
+        fprintf(stderr,"Mon jeton est : %s\n",jeton);
+        write(fd[1],&jeton,sizeof(jeton));
+        fprintf(stderr, "J'ai écrit\n");
     }
 
     // while(< DELAI_SAISIE ou saisirCoord())

@@ -42,10 +42,18 @@ const int NOMBRE_JOUEURS;
 // ---- FONCTIONS ---- //
 
 /**
-    @brief génère 6 modules fils, 1 par robot, en forkant()
+    @brief génère un token ring de 6 modules fils. Les fils écrivent dans fd[1] et lisent dans fd[0].
     @return int, 1 si tout s'est bien passé, 0 sinon
 */
 int creerFils();
+
+/**
+    @brief Algorithme de comportement d'un fils
+    @param int num, le numéro du fils
+    @param char* jeton, le jeton que le fils possède
+    @para int* fd, file descriptor du fils
+*/
+void act(int num, char* jeton, int* fd);
 
 /**
     @brief permet la saisie de deux entiers dans un tableau.
@@ -64,13 +72,7 @@ char* genererJeton();
 */
 void signalDebutPartie();
 
-/**
-    @brief Algorithme de comportement d'un fils
-    @param int num, le numéro du fils
-    @param char* jeton, le jeton que le fils possède
-    @para int* fd, file descriptor du fils
-*/
-void act(int num, char* jeton, int* fd);
+
 
 
 // ---- COMMUNICATION FILS ---- //
