@@ -48,7 +48,7 @@ int creerFils(char** tab) {
        return 1;
     }
 
-    for (i = 1; i < nprocs;  i++) {         /* create the remaining processes */
+    for (i = 0; i < nprocs;  i++) {         /* create the remaining processes */
         if (pipe (fd) == -1) {
             fprintf(stderr, "[%ld]: erreur création pipe %d: %s\n",
                 (long)getpid(), i, strerror(errno));
@@ -162,7 +162,7 @@ void signalDebutPartie() {
 
     // Vérification si la partie a commencé toutes les secondes
     while (checkDebutPartie() == 0){
-        waitFor((unsigned int)1);
+        waitFor(1);
     }
 }
 
