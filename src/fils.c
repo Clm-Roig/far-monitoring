@@ -7,13 +7,13 @@
 const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour éviter les saisies hors grile
 const int LARGEUR_GRILLE = 10; // TODO
 
-const char* SALT = "F6"; // Sel aléatoire pour crypter le token
+const char* SALT = "F6"; // Sel aléatoire pour crypter le jeton
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
 const int DELAI_SAISIE = 30; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
 // ---- VARIABLES ---- //
-char* tableauIPs[NOMBRE_JOUEURS];
+char* tableauIPs[6];
 
 // ---- FONCTIONS ---- //
 
@@ -25,22 +25,22 @@ int creerFils(char** tab) {
         memcpy(tableauIPs[i], tab[i], strlen(tab[i])+1);
     }
 
-    // Mise en place du Token Ring
+    // Mise en place du jeton Ring
     // cf "Unix Systems Programming", chapitre 7, page 286
 
     pid_t childpid;     /* indicates process should spawn another     */
     int error;          /* return value from dup2 call                */
-    int fd[2];          /* file descriptors returned by pipe          */
+    int* fd = malloc(2*sizeof(int));          /* file descriptors returned by pipe          */
     int nprocs = NOMBRE_JOUEURS;     /* total number of processes in ring          */
 
     if (pipe (fd) == -1) {      /* connect std input to std output via a pipe */
-       perror("Erreur création premier pipe Token Ring.");
+       perror("Erreur création premier pipe jeton Ring.");
        return 1;
     }
 
     if ((dup2(fd[0], STDIN_FILENO) == -1) ||
         (dup2(fd[1], STDOUT_FILENO) == -1)) {
-       perror("Erreur connection pipe.");
+       perror("Erreur connexion pipe.");
        return 1;
     }
 
@@ -49,7 +49,7 @@ int creerFils(char** tab) {
        return 1;
     }
 
-    for (i = 0; i < nprocs;  i++) {         /* create the remaining processes */
+    for (i = 0; i < nprocs-1;  i++) {         /* create the remaining processes */
         if (pipe (fd) == -1) {
             fprintf(stderr, "[%ld]: erreur création pipe %d: %s\n",
                 (long)getpid(), i, strerror(errno));
@@ -86,17 +86,34 @@ int creerFils(char** tab) {
     fprintf(stderr, "\nProcess %d with ID %ld and parent id %ld",
         i, (long)getpid(), (long)getppid());
 
-    // Le premier fils génère un token puis il attend pour lancer le début de la partie
-    // Les autres fils act() (en attente de token)
-    if (i == 1) {
-        char* token = genererToken();
-        fprintf(stderr,"\nTOKEN : %s",token);
+    // Le premier fils génère un jeton puis il attend pour lancer le début de la partie
+    // Les autres fils act() (en attente de jeton)
+    if (i == 0) {
+        char* jeton = genererJeton();
+        fprintf(stderr,"\nJeton : %s",jeton);
         signalDebutPartie();
+        act(i,jeton,fd);
+    }
+    else {
+        char* jetonFils = malloc(32*sizeof(char));
+        jetonFils = "";
+        act(i,jetonFils,fd);
     }
 
-    act();
-
     return 0;
+}
+
+void act(int num, char* jeton, int* fd) {
+    // Attente de réception d'un jeton
+    while(strcmp(jeton,"") == 0) {
+        // lire pipe précédent
+    }
+
+    // while(< DELAI_SAISIE ou saisirCoord())
+
+    // if(saisirCoord()) envoieCoord
+
+    // passerJeton()
 }
 
 int* saisirCoord() {
@@ -167,22 +184,12 @@ void signalDebutPartie() {
     }
 }
 
-char* genererToken() {
+char* genererJeton() {
     time_t seconds;
     seconds = time(NULL);
-    char* token = malloc(32*sizeof(char));
-    sprintf(token,"%ld",seconds*5+42 + seconds%2*23);
-    return token;
-}
-
-void act() {
-    // while(jetonNotReçu) {}
-
-    // while(< DELAI_SAISIE ou saisirCoord())
-
-    // if(saisirCoord()) envoieCoord
-
-    // passerJeton()
+    char* jeton = malloc(32*sizeof(char));
+    sprintf(jeton,"%ld",seconds*5+42 + seconds%2*23);
+    return jeton;
 }
 
 

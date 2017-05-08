@@ -6,7 +6,7 @@
  * \brief Header du fichier fils.c
  *
  * Le fichier fils.c gère les processus qui permettent aux pilotes de saisir les coordonnées ainsi que le passage
- * du token entre eux.
+ * du jeton entre eux.
  * Il permet également d'envoyer les coordonnées saisies aux robots.
  */
 
@@ -20,7 +20,7 @@
 // Threads
 #include <pthread.h>
 
-// Temps + Token
+// Temps + jeton
 #include <time.h>
 
 // Base
@@ -54,10 +54,10 @@ int creerFils();
 int* saisirCoord();
 
 /**
-    @brief créer un token permettant de saisir des coordonnées
-    @return char*, le token généré
+    @brief créer un jeton permettant de saisir des coordonnées
+    @return char*, le jeton généré
 */
-char* genererToken();
+char* genererJeton();
 
 /**
     @brief Bloque le premier fils tant qu'on n'a pas appuyé sur une touche du clavier (début de la partie)
@@ -66,8 +66,11 @@ void signalDebutPartie();
 
 /**
     @brief Algorithme de comportement d'un fils
+    @param int num, le numéro du fils
+    @param char* jeton, le jeton que le fils possède
+    @para int* fd, file descriptor du fils
 */
-void act();
+void act(int num, char* jeton, int* fd);
 
 
 // ---- COMMUNICATION FILS ---- //
@@ -75,7 +78,7 @@ void act();
 /**
     @brief
     @param char* nomPipe, le nom du pipe
-    @param char* donnees, le token de communication
+    @param char* donnees, le jeton de communication
     @return int, 0 si tout s'est bien passé, 1 sinon
 */
 int filsEnvoiFils(char* nomPipe, char* donnees);
