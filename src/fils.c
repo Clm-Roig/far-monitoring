@@ -7,6 +7,7 @@
 const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour éviter les saisies hors grile
 const int LARGEUR_GRILLE = 10; // TODO
 
+const int TAILLE_JETON = 32;
 const char* SALT = "F6"; // Sel aléatoire pour crypter le jeton
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
 const int DELAI_SAISIE = 30; // Délai avant de passer le jeton à un frère
@@ -33,7 +34,7 @@ int creerFils(char** tab) {
     int nprocs = NOMBRE_JOUEURS;        /* total number of processes in ring          */
 
     if (pipe (fd) == -1) {      /* connect std input to std output via a pipe */
-       perror("Erreur création premier pipe jeton Ring.");
+       perror("Erreur création premier pipe Token Ring.");
        return 1;
     }
 
@@ -95,12 +96,12 @@ int creerFils(char** tab) {
         char* jeton = genererJeton();
         fprintf(stderr,"\nJeton : %s",jeton);
         //signalDebutPartie();
-        act(i,jeton,fd);
+        act(i,jeton);
     }
     else {
-        char* jetonFils = malloc(32*sizeof(char));
+        char* jetonFils = malloc(TAILLE_JETON*sizeof(char));
         jetonFils = "";
-        act(i,jetonFils,fd);
+        act(i,jetonFils);
     }
 
     return 0;
@@ -109,21 +110,22 @@ int creerFils(char** tab) {
 void act(int num, char* jeton) {
 
     // Attente de réception d'un jeton
-    char* buffer = malloc(32*sizeof(char));
-    if(num == 0){
-        fprintf(stderr,"\nJe suis 0, mon jeton est : %s",jeton);
-        write(STDOUT_FILENO,&jeton,sizeof(jeton));
-        fprintf(stderr, "\nJ'ai écrit.");
-    }
-    if(num == 1){
-        waitFor(3);
-        int test = read(STDIN_FILENO,&buffer,sizeof(buffer));
-        perror("");
-        fprintf(stderr,"\n%d, test = %d, a lu %s",num,test,buffer);
-
+    char* buffer = malloc(TAILLE_JETON*sizeof(char));
+    if(strcmp(jeton,"")) {
+        read(STDIN_FILENO,buffer,sizeof(buffer));
+        fprintf(stderr,"\nProc n°%d, ",num);
+        perror("statut lecture");
+        fprintf(stderr,"\n%d vient de recevoir %s",num,buffer);
     }
 
+    while() {
+
+    }
     // while(< DELAI_SAISIE ou saisirCoord())
+        // Envoi du jeton
+        write(STDOUT_FILENO,jeton,strlen(jeton)+1);
+        fprintf(stderr,"\nProc n°%d, envoie %s, ",num,jeton);
+        perror("statut écriture");
 
     // if(saisirCoord()) envoieCoord
 
@@ -152,7 +154,7 @@ int* saisirCoord() {
         while ((c = getchar()) != '\n' && c != EOF){}
     }
 
-    // Coord X
+    // Coord Y
     printf("\nVeuillez entrer la coordonnées Y : ");
     fgets(coordY, sizeof coordY, stdin);
     char *pY = strchr(coordY, '\n');
@@ -201,7 +203,7 @@ void signalDebutPartie() {
 char* genererJeton() {
     time_t seconds;
     seconds = time(NULL);
-    char* jeton = malloc(32*sizeof(char));
+    char* jeton = malloc(TAILLE_JETON*sizeof(char));
     sprintf(jeton,"%ld",seconds*5+42 + seconds%2*23);
     return jeton;
 }
