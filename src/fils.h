@@ -51,9 +51,8 @@ int creerFils();
     @brief Algorithme de comportement d'un fils
     @param int num, le numéro du fils
     @param char* jeton, le jeton que le fils possède
-    @para int* fd, file descriptor du fils
 */
-void act(int num, char* jeton, int* fd);
+void act(int num, char* jeton);
 
 /**
     @brief permet la saisie de deux entiers dans un tableau.

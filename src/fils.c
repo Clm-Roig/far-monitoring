@@ -106,23 +106,21 @@ int creerFils(char** tab) {
     return 0;
 }
 
-void act(int num, char* jeton, int* fd) {
-    
+void act(int num, char* jeton) {
+
     // Attente de réception d'un jeton
     char* buffer = malloc(32*sizeof(char));
     if(num == 0){
-        int c;
-        for(c=0; c<5; c++){
-            waitFor(1);
-            read(fd[0], buffer, sizeof(buffer));
-            fprintf(stderr,"\n%d a lu %s",num,buffer);
-        }
+        fprintf(stderr,"\nJe suis 0, mon jeton est : %s",jeton);
+        write(STDOUT_FILENO,&jeton,sizeof(jeton));
+        fprintf(stderr, "\nJ'ai écrit.");
     }
-    if(num == 3){
-        jeton="test"
-        fprintf(stderr,"Mon jeton est : %s\n",jeton);
-        write(fd[1],&jeton,sizeof(jeton));
-        fprintf(stderr, "J'ai écrit\n");
+    if(num == 1){
+        waitFor(3);
+        int test = read(STDIN_FILENO,&buffer,sizeof(buffer));
+        perror("");
+        fprintf(stderr,"\n%d, test = %d, a lu %s",num,test,buffer);
+
     }
 
     // while(< DELAI_SAISIE ou saisirCoord())
