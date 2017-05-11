@@ -10,7 +10,7 @@ const int LARGEUR_GRILLE = 10; // TODO
 const int TAILLE_JETON = 32;
 const char* SALT = "F6"; // Sel aléatoire pour crypter le jeton
 const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
-const int DELAI_SAISIE = 30; // Délai avant de passer le jeton à un frère
+const int DELAI_SAISIE = 3; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
 // ---- VARIABLES ---- //
@@ -130,32 +130,43 @@ void act(int num, char* jeton) {
 }
 
 int* saisirXY() {
-    // Coord X
-    printf("\nVeuillez entrer la coordonnée X : ");
-    int x = saisirInt();
-
-    // Coord Y
-    printf("\nVeuillez entrer la coordonnée Y : ");
-    int y = saisirInt();
-
-    // Formatage du résultat
+    int pid = fork();
     int* res = malloc(2*sizeof(int));
-    res[0] = x;
-    res[1] = y;
+    res[0] = -1;
+    res[1] = -1;
 
-    // Contrôle des valeurs
-    if(x<0 || x > LONGUEUR_GRILLE) {
-        printf("\nErreur, la coordonnées x saisie est hors grille.");
-        res[0] = -1;
-        res[1] = -1;
+    if(pid == 0) { // Saisie depuis le fils
+        // Coord X
+        printf("\nVeuillez entrer la coordonnée X : ");
+        int x = saisirInt();
+
+        // Coord Y
+        printf("\nVeuillez entrer la coordonnée Y : ");
+        int y = saisirInt();
+
+        // Contrôle des valeurs
+        if(x<0 || x > LONGUEUR_GRILLE) {
+            printf("\nErreur, la coordonnées x saisie est hors grille.");
+        }
+        else if(y<0 || y > LONGUEUR_GRILLE) {
+            printf("\nErreur, la coordonnées y saisie est hors grille.");
+        }
+        else {
+            res[0] = x;
+            res[1] = y;
+        }
+        // kill du père
+        kill(getppid(),SIGTERM);
+        return res;
     }
-    if(y<0 || y > LONGUEUR_GRILLE) {
-        printf("\nErreur, la coordonnées y saisie est hors grille.");
-        res[0] = -1;
-        res[1] = -1;
+    else {  // Le père contrôle le temps passé
+        waitFor(DELAI_SAISIE);
+        // kill du fils
+        kill(pid,SIGTERM);
+        printf("\nTemps écoulé, saisie stoppée.");
+        return res;
     }
 
-    return res;
 }
 
 int saisirInt() {

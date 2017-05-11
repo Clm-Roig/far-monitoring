@@ -23,6 +23,9 @@
 // Temps + jeton
 #include <time.h>
 
+// SIGTERM
+#include <signal.h>
+
 // Base
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,7 +62,7 @@ void act(int num, char* jeton);
     @brief permet la saisie de deux entiers dans un tableau.
     @return int*, [x,y] avec x la coordonnée en longueur et y en largueur si tout s'est bien passé, [-1,-1] sinon
 */
-int* saisirCoord();
+int* saisirXY();
 
 /**
     @brief permet la saisie d'un entier au clavier

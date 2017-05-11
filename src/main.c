@@ -14,6 +14,9 @@ int main(int argc,char* args[]) {
 
 	// Test socket
     // initSocket(80,"54445","google.com");
+	int* res = malloc(2*sizeof(int));
+	res = saisirXY();
+	printf("%d | %d\n",res[0],res[1]);
 
     return 0;
 }
