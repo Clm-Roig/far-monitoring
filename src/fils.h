@@ -49,7 +49,7 @@ const int NOMBRE_JOUEURS;
     @brief génère un token ring de 6 modules fils. Les fils écrivent dans fd[1] et lisent dans fd[0].
     @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int creerFils();
+int creerFils(char** tab);
 
 /**
     @brief Algorithme de comportement d'un fils
@@ -59,7 +59,7 @@ int creerFils();
 void act(int num, char* jeton);
 
 /**
-    @brief permet la saisie de deux entiers dans un tableau.
+    @brief permet la saisie pendant DELAI_SAISIE secondes de deux entiers dans un tableau
     @return int*, [x,y] avec x la coordonnée en longueur et y en largueur si tout s'est bien passé, [-1,-1] sinon
 */
 int* saisirXY();

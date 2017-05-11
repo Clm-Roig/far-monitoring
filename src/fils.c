@@ -88,7 +88,7 @@ int creerFils(char** tab) {
         break;
     }
 
-    fprintf(stderr, "\nProcess %d with ID %ld and parent id %ld",i, (long)getpid(), (long)getppid());
+    // fprintf(stderr, "\nProcess %d with ID %ld and parent id %ld",i, (long)getpid(), (long)getppid());
 
     // Le premier fils génère un jeton puis il attend pour lancer le début de la partie
     // Les autres fils act() (en attente de jeton)
@@ -108,25 +108,42 @@ int creerFils(char** tab) {
 }
 
 void act(int num, char* jeton) {
+    char* copyJeton = malloc(TAILLE_JETON*sizeof(char));
+    strcpy(copyJeton,jeton);
+    int c=0;
+    while(c < 2) {
 
-    // Attente de réception d'un jeton
-    char* buffer = malloc(TAILLE_JETON*sizeof(char));
-    if(strcmp(jeton,"")) {
-        read(STDIN_FILENO,buffer,sizeof(buffer));
-        fprintf(stderr,"\nProc n°%d, ",num);
-        perror("statut lecture");
-        fprintf(stderr,"\n%d vient de recevoir %s",num,buffer);
+        // Attente de réception d'un jeton
+        if(strcmp(copyJeton,"") == 0) {
+            read(STDIN_FILENO,copyJeton,TAILLE_JETON*sizeof(char)+1);
+
+            if(errno != 0) {
+                perror("\nErreur réception jeton");
+            }
+
+            fprintf(stderr,"\nProc n°%d vient de recevoir %s",num,copyJeton);
+        }
+
+        // On a la main, on attend une saisie
+        int* coord = malloc(2*sizeof(int));
+
+        // saisirXY() est bloquant et gère le temps écoulé
+        coord = saisirXY();
+
+        // Envoi des coordonnées au robot
+
+        // Envoi du jeton au fils suivant
+        write(STDOUT_FILENO,copyJeton,TAILLE_JETON*sizeof(char)+1);
+        fprintf(stderr,"\nProc n°%d envoie %s.",num,copyJeton);
+        if(errno != 0) {
+            perror("Erreur envoi jeton");
+        }
+
+        strcpy(copyJeton,"");
+
+        c++;
     }
 
-    // while(< DELAI_SAISIE ou saisirCoord())
-        // Envoi du jeton
-        write(STDOUT_FILENO,jeton,strlen(jeton)+1);
-        fprintf(stderr,"\nProc n°%d, envoie %s, ",num,jeton);
-        perror("statut écriture");
-
-    // if(saisirCoord()) envoieCoord
-
-    // passerJeton()
 }
 
 int* saisirXY() {
@@ -136,34 +153,38 @@ int* saisirXY() {
     res[1] = -1;
 
     if(pid == 0) { // Saisie depuis le fils
-        // Coord X
-        printf("\nVeuillez entrer la coordonnée X : ");
-        int x = saisirInt();
 
-        // Coord Y
-        printf("\nVeuillez entrer la coordonnée Y : ");
-        int y = saisirInt();
+        do {
+            // Coord X
+            fprintf(stderr,"\nVeuillez entrer la coordonnée X : ");
+            int x = saisirInt();
 
-        // Contrôle des valeurs
-        if(x<0 || x > LONGUEUR_GRILLE) {
-            printf("\nErreur, la coordonnées x saisie est hors grille.");
-        }
-        else if(y<0 || y > LONGUEUR_GRILLE) {
-            printf("\nErreur, la coordonnées y saisie est hors grille.");
-        }
-        else {
-            res[0] = x;
-            res[1] = y;
-        }
-        // kill du père
+            // Coord Y
+            fprintf(stderr,"\nVeuillez entrer la coordonnée Y : ");
+            int y = saisirInt();
+
+            // Contrôle des valeurs
+            if(x<0 || x > LONGUEUR_GRILLE) {
+                fprintf(stderr,"\nErreur, la coordonnées x saisie est hors grille.");
+            }
+            else if(y<0 || y > LONGUEUR_GRILLE) {
+                fprintf(stderr,"\nErreur, la coordonnées y saisie est hors grille.");
+            }
+            else {
+                res[0] = x;
+                res[1] = y;
+            }
+        } while(res[0]==-1 || res[1]==-1);
+
         kill(getppid(),SIGTERM);
+        fprintf(stderr,"\n");
         return res;
     }
     else {  // Le père contrôle le temps passé
         waitFor(DELAI_SAISIE);
         // kill du fils
         kill(pid,SIGTERM);
-        printf("\nTemps écoulé, saisie stoppée.");
+        fprintf(stderr,"\nTemps écoulé, saisie stoppée.");
         return res;
     }
 
@@ -174,6 +195,8 @@ int saisirInt() {
         Voir https://openclassrooms.com/courses/realiser-des-saisies-securisees-grace-a-fgets
         pour plus d'informations.
     */
+
+    // TODO : ouvrir un flux stdin au clavier pour permettre la saisie
 
     char* x = malloc(10*sizeof(char));
     fgets(x, sizeof x, stdin);
