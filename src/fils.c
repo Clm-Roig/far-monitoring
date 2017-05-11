@@ -118,9 +118,6 @@ void act(int num, char* jeton) {
         fprintf(stderr,"\n%d vient de recevoir %s",num,buffer);
     }
 
-    while() {
-
-    }
     // while(< DELAI_SAISIE ou saisirCoord())
         // Envoi du jeton
         write(STDOUT_FILENO,jeton,strlen(jeton)+1);
@@ -132,45 +129,16 @@ void act(int num, char* jeton) {
     // passerJeton()
 }
 
-int* saisirCoord() {
-    char coordX[10], coordY[10];
-
-    /*  Saisie sécurisée par fgets()
-        Voir https://openclassrooms.com/courses/realiser-des-saisies-securisees-grace-a-fgets
-        pour plus d'informations.
-    */
-
+int* saisirXY() {
     // Coord X
-    printf("\nVeuillez entrer la coordonnées X : ");
-    fgets(coordX, sizeof coordX, stdin);
-    char *pX = strchr(coordX, '\n');
-    // Retrait saut de ligne
-    if (pX) {
-        *pX = 0;
-    }
-    // Purge du flux stdin si saisie trop grand
-    else {
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF){}
-    }
+    printf("\nVeuillez entrer la coordonnée X : ");
+    int x = saisirInt();
 
     // Coord Y
-    printf("\nVeuillez entrer la coordonnées Y : ");
-    fgets(coordY, sizeof coordY, stdin);
-    char *pY = strchr(coordY, '\n');
-    // Retrait saut de ligne
-    if (pY) {
-        *pY = 0;
-    }
-    // Purge du flux stdin si saisie trop grand
-    else {
-        int c2;
-        while ((c2 = getchar()) != '\n' && c2 != EOF){}
-    }
+    printf("\nVeuillez entrer la coordonnée Y : ");
+    int y = saisirInt();
 
     // Formatage du résultat
-    int x = atoi(coordX);
-    int y = atoi(coordY);
     int* res = malloc(2*sizeof(int));
     res[0] = x;
     res[1] = y;
@@ -190,6 +158,28 @@ int* saisirCoord() {
     return res;
 }
 
+int saisirInt() {
+    /*  Saisie sécurisée par fgets()
+        Voir https://openclassrooms.com/courses/realiser-des-saisies-securisees-grace-a-fgets
+        pour plus d'informations.
+    */
+
+    char* x = malloc(10*sizeof(char));
+    fgets(x, sizeof x, stdin);
+    char *pY = strchr(x, '\n');
+    // Retrait saut de ligne
+    if (pY) {
+        *pY = 0;
+    }
+    // Purge du flux stdin si saisie trop grand
+    else {
+        int c2;
+        while ((c2 = getchar()) != '\n' && c2 != EOF){}
+    }
+
+    return atoi(x);
+}
+
 void signalDebutPartie() {
     fprintf(stderr,"\n===========================");
     fprintf(stderr,"\nEn attente du début de la partie...");
@@ -207,6 +197,8 @@ char* genererJeton() {
     sprintf(jeton,"%ld",seconds*5+42 + seconds%2*23);
     return jeton;
 }
+
+
 
 
 // ---- COMMUNICATION FILS ---- //

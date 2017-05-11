@@ -62,6 +62,12 @@ void act(int num, char* jeton);
 int* saisirCoord();
 
 /**
+    @brief permet la saisie d'un entier au clavier
+    @return int, l'entier saisi au clavier
+*/
+int saisirInt();
+
+/**
     @brief créer un jeton permettant de saisir des coordonnées
     @return char*, le jeton généré
 */
@@ -71,6 +77,8 @@ char* genererJeton();
     @brief Bloque le premier fils tant qu'on n'a pas appuyé sur une touche du clavier (début de la partie)
 */
 void signalDebutPartie();
+
+
 
 
 
