@@ -246,26 +246,3 @@ char* genererJeton() {
     sprintf(jeton,"%ld",seconds*5+42 + seconds%2*23);
     return jeton;
 }
-
-
-
-
-// ---- COMMUNICATION FILS ---- //
-
-int filsEnvoiFils(char* nomPipe, char* donnees) {
-    int descPipe = openPipeW(nomPipe);
-
-    // TODO : boucle while(donnees) pas totalement envoyée (utiliser TAILLE_MESSAGE_PIPE)
-    int nbBytesSent = 0;
-    while(nbBytesSent < strlen(donnees)) {
-        nbBytesSent = writeInPipe(descPipe,donnees);
-    }
-    return 1;
-}
-
-char* filsReceptionFils(char* nomPipe) {
-    int descPipe = openPipeR(nomPipe);
-    char* donneesLues = malloc(TAILLE_MESSAGE_PIPE*sizeof(char));
-    readInPipe(descPipe,donneesLues);
-    return donneesLues;
-}

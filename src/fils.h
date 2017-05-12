@@ -76,46 +76,8 @@ int saisirInt();
 char* genererJeton();
 
 /**
-    @brief Bloque le premier fils tant qu'on n'a pas appuyé sur une touche du clavier (début de la partie)
+    @brief Bloque le premier fils tant que la partie n'a pas commencé
 */
 void signalDebutPartie();
-
-
-
-
-
-
-// ---- COMMUNICATION FILS ---- //
-
-/**
-    @brief
-    @param char* nomPipe, le nom du pipe
-    @param char* donnees, le jeton de communication
-    @return int, 0 si tout s'est bien passé, 1 sinon
-*/
-int filsEnvoiFils(char* nomPipe, char* donnees);
-
-/**
-    @brief
-    @param char* nomPipe, le nom du pipe
-    @return char*, le jeton de communication
-*/
-char* filsReceptionFils(char* nomPipe);
-
-
-// ---- COMMUNICATION SERVEUR ---- //
-
-/**
-    @brief Envoie une string au serveur de communication
-    @param char* donnees, la string à envoyer au serveur
-    @return int, 1 si tout s'est bien passé, -1 sinon
-*/
-int filsEnvoiServeur(char* donnees);
-
-/**
-    @brief Envoie une string au serveur de communication
-    @return char*, la string envoyée par le serveur
-*/
-char* filsReceptionServeur();
 
 #endif
