@@ -98,6 +98,10 @@ int envoiDweet(char* thingName, int x, int y) {
     return EXIT_SUCCESS;
 }
 
+int recvDweet(char* IP)
+{    
+    return 1;
+}
 
 int envoiRobot(char* donnees, char* addrRobot){
     return 1;
