@@ -15,6 +15,7 @@ const int NOMBRE_JOUEURS = 6;
 
 // ---- VARIABLES ---- //
 char* tableauIPs[6];
+int keyboard;
 
 // ---- FONCTIONS ---- //
 
@@ -32,6 +33,8 @@ int creerFils(char** tab) {
     int error;                          /* return value from dup2 call                */
     int* fd = malloc(2*sizeof(int));    /* file descriptors returned by pipe          */
     int nprocs = NOMBRE_JOUEURS;        /* total number of processes in ring          */
+
+    keyboard = dup(STDIN_FILENO);
 
     if (pipe (fd) == -1) {      /* connect std input to std output via a pipe */
        perror("Erreur création premier pipe Token Ring.");
@@ -96,6 +99,11 @@ int creerFils(char** tab) {
         char* jeton = genererJeton();
         fprintf(stderr,"\nJeton : %s",jeton);
         //signalDebutPartie();
+
+        for (i = 0; i < nprocs-1;  i++) {  
+            fprintf(stderr,"%d   ",keyboard);
+        }
+
         act(i,jeton);
     }
     else {
