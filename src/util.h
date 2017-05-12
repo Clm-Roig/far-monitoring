@@ -104,6 +104,11 @@ int writeInPipe(int descPipe, char* data);
 */
 int readInPipe(int descPipe, char* data);
 
+// FICHIERS
+char* lireLigne(FILE* fichier, int n);
+
+// MISC
+
 /**
     @brief Bloque le processus pendant secs secondes
     @param int secs, le nb de secondes

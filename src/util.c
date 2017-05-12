@@ -161,6 +161,27 @@ int initSocket(int port, char* IP, char* URL) {
      return nbByte;
  }
 
+
+// FICHIERS
+
+ char* lireLigne(FILE* fichier, int n) {
+    char* res = NULL;
+    res = malloc(TAILLE_MAX_LIGNE*sizeof(char));
+    int max = nbLignesFichier(fichier);
+    // On cherche la ligne correspondante
+    if (fichier && n <= max) {
+        while(n>0) {
+            fgets(res,TAILLE_MAX_LIGNE,fichier);
+            n--;
+        }
+    }
+    fseek(fichier,0,0);
+    return res;
+}
+
+
+// MISC
+
 void waitFor (unsigned int secs) {
     unsigned int retTime = time(0) + secs;
     while (time(0) < retTime);
