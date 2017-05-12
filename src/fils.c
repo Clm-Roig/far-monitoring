@@ -99,11 +99,6 @@ int creerFils(char** tab) {
         char* jeton = genererJeton();
         fprintf(stderr,"\nJeton : %s",jeton);
         //signalDebutPartie();
-
-        for (i = 0; i < nprocs-1;  i++) {  
-            fprintf(stderr,"%d   ",keyboard);
-        }
-
         act(i,jeton);
     }
     else {
@@ -154,7 +149,10 @@ void act(int num, char* jeton) {
 
 }
 
+
 int* saisirXY() {
+    int fd[2];
+
     int pid = fork();
     int* res = malloc(2*sizeof(int));
     res[0] = -1;
@@ -163,6 +161,7 @@ int* saisirXY() {
     if(pid == 0) { // Saisie depuis le fils
 
         do {
+            dup2(keyboard,STDIN_FILENO);
             // Coord X
             fprintf(stderr,"\nVeuillez entrer la coordonnée X : ");
             int x = saisirInt();
@@ -184,17 +183,29 @@ int* saisirXY() {
             }
         } while(res[0]==-1 || res[1]==-1);
 
-        kill(getppid(),SIGTERM);
-        fprintf(stderr,"\n");
-        return res;
+        
+        // on écrit dans le fichier
+        write(fd[1],res,2*sizeof(int));
+        
+        exit(0);
     }
     else {  // Le père contrôle le temps passé
-        waitFor(DELAI_SAISIE);
-        // kill du fils
+
+        signal(SIGUSR1,traitement);
+        waitfor(DELAI_SAISIE);
         kill(pid,SIGTERM);
         fprintf(stderr,"\nTemps écoulé, saisie stoppée.");
         return res;
     }
+}
+
+int* lireFichierCoords() {
+    int* coords = malloc(2*sizeof(int));
+
+    // lire fichier 
+
+    // renvoyer 
+    return coords;
 
 }
 
@@ -203,8 +214,6 @@ int saisirInt() {
         Voir https://openclassrooms.com/courses/realiser-des-saisies-securisees-grace-a-fgets
         pour plus d'informations.
     */
-
-    // TODO : ouvrir un flux stdin au clavier pour permettre la saisie
 
     char* x = malloc(10*sizeof(char));
     fgets(x, sizeof x, stdin);
