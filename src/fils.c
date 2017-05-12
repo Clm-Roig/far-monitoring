@@ -8,8 +8,6 @@ const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour évit
 const int LARGEUR_GRILLE = 10; // TODO
 
 const int TAILLE_JETON = 32;
-const char* SALT = "F6"; // Sel aléatoire pour crypter le jeton
-const char* NOM_PIPE_FF = "pipeFF-"; // TODO : inutile pour le moment, à voir comment l'implémenter
 const int DELAI_SAISIE = 3; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
@@ -183,10 +181,10 @@ int* saisirXY() {
             }
         } while(res[0]==-1 || res[1]==-1);
 
-        
+
         // on écrit dans le fichier
         write(fd[1],res,2*sizeof(int));
-        
+
         exit(0);
     }
     else {  // Le père contrôle le temps passé
@@ -202,9 +200,9 @@ int* saisirXY() {
 int* lireFichierCoords() {
     int* coords = malloc(2*sizeof(int));
 
-    // lire fichier 
+    // lire fichier
 
-    // renvoyer 
+    // renvoyer
     return coords;
 
 }
