@@ -8,13 +8,14 @@ const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour évit
 const int LARGEUR_GRILLE = 10; // TODO
 
 const int TAILLE_JETON = 32;
-const int DELAI_SAISIE = 3; // Délai avant de passer le jeton à un frère
+const int DELAI_SAISIE = 10; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
-const char* CHEMIN_COORDONNEES = "/data/coordonnees.txt";
+const char* CHEMIN_COORDONNEES = "data/coordonnees.txt";
 // ---- VARIABLES ---- //
 char* tableauIPs[6];
 int keyboard;
+int* coordSaisies;
 
 // ---- FONCTIONS ---- //
 
@@ -25,6 +26,8 @@ int creerFils(char** tab) {
         tableauIPs[i] = malloc(NOMBRE_JOUEURS*20*sizeof(char));
         memcpy(tableauIPs[i], tab[i], strlen(tab[i])+1);
     }
+
+    coordSaisies = malloc(2*sizeof(int));
 
     // Mise en place du Token Ring
     // cf "Unix Systems Programming", chapitre 7, page 286
@@ -118,25 +121,22 @@ void act(int num, char* jeton) {
         // Attente de réception d'un jeton
         if(strcmp(copyJeton,"") == 0) {
             read(STDIN_FILENO,copyJeton,TAILLE_JETON*sizeof(char)+1);
-
             if(errno != 0) {
                 perror("\nErreur réception jeton");
             }
-
-            fprintf(stderr,"\nProc n°%d vient de recevoir %s",num,copyJeton);
         }
 
-        // On a la main, on attend une saisie
-        int* coord = malloc(2*sizeof(int));
-
         // saisirXY() est bloquant et gère le temps écoulé
-        coord = saisirXY();
+        fprintf(stderr,"\n\n=============================\nRobot n°%d (IP = %s) à ton tour !",num,tableauIPs[num]);
+        saisirXY();
 
         // Envoi des coordonnées au robot
+        if(coordSaisies[0] != -1) {
+            fprintf(stderr,"\nJ'envoie x=%d et y=%d.",coordSaisies[0],coordSaisies[1]);
+        }
 
         // Envoi du jeton au fils suivant
         write(STDOUT_FILENO,copyJeton,TAILLE_JETON*sizeof(char)+1);
-        fprintf(stderr,"\nProc n°%d envoie %s.",num,copyJeton);
         if(errno != 0) {
             perror("Erreur envoi jeton");
         }
@@ -149,13 +149,29 @@ void act(int num, char* jeton) {
 }
 
 
-int* saisirXY() {
-    int fd[2];
+// Fonction de traitement du signal dans saisirXY()
+void lireFichierCoords() {
+    // lire fichier
+    FILE* fichierCoord = fopen(CHEMIN_COORDONNEES,"r");
 
+    char* x = lireLigne(fichierCoord,1);
+    coordSaisies[0] = atoi(x);
+    char* y = lireLigne(fichierCoord,2);
+    coordSaisies[1] = atoi(y);
+
+    fclose(fichierCoord);
+
+    char* chemin;
+    chemin = malloc(sizeof(CHEMIN_COORDONNEES));
+    strcpy(chemin,CHEMIN_COORDONNEES);
+    nettoyerFichier(chemin);
+}
+
+
+void saisirXY() {
     int pid = fork();
-    int* res = malloc(2*sizeof(int));
-    res[0] = -1;
-    res[1] = -1;
+    coordSaisies[0] = -1;
+    coordSaisies[1] = -1;
 
     if(pid == 0) { // Saisie depuis le fils
 
@@ -166,7 +182,7 @@ int* saisirXY() {
             int x = saisirInt();
 
             // Coord Y
-            fprintf(stderr,"\nVeuillez entrer la coordonnée Y : ");
+            fprintf(stderr,"Veuillez entrer la coordonnée Y : ");
             int y = saisirInt();
 
             // Contrôle des valeurs
@@ -177,36 +193,39 @@ int* saisirXY() {
                 fprintf(stderr,"\nErreur, la coordonnées y saisie est hors grille.");
             }
             else {
-                res[0] = x;
-                res[1] = y;
+                coordSaisies[0] = x;
+                coordSaisies[1] = y;
             }
-        } while(res[0]==-1 || res[1]==-1);
+        } while(coordSaisies[0]==-1 || coordSaisies[1]==-1);
 
+        // formatage des données
+        char buffer[128] = "";
+        sprintf(buffer,"%d%s%d",coordSaisies[0],"\n",coordSaisies[1]);
 
-        // on écrit dans le fichier
-        write(fd[1],res,2*sizeof(int));
+        // écriture dans le fichier
+        FILE* fichierCoord = fopen(CHEMIN_COORDONNEES,"w");
+        fprintf(fichierCoord,"%s",buffer);
+        fclose(fichierCoord);
+
+        kill(getppid(),SIGUSR1);
 
         exit(0);
     }
     else {  // Le père contrôle le temps passé
+        signal(SIGUSR1,lireFichierCoords);
+        // Wait for avec vérification
+        unsigned int retTime = time(0) + DELAI_SAISIE;
+        while (time(0) < retTime && coordSaisies[0] == -1 && coordSaisies[1] == -1) {
 
-        signal(SIGUSR1,traitement);
-        waitfor(DELAI_SAISIE);
-        kill(pid,SIGTERM);
-        fprintf(stderr,"\nTemps écoulé, saisie stoppée.");
-        return res;
+        }
+        if(coordSaisies[0] == -1 && coordSaisies[1] == -1) {
+            kill(pid,SIGTERM);
+            fprintf(stderr,"\nTemps écoulé, saisie stoppée.");
+        }
     }
 }
 
-int* lireFichierCoords() {
-    int* coords = malloc(2*sizeof(int));
 
-    // lire fichier
-
-    // renvoyer
-    return coords;
-
-}
 
 int saisirInt() {
     /*  Saisie sécurisée par fgets()

@@ -59,10 +59,9 @@ int creerFils(char** tab);
 void act(int num, char* jeton);
 
 /**
-    @brief permet la saisie pendant DELAI_SAISIE secondes de deux entiers dans un tableau
-    @return int*, [x,y] avec x la coordonnée en longueur et y en largueur si tout s'est bien passé, [-1,-1] sinon
+    @brief permet la saisie pendant DELAI_SAISIE secondes de deux entiers dans coordSaisies
 */
-int* saisirXY();
+void saisirXY();
 
 /**
     @brief permet la saisie d'un entier au clavier

@@ -163,20 +163,49 @@ int initSocket(int port, char* IP, char* URL) {
 
 
 // FICHIERS
+int nbLignesFichier(FILE* fichier) {
+    int nbLignes = 0;
+    char* a = NULL;
+    a = malloc(100*sizeof(char));
+    while(fgets(a, 100, fichier) != NULL) {
+        nbLignes++;
+    }
+    fseek(fichier,0,0);
+    return nbLignes;
+}
 
  char* lireLigne(FILE* fichier, int n) {
     char* res = NULL;
-    res = malloc(TAILLE_MAX_LIGNE*sizeof(char));
+    res = malloc(100*sizeof(char));
     int max = nbLignesFichier(fichier);
     // On cherche la ligne correspondante
     if (fichier && n <= max) {
         while(n>0) {
-            fgets(res,TAILLE_MAX_LIGNE,fichier);
+            fgets(res,100,fichier);
             n--;
         }
     }
     fseek(fichier,0,0);
     return res;
+}
+
+void nettoyerFichier(char* chemin) {
+    char* cheminTemp = malloc(256*sizeof(char));
+    strcpy(cheminTemp,chemin);
+    strcat(cheminTemp,".tmp");
+
+    FILE* fichierTemp = fopen(cheminTemp,"a");
+
+    fprintf(fichierTemp,"%s","");
+
+    if(remove(chemin) != 0) {
+        printf("\nErreur suppression du fichier.");
+    }
+
+    if(rename(cheminTemp,chemin) != 0) {
+        printf("\nErreur rennomage du fichier temp.");
+    }
+    fclose(fichierTemp);
 }
 
 

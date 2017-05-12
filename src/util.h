@@ -105,7 +105,27 @@ int writeInPipe(int descPipe, char* data);
 int readInPipe(int descPipe, char* data);
 
 // FICHIERS
+
+/**
+    @brief compte le nombre de lignes que contient un fihcier
+    @param FILE* fichier, le fichier que l'on souhaite analyser
+    @return int, le nombre de lignes du fichier
+*/
+int nbLignesFichier(FILE* fichier);
+
+/**
+    @brief lit la ligne n du fichier
+    @param FILE* fichier, le fichier que l'on souhaite ouvrir
+    @param int n, la ligne que l'on souhaite lire
+    @return char*, la chaine de caractères représentant la ligne lue
+*/
 char* lireLigne(FILE* fichier, int n);
+
+/**
+    @brief vide un fichier
+*/
+void nettoyerFichier(char* chemin);
+
 
 // MISC
 
