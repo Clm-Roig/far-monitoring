@@ -11,6 +11,7 @@ const int TAILLE_JETON = 32;
 const int DELAI_SAISIE = 3; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
+const char* CHEMIN_COORDONNEES = "/data/coordonnees.txt";
 // ---- VARIABLES ---- //
 char* tableauIPs[6];
 int keyboard;

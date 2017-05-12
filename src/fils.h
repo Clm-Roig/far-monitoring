@@ -41,6 +41,7 @@ const int LARGEUR_GRILLE;
 const int TAILLE_JETON;
 const int DELAI_SAISIE;
 const int NOMBRE_JOUEURS;
+const char* CHEMIN_COORDONNEES;
 
 // ---- FONCTIONS ---- //
 

@@ -17,10 +17,8 @@ $(obj_dir)%.o: $(src_dir)%.c
 
 clean:
 	rm -f $(obj_dir)* $(bin_dir)*
-	rm -f $(data_dir)pipes/*
-	touch $(bin_dir)binHolder
+	touch $(bin_dir)cordonnees.txt
 	touch $(obj_dir)objHolder
-	touch $(data_dir)pipes/pipeHolder
 
 start:
 	./$(bin_dir)serverPosition.exe
