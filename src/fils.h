@@ -17,14 +17,12 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-// Threads
-#include <pthread.h>
-
 // Temps + jeton
 #include <time.h>
 
-// SIGTERM
+// Processus
 #include <signal.h>
+#include <sys/wait.h>
 
 // Base
 #include <stdio.h>

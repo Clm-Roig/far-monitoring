@@ -99,7 +99,7 @@ int envoiDweet(char* thingName, int x, int y) {
 }
 
 int recvDweet(char* IP)
-{    
+{
     return 1;
 }
 
@@ -108,5 +108,9 @@ int envoiRobot(char* donnees, char* addrRobot){
 }
 
 int checkDebutPartie() {
+    return 0;
+}
+
+int checkFinPartie() {
     return 0;
 }

@@ -8,7 +8,7 @@ const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour évit
 const int LARGEUR_GRILLE = 10; // TODO
 
 const int TAILLE_JETON = 32;
-const int DELAI_SAISIE = 10; // Délai avant de passer le jeton à un frère
+const int DELAI_SAISIE = 4; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
 const char* CHEMIN_COORDONNEES = "data/coordonnees.txt";
@@ -28,6 +28,8 @@ int creerFils(char** tab) {
     }
 
     coordSaisies = malloc(2*sizeof(int));
+    coordSaisies[0] = -1;
+    coordSaisies[1] = -1;
 
     // Mise en place du Token Ring
     // cf "Unix Systems Programming", chapitre 7, page 286
@@ -115,8 +117,9 @@ int creerFils(char** tab) {
 void act(int num, char* jeton) {
     char* copyJeton = malloc(TAILLE_JETON*sizeof(char));
     strcpy(copyJeton,jeton);
-    int c=0;
-    while(c < 2) {
+    int c = checkFinPartie();
+
+    while(!c){
 
         // Attente de réception d'un jeton
         if(strcmp(copyJeton,"") == 0) {
@@ -132,7 +135,9 @@ void act(int num, char* jeton) {
 
         // Envoi des coordonnées au robot
         if(coordSaisies[0] != -1) {
-            fprintf(stderr,"\nJ'envoie x=%d et y=%d.",coordSaisies[0],coordSaisies[1]);
+            fprintf(stderr,"\nJ'envoie x = %d et y = %d.",coordSaisies[0],coordSaisies[1]);
+            coordSaisies[0] = -1;
+            coordSaisies[1] = -1;
         }
 
         // Envoi du jeton au fils suivant
@@ -143,8 +148,30 @@ void act(int num, char* jeton) {
 
         strcpy(copyJeton,"");
 
-        c++;
+        // TODO : à supprimer, là juste pour les tests
+        c = 1;
     }
+
+    /* Ne fonctionne pas, le 0 n'attends pas ses fils
+    if (num == 5) {
+        fprintf(stderr,"\nJe suis n°%d et je me casse.",num);
+        exit(EXIT_SUCCESS);
+    } else {
+        int status;
+        wait(&status);
+    }
+
+    if(num != 0) {
+        fprintf(stderr,"\n(bis) Je suis n°%d et je me casse.",num);
+        exit(EXIT_SUCCESS);
+    }
+
+    */
+
+    // Traitement fin de partie ?
+    fprintf(stderr,"\n\n========================");
+    fprintf(stderr,"\nPartie terminée !");
+    fprintf(stderr,"\n========================");
 
 }
 
@@ -219,6 +246,11 @@ void saisirXY() {
 
         }
         if(coordSaisies[0] == -1 && coordSaisies[1] == -1) {
+
+            // Nettoyage du flux d'entrée ?
+            // int c = 0;
+            //while ((c = getchar()) != '\n' && c != EOF) { }
+
             kill(pid,SIGTERM);
             fprintf(stderr,"\nTemps écoulé, saisie stoppée.");
         }

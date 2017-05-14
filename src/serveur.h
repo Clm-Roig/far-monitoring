@@ -58,4 +58,10 @@ int envoiRobot(char* donnees, char* addrRobot);
 */
 int checkDebutPartie();
 
+/**
+    @brief Vérifie si la partie est terminé
+    @return int, 1 si la partie est terminée, 0 sinon
+*/
+int checkFinPartie();
+
 #endif
