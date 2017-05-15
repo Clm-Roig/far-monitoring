@@ -56,6 +56,24 @@ int creerFils(char** tab);
 */
 void act(int num, char* jeton);
 
+// ==== SIGNAUX ==== //
+/**
+    @brief Traitement du signal SIGCHLD envoyé depuis act()
+    au fils 0.
+*/
+void unFilsTermine();
+
+/**
+    @brief Traitement du signal SIGCHLD envoyé depuis act()
+    Fais remonter jusqu'au fils 0 qu'un autre fils a fini.
+*/
+void faireRemonterFilsTermine();
+
+/**
+    @brief Traitement du signal SIGUSR1 envoyé depuis saisirXY()
+*/
+void lireFichierCoords();
+
 /**
     @brief permet la saisie pendant DELAI_SAISIE secondes de deux entiers dans coordSaisies
 */

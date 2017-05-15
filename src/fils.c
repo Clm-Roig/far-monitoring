@@ -16,16 +16,22 @@ const char* CHEMIN_COORDONNEES = "data/coordonnees.txt";
 char* tableauIPs[6];
 int keyboard;
 int* coordSaisies;
+int nbFilsRestant;
+int PIDpere;
 
 // ---- FONCTIONS ---- //
 
 int creerFils(char** tab) {
-    // Recopie du tableau des IPs
+    // Initialisation des variables
     int i = 0;
     for(i=0; i<NOMBRE_JOUEURS ; i++) {
         tableauIPs[i] = malloc(NOMBRE_JOUEURS*20*sizeof(char));
         memcpy(tableauIPs[i], tab[i], strlen(tab[i])+1);
     }
+
+    nbFilsRestant = NOMBRE_JOUEURS - 1;
+    PIDpere = getpid();
+    signal(SIGUSR2, unFilsTermine);
 
     coordSaisies = malloc(2*sizeof(int));
     coordSaisies[0] = -1;
@@ -40,18 +46,20 @@ int creerFils(char** tab) {
 
     keyboard = dup(STDIN_FILENO);
 
+    // New pipe
     if (pipe (fd) == -1) {      /* connect std input to std output via a pipe */
        perror("Erreur création premier pipe Token Ring.");
        return 1;
     }
 
-    // ==== ERREURS ? ==== //
+    // dup2
     if ((dup2(fd[0], STDIN_FILENO) == -1) ||
         (dup2(fd[1], STDOUT_FILENO) == -1)) {
        perror("Erreur connexion pipe.");
        return 1;
     }
 
+    // Close I/O std
     if ((close(fd[0]) == -1) || (close(fd[1]) == -1)) {
        perror("Erreur fermeture descripteur de fichier.");
        return 1;
@@ -60,7 +68,7 @@ int creerFils(char** tab) {
 
     for (i = 0; i < nprocs-1;  i++) {         /* create the remaining processes */
 
-        // ==== ERREURS ? ==== //
+        // New pipe + fork
         if (pipe (fd) == -1) {
             fprintf(stderr, "[%ld]: erreur création pipe %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
@@ -79,12 +87,13 @@ int creerFils(char** tab) {
         else {                  /* for child process, reassign stdin */
             error = dup2(fd[0], STDIN_FILENO);
         }
-
-        // ==== ERREURS ? ==== //
         if (error == -1) {
             fprintf(stderr, "[%ld]: erreur dup pipe %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
         }
+        // =================== //
+
+        // Close I/O std
         if ((close(fd[0]) == -1) || (close(fd[1]) == -1)) {
             fprintf(stderr, "[%ld]: erreur fermeture descripteurs %d: %s\n",(long)getpid(), i, strerror(errno));
             return 1;
@@ -117,9 +126,9 @@ int creerFils(char** tab) {
 void act(int num, char* jeton) {
     char* copyJeton = malloc(TAILLE_JETON*sizeof(char));
     strcpy(copyJeton,jeton);
-    int c = checkFinPartie();
+    int c = 2;
 
-    while(!c){
+    while(c > 0){
 
         // Attente de réception d'un jeton
         if(strcmp(copyJeton,"") == 0) {
@@ -149,32 +158,33 @@ void act(int num, char* jeton) {
         strcpy(copyJeton,"");
 
         // TODO : à supprimer, là juste pour les tests
-        c = 1;
+        c = c-1;
     }
 
-    /* Ne fonctionne pas, le 0 n'attends pas ses fils
-    if (num == 5) {
-        fprintf(stderr,"\nJe suis n°%d et je me casse.",num);
-        exit(EXIT_SUCCESS);
-    } else {
-        int status;
-        wait(&status);
+    // Le num 0 attend que les autres finissent
+    if(num == 0) {
+        while (nbFilsRestant > 0)  {
+            waitFor(1);
+        }
     }
-
-    if(num != 0) {
-        fprintf(stderr,"\n(bis) Je suis n°%d et je me casse.",num);
-        exit(EXIT_SUCCESS);
+    else {
+        kill(PIDpere,SIGUSR2);
+        exit(0);
     }
-
-    */
 
     // Traitement fin de partie ?
     fprintf(stderr,"\n\n========================");
     fprintf(stderr,"\nPartie terminée !");
-    fprintf(stderr,"\n========================");
-
+    fprintf(stderr,"\n========================\n");
 }
 
+
+// ==== SIGNAUX ====/
+// Fonction de traitement du signal dans act()
+void unFilsTermine() {
+    nbFilsRestant = nbFilsRestant - 1;
+    signal(SIGUSR2, unFilsTermine); // réarme le signal
+}
 
 // Fonction de traitement du signal dans saisirXY()
 void lireFichierCoords() {
@@ -249,7 +259,7 @@ void saisirXY() {
 
             // Nettoyage du flux d'entrée ?
             // int c = 0;
-            //while ((c = getchar()) != '\n' && c != EOF) { }
+            // while ((c = getchar()) != '\n' && c != EOF) { }
 
             kill(pid,SIGTERM);
             fprintf(stderr,"\nTemps écoulé, saisie stoppée.");
