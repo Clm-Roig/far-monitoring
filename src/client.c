@@ -4,6 +4,7 @@
 
 // ---- CONSTANTES ---- //
 const char* THING_NAME = "IG3FARLECLERROIG";
+const char* SEPARATION = ",";
 // ---- FONCTIONS ---- //
 
 
@@ -47,9 +48,9 @@ int envoiDweet(int x, int y, char* adrIpEnvoi) {
     strcat(file,"?type_msg=COORD&type_ent=GP&ent=1"
     strcat(file,"&data=");
     strcat(file,strX);
-    strcat(file,",");
+    strcat(file,SEPARATION);
     strcat(file,strY);
-    strcat(file,",");
+    strcat(file,SEPARATION);
     strcat(file,addrIpEnvoi);
     printf("\n%s",file);
     printf("\n%s",host);
