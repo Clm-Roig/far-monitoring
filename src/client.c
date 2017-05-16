@@ -5,9 +5,8 @@
 // ---- CONSTANTES ---- //
 const char* THING_NAME = "IG3FARLECLERROIG";
 const char* SEPARATION = ",";
+
 // ---- FONCTIONS ---- //
-
-
 
 int creerClient(char** addrIp) {
 

@@ -146,7 +146,8 @@ void act(int num, char* jeton) {
         // Envoi des coordonnées au robot
         if(coordSaisies[0] != -1) {
             fprintf(stderr,"\nJ'envoie x = %d et y = %d.",coordSaisies[0],coordSaisies[1]);
-            envoiDweet("FAR-IG3-SP",coordSaisies[0],coordSaisies[1]);
+
+            envoiDweet(coordSaisies[0],coordSaisies[1],tableauIPs[num]);
 
             coordSaisies[0] = -1;
             coordSaisies[1] = -1;
