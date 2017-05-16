@@ -1,11 +1,11 @@
-#ifndef DEF_SERVEUR
-#define DEF_SERVEUR
+#ifndef DEF_CLIENT
+#define DEF_CLIENT
 
 /**
- * \file serveur.h
- * \brief Header du fichier serveur.c
+ * \file client.h
+ * \brief Header du fichier client.c
  *
- * Le fichier serveur.c gère la communication avec les robots.
+ * Le fichier client.c gère la communication avec les robots.
  */
 
 
@@ -31,18 +31,20 @@
 // ---- FONCTIONS ---- //
 
 /**
-  @brief Initialisation du serveur
+  @brief Initialisation du client
   @param int addrIp, Le tableau des adresses IP des robots
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int creerServeur(char** addrIp);
+int creerClient(char** addrIp);
 
 /**
   @brief Envoi des logs de coordonnées sur dweet.io
-  @param donnees, les donnees à envoyer sous forme de log
+  @param x, Les coordonnées saisies pour x
+  @param y, les coordonnées saisies pour y
+  @param AddrIpEnvoi, l'adresse IP correspondant au robot
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int envoiDweet(char* thingName, int x, int y);
+int envoiDweet(int x, int y, char* AdrIpEnvoi);
 
 /**
   @brief Envoi des donnes à un robot

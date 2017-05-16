@@ -1,14 +1,15 @@
-// Fichier serveur.c
+// Fichier client.c
 
-#include "serveur.h"
+#include "client.h"
 
 // ---- CONSTANTES ---- //
 const char* THING_NAME = "IG3FARLECLERROIG";
+const char* SEPARATION = ",";
 // ---- FONCTIONS ---- //
 
 
 
-int creerServeur(char** addrIp) {
+int creerClient(char** addrIp) {
 
     return 1;
 }
@@ -22,7 +23,7 @@ void Error(char *mess)
     exit(-1);
 }
 
-int envoiDweet(char* thingName, int x, int y, char* addrIpEnvoi) {
+int envoiDweet(int x, int y, char* adrIpEnvoi) {
 
     // URL de la forme : https://dweet.io/dweet/for/my-thing-name?type_msg=COORD&type_ent=GP&ent=1&data=5,3,192.168.1.1
 
@@ -47,9 +48,9 @@ int envoiDweet(char* thingName, int x, int y, char* addrIpEnvoi) {
     strcat(file,"?type_msg=COORD&type_ent=GP&ent=1"
     strcat(file,"&data=");
     strcat(file,strX);
-    strcat(file,",");
+    strcat(file,SEPARATION);
     strcat(file,strY);
-    strcat(file,",");
+    strcat(file,SEPARATION);
     strcat(file,addrIpEnvoi);
     printf("\n%s",file);
     printf("\n%s",host);
