@@ -1,12 +1,12 @@
 
-#ifndef DEF_CLIENT_UTIL
-#define DEF_CLIENT_UTIL
+#ifndef DEF_SERVEUR_ROBOT_POSITION_UTIL
+#define DEF_SERVEUR_ROBOT_POSITION_UTIL
 
 /**
-* \file clientutil.h
-* \brief Header du fichier clientutil.c
+* \file serveurRobotPositionUtil.h
+* \brief Header du fichier serveurRobotPositionUtil.c
 *
-* Le fichier clientutil.c comprend de nombreuses fonctions utiles au client robot.
+* Le fichier serveurRobotPositionUtil.c comprend de nombreuses fonctions utiles au serveur du robot.
 */
 
 // Sockets / HTTP / IP

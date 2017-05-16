@@ -146,6 +146,8 @@ void act(int num, char* jeton) {
         // Envoi des coordonnées au robot
         if(coordSaisies[0] != -1) {
             fprintf(stderr,"\nJ'envoie x = %d et y = %d.",coordSaisies[0],coordSaisies[1]);
+            envoiDweet("FAR-IG3-SP",coordSaisies[0],coordSaisies[1]);
+
             coordSaisies[0] = -1;
             coordSaisies[1] = -1;
         }
@@ -218,6 +220,7 @@ void saisirXY() {
     if(pid == 0) { // Saisie depuis le fils
 
         do {
+            signal(SIGTERM,NULL);
             dup2(keyboard,STDIN_FILENO);
             // Coord X
             fprintf(stderr,"\nVeuillez entrer la coordonnée X : ");
