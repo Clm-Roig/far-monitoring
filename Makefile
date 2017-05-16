@@ -17,7 +17,6 @@ $(obj_dir)%.o: $(src_dir)%.c
 
 clean:
 	rm -f $(obj_dir)* $(bin_dir)*
-	touch $(bin_dir)cordonnees.txt
 	touch $(obj_dir)objHolder
 
 start:

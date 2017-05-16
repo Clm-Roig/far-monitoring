@@ -4,21 +4,21 @@
 
 // ---- CONSTANTES ---- //
 
-const int LONGUEUR_GRILLE = 10; // TODO : taille de la grille de jeu, pour éviter les saisies hors grile
-const int LARGEUR_GRILLE = 10; // TODO
+const int LONGUEUR_GRILLE = 11; // TODO : taille de la grille de jeu, pour éviter les saisies hors grile
+const int LARGEUR_GRILLE = 7; // TODO
 
 const int TAILLE_JETON = 32;
 const int DELAI_SAISIE = 4; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
 const char* CHEMIN_COORDONNEES = "data/coordonnees.txt";
+
 // ---- VARIABLES ---- //
 char* tableauIPs[6];
 int keyboard;
 int* coordSaisies;
-int nbFilsRestant;
-int PIDpere;
 pid_t childpid;  
+pid_t childSaisiePid;
 
 // ---- FONCTIONS ---- //
 
@@ -30,9 +30,6 @@ int creerFils(char** tab) {
         memcpy(tableauIPs[i], tab[i], strlen(tab[i])+1);
     }
 
-    nbFilsRestant = NOMBRE_JOUEURS - 1;
-    PIDpere = getpid();
-    signal(SIGUSR2, unFilsTermine);
 
     coordSaisies = malloc(2*sizeof(int));
     coordSaisies[0] = -1;
@@ -85,7 +82,7 @@ int creerFils(char** tab) {
             error = dup2(fd[1], STDOUT_FILENO);
         }
         else {                  /* for child process, reassign stdin + handle SIGTERM */
-            signal(SIGTERM, termChild);
+            signal(SIGUSR2, termChild);
             error = dup2(fd[0], STDIN_FILENO);
         }
         if (error == -1) {
@@ -127,7 +124,7 @@ int creerFils(char** tab) {
 void act(int num, char* jeton) {
     char* copyJeton = malloc(TAILLE_JETON*sizeof(char));
     strcpy(copyJeton,jeton);
-    int c = 2;
+    int c = 3;
 
     while(c > 0){
 
@@ -144,7 +141,7 @@ void act(int num, char* jeton) {
         saisirXY();
 
         // Envoi des coordonnées au robot
-        if(coordSaisies[0] != -1) {
+        if(coordSaisies[0] != -1 && coordSaisies[1] != -1) {
             fprintf(stderr,"\nJ'envoie x = %d et y = %d.",coordSaisies[0],coordSaisies[1]);
 
             envoiDweet(coordSaisies[0],coordSaisies[1],tableauIPs[num]);
@@ -167,23 +164,19 @@ void act(int num, char* jeton) {
 
     // Le num 0 arrête les autres process
     if(num == 0) {
-        kill(childpid,SIGTERM);
+        kill(childpid,SIGUSR2);
+        wait(NULL);
         // Traitement fin de partie ?
         fprintf(stderr,"\n\n========================");
         fprintf(stderr,"\nPartie terminée !");
         fprintf(stderr,"\n========================\n");
+        exit(0);
     }
        
 }
 
 
 // ==== SIGNAUX ====/
-// Fonction de traitement du signal dans act()
-void unFilsTermine() {
-    nbFilsRestant = nbFilsRestant - 1;
-    signal(SIGUSR2, unFilsTermine); // réarme le signal
-}
-
 // Fonction de traitement du signal dans saisirXY()
 void lireFichierCoords() {
     // lire fichier
@@ -205,7 +198,10 @@ void lireFichierCoords() {
 void termChild() {
     fprintf(stderr,"\nProc %d stoppé.",getpid());
     if(childpid != 0) {        
-        kill(childpid,SIGTERM);
+        kill(childpid,SIGUSR2);
+        wait(NULL);
+        kill(childSaisiePid,SIGUSR2);
+        wait(NULL);
     }
     kill(getpid(),SIGKILL);
 }
@@ -215,14 +211,16 @@ void termChild() {
 
 void saisirXY() {
     int pid = fork();
+
     coordSaisies[0] = -1;
     coordSaisies[1] = -1;
 
     if(pid == 0) { // Saisie depuis le fils
 
         do {
-            signal(SIGTERM,NULL);
+            signal(SIGUSR2, termChild);
             dup2(keyboard,STDIN_FILENO);
+
             // Coord X
             fprintf(stderr,"\nVeuillez entrer la coordonnée X : ");
             int x = saisirInt();
@@ -246,7 +244,7 @@ void saisirXY() {
 
         // formatage des données
         char buffer[128] = "";
-        sprintf(buffer,"%d%s%d",coordSaisies[0],"\n",coordSaisies[1]);
+        sprintf(buffer,"%d\n%d",coordSaisies[0],coordSaisies[1]);
 
         // écriture dans le fichier
         FILE* fichierCoord = fopen(CHEMIN_COORDONNEES,"w");
@@ -258,21 +256,19 @@ void saisirXY() {
         exit(0);
     }
     else {  // Le père contrôle le temps passé
+        childSaisiePid = pid;
+        fprintf(stderr,"\nCPID = %d et FSaisiePID = %d",childpid,pid);
         signal(SIGUSR1,lireFichierCoords);
         // Wait for avec vérification
         unsigned int retTime = time(0) + DELAI_SAISIE;
         while (time(0) < retTime && coordSaisies[0] == -1 && coordSaisies[1] == -1) {
 
         }
-        if(coordSaisies[0] == -1 && coordSaisies[1] == -1) {
-
-            // Nettoyage du flux d'entrée ?
-            // int c = 0;
-            // while ((c = getchar()) != '\n' && c != EOF) { }
-
-            kill(pid,SIGTERM);
-            fprintf(stderr,"\nTemps écoulé, saisie stoppée.");
+        if(coordSaisies[0] == -1 || coordSaisies[1] == -1) {
+            kill(childSaisiePid,SIGTERM); 
+            fprintf(stderr,"\nTemps écoulé, saisie stoppée.");        
         }
+        wait(NULL);        
     }
 }
 
