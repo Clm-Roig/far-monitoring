@@ -39,10 +39,12 @@ int creerServeur(char** addrIp);
 
 /**
   @brief Envoi des logs de coordonnées sur dweet.io
-  @param donnees, les donnees à envoyer sous forme de log
+  @param x, Les coordonnées saisies pour x
+  @param y, les coordonnées saisies pour y
+  @param AddrIpEnvoi, l'adresse IP correspondant au robot
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int envoiDweet(char* thingName, int x, int y);
+int envoiDweet(int x, int y, char* AdrIpEnvoi);
 
 /**
   @brief Envoi des donnes à un robot
