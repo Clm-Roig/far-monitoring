@@ -30,7 +30,7 @@
 #include <string.h>
 
 #include "util.h"
-#include "serveur.h"
+#include "client.h"
 
 
 // ---- CONSTANTES ---- //
