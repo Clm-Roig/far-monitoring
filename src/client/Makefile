@@ -5,11 +5,11 @@ src_dir=src/
 CC=gcc
 CFLAGS=-Wall  -g
 LDFLAGS= -g
-EXEC=$(bin_dir)clientServeurPosition.exe
+EXEC=$(bin_dir)serveurRobotPosition.exe
 
 all: $(EXEC)
 
-$(bin_dir)serverPosition.exe: $(obj_dir)client.o  $(obj_dir)clientUtil.o
+$(bin_dir)serveurRobotPosition.exe: $(obj_dir)serveurRobotPosition.o  $(obj_dir)serveurRobotPositionUtil.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(obj_dir)%.o: $(src_dir)%.c
@@ -21,4 +21,4 @@ clean:
 	touch $(obj_dir)objHolder
 
 start:
-	./$(bin_dir)clientServeurPosition.exe
+	./$(bin_dir)serveurRobotPosition.exe
