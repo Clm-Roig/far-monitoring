@@ -1,11 +1,11 @@
-#ifndef DEF_SERVEUR
-#define DEF_SERVEUR
+#ifndef DEF_CLIENT
+#define DEF_CLIENT
 
 /**
- * \file serveur.h
- * \brief Header du fichier serveur.c
+ * \file client.h
+ * \brief Header du fichier client.c
  *
- * Le fichier serveur.c gère la communication avec les robots.
+ * Le fichier client.c gère la communication avec les robots.
  */
 
 
@@ -31,11 +31,11 @@
 // ---- FONCTIONS ---- //
 
 /**
-  @brief Initialisation du serveur
+  @brief Initialisation du client
   @param int addrIp, Le tableau des adresses IP des robots
   @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int creerServeur(char** addrIp);
+int creerClient(char** addrIp);
 
 /**
   @brief Envoi des logs de coordonnées sur dweet.io
