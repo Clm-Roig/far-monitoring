@@ -1,6 +1,6 @@
-// Fichier serveur.c
+// Fichier client.c
 
-#include "serveur.h"
+#include "client.h"
 
 // ---- CONSTANTES ---- //
 const char* THING_NAME = "IG3FARLECLERROIG";
@@ -8,7 +8,7 @@ const char* THING_NAME = "IG3FARLECLERROIG";
 
 
 
-int creerServeur(char** addrIp) {
+int creerClient(char** addrIp) {
 
     return 1;
 }
