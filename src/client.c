@@ -44,13 +44,13 @@ int envoiDweet(int x, int y, char* adrIpEnvoi) {
     file[0]='\0';
     strcat(file,"/dweet/for/");
     strcat(file,THING_NAME);
-    strcat(file,"?type_msg=COORD&type_ent=GP&ent=1"
+    strcat(file,"?type_msg=COORD&type_ent=GP&ent=1");
     strcat(file,"&data=");
     strcat(file,strX);
     strcat(file,SEPARATION);
     strcat(file,strY);
     strcat(file,SEPARATION);
-    strcat(file,addrIpEnvoi);
+    strcat(file,adrIpEnvoi);
     printf("\n%s",file);
     printf("\n%s",host);
 
