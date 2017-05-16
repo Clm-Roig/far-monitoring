@@ -18,6 +18,7 @@ int keyboard;
 int* coordSaisies;
 int nbFilsRestant;
 int PIDpere;
+pid_t childpid;  
 
 // ---- FONCTIONS ---- //
 
@@ -39,7 +40,6 @@ int creerFils(char** tab) {
 
     // Mise en place du Token Ring
     // cf "Unix Systems Programming", chapitre 7, page 286
-    pid_t childpid;                     /* indicates process should spawn another     */
     int error;                          /* return value from dup2 call                */
     int* fd = malloc(2*sizeof(int));    /* file descriptors returned by pipe          */
     int nprocs = NOMBRE_JOUEURS;        /* total number of processes in ring          */
@@ -84,7 +84,8 @@ int creerFils(char** tab) {
         if (childpid > 0){      /* for parent process, reassign stdout */
             error = dup2(fd[1], STDOUT_FILENO);
         }
-        else {                  /* for child process, reassign stdin */
+        else {                  /* for child process, reassign stdin + handle SIGTERM */
+            signal(SIGTERM, termChild);
             error = dup2(fd[0], STDIN_FILENO);
         }
         if (error == -1) {
@@ -161,21 +162,15 @@ void act(int num, char* jeton) {
         c = c-1;
     }
 
-    // Le num 0 attend que les autres finissent
+    // Le num 0 arrête les autres process
     if(num == 0) {
-        while (nbFilsRestant > 0)  {
-            waitFor(1);
-        }
+        kill(childpid,SIGTERM);
+        // Traitement fin de partie ?
+        fprintf(stderr,"\n\n========================");
+        fprintf(stderr,"\nPartie terminée !");
+        fprintf(stderr,"\n========================\n");
     }
-    else {
-        kill(PIDpere,SIGUSR2);
-        exit(0);
-    }
-
-    // Traitement fin de partie ?
-    fprintf(stderr,"\n\n========================");
-    fprintf(stderr,"\nPartie terminée !");
-    fprintf(stderr,"\n========================\n");
+       
 }
 
 
@@ -203,6 +198,16 @@ void lireFichierCoords() {
     strcpy(chemin,CHEMIN_COORDONNEES);
     nettoyerFichier(chemin);
 }
+
+void termChild() {
+    fprintf(stderr,"\nProc %d stoppé.",getpid());
+    if(childpid != 0) {        
+        kill(childpid,SIGTERM);
+    }
+    kill(getpid(),SIGKILL);
+}
+
+// ==== fin Signaux ==== //
 
 
 void saisirXY() {
