@@ -22,7 +22,7 @@ void Error(char *mess)
     exit(-1);
 }
 
-int envoiDweet(char* thingName, int x, int y, char* addrIpEnvoi) {
+int envoiDweet(int x, int y, char* adrIpEnvoi) {
 
     // URL de la forme : https://dweet.io/dweet/for/my-thing-name?type_msg=COORD&type_ent=GP&ent=1&data=5,3,192.168.1.1
 
