@@ -35,13 +35,6 @@
 */
 int initSocket(int port, char* IP);
 
-/**
-    @brief envoie des données par un socket
-    @param int socket : le socket sur lequel on envoie les données
-    @param char* data : la String à envoyer
-    @return bool, 1 si ok, -1 sinon
-*/
-int sendToSocket(int socket, char* data);
 
 /**
     @brief reçoit des données par un socket
@@ -50,3 +43,11 @@ int sendToSocket(int socket, char* data);
     @return bool, 1 si ok, -1 sinon
 */
 int receiveFromSocket(int socket, char** buffer);
+
+
+// Communication Beebotte
+/**
+    @brief Vérifie si la partie est terminé
+    @return int, 1 si la partie est terminée, 0 sinon
+*/
+int checkFinPartie();

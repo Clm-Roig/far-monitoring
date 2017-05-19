@@ -1,9 +1,10 @@
- // Fichier serveurRobotPositionUtil.c
+// Fichier serveurRobotPositionUtil.c
 
- #include "serveurRobotPositionUtil.h"
+#include "serveurRobotPositionUtil.h"
 
-  // ---- FONCTIONS ---- //
+// ---- FONCTIONS ---- //
 
+// Socket
 int initSocket(int port, char* IP) {
     int sock;
     struct sockaddr_in sin;
@@ -65,17 +66,6 @@ int initSocket(int port, char* IP) {
     return sock;
 }
 
-int sendToSocket(int socket, char* data) {
-    send(socket,data,sizeof(data),0);
-    // Erreur ?
-    if(errno) {
-        printf("\nErreur envoi données socket (sendToSocket() dans util.c) par le socket %d", socket);
-        perror("");
-        exit(-1);
-    }
-    return 0;
-}
-
 int receiveFromSocket(int socket, char** data) {
     recv(socket,&data,sizeof(&data)-1,0);
     // Erreur ?
@@ -84,5 +74,11 @@ int receiveFromSocket(int socket, char** data) {
         perror("");
         exit(-1);
     }
+    return 0;
+}
+
+
+// Communication Beebotte
+int checkFinPartie() {
     return 0;
 }
