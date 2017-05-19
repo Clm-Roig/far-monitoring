@@ -55,6 +55,17 @@ int envoiDweet(int x, int y, char* AdrIpEnvoi);
 int envoiRobot(char* donnees, char* addrRobot);
 
 /**
+    @brief Envoie un tableau de données sur Beebotte
+    @param char* data[], le tableau des données 
+          => case 0 : type_msg
+          => case 1 : type_ent 
+          => case 2 : num
+          => case 3 : data
+    @return int, 0 si tout s'est bien passé
+*/
+int sendToBeBotte(char *data[]);
+
+/**
     @brief Vérifie si la partie a commencé
     @return int, 1 si la partie a commencé, 0 sinon
 */
