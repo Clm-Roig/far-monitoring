@@ -9,7 +9,7 @@ EXEC=$(bin_dir)serverPosition.exe
 
 all: $(EXEC)
 
-$(bin_dir)serverPosition.exe: $(obj_dir)fils.o  $(obj_dir)main.o $(obj_dir)client.o  $(obj_dir)util.o
+$(bin_dir)serverPosition.exe: $(obj_dir)fils.o  $(obj_dir)main.o $(obj_dir)client.o  $(obj_dir)util.o $(obj_dir)postBeebotte.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(obj_dir)%.o: $(src_dir)%.c
