@@ -9,14 +9,14 @@ EXEC=$(bin_dir)serverPosition.exe
 
 all: $(EXEC)
 
-$(bin_dir)serverPosition.exe: $(obj_dir)fils.o  $(obj_dir)main.o $(obj_dir)client.o  $(obj_dir)util.o $(obj_dir)postBeebotte.o
+$(bin_dir)serverPosition.exe: $(obj_dir)fils.o  $(obj_dir)main.o $(obj_dir)client.o  $(obj_dir)util.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(obj_dir)%.o: $(src_dir)%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -f $(obj_dir)* $(bin_dir)*
+	rm -f $(obj_dir)* $(bin_dir)/serverPosition/exe
 	touch $(obj_dir)objHolder
 
 start:

@@ -28,7 +28,6 @@
 #include "init.h"
 #include "client.h"
 #include "util.h"
-#include "beebotte.h"
 
 // ---- CONSTANTES ---- //
 

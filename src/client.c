@@ -6,11 +6,10 @@
 const char* THING_NAME = "IG3FARLECLERROIG";
 const char* SEPARATION = ",";
 
-// ---- VARIABLES BEEBOTTE ---- //
-
+// ---- VARIABLES ---- //
 /* !! TODO remplacer 'testVB' par le canal dans lequel publier (ex: partie12)
     (ici msg est la "ressource" que ce canal attend */
-char* channel = "testVB";
+char* canal = "testVB";
 
     /* Par convention dans FAR on parle sur ressource "msg"
       sur laquelle on envoie une chaine contenant les couples clef:valeur separes par des virgules */
@@ -20,7 +19,6 @@ char* ressource = "msg";
     // canal partie0 : 1494793564147_KNl54g97mG89kQSZ
     // canal testVB : 1494771555601_5SGQdxJaJ8O1HBj4
 char* clefCanal = "1494771555601_5SGQdxJaJ8O1HBj4";
-
 
 // ---- FONCTIONS ---- //
 
@@ -123,7 +121,6 @@ int recvDweet(char* IP) {
 }
 
 int sendToBeBotte(char *data[]) {
-    int i;
     char *host = "api.beebotte.com";
 
     char path[100] = "/v1/data/write/";
@@ -176,13 +173,13 @@ int sendToBeBotte(char *data[]) {
     // Socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0){
-        error("ERROR opening socket");
+        Error("ERROR opening socket");
     }
 
     // Host
     server = gethostbyname(host);
     if (server == NULL) {
-        error("ERROR, no such host");
+        Error("ERROR, no such host");
     }
 
     /* fill in the structure (port 80)*/
@@ -193,7 +190,7 @@ int sendToBeBotte(char *data[]) {
 
     /* connect the socket */
     if (connect(sockfd,(struct sockaddr *)&serv_addr,sizeof(serv_addr)) < 0) {
-        error("ERROR connecting");
+        Error("ERROR connecting");
     }
 
     total = strlen(message);
@@ -201,7 +198,7 @@ int sendToBeBotte(char *data[]) {
     do {
         bytes = write(sockfd,message+sent,total-sent);
         if (bytes < 0)
-            error("ERROR writing message to socket");
+            Error("ERROR writing message to socket");
         if (bytes == 0)
             break;
         sent+=bytes;
@@ -213,14 +210,14 @@ int sendToBeBotte(char *data[]) {
     received = 0;
     do {
         bytes = read(sockfd,response+received,total-received);
-        if (bytes < 0) error("ERROR reading response from socket");
+        if (bytes < 0) Error("ERROR reading response from socket");
         if (bytes == 0)
             break;
         received+=bytes;
     } while (received < total);
 
     if (received == total) {
-        error("ERROR storing complete response from socket");
+        Error("ERROR storing complete response from socket");
     }
 
     close(sockfd); 
