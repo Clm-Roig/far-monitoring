@@ -21,12 +21,6 @@ char* ressource = "msg";
 char* clefCanal = "1494771555601_5SGQdxJaJ8O1HBj4";
 
 // ---- FONCTIONS ---- //
-
-int creerClient(char** addrIp) {
-
-    return 1;
-}
-
 int sock;
 
 void Error(char *mess)
@@ -120,7 +114,7 @@ int recvDweet(char* IP) {
     return 1;
 }
 
-int sendToBeBotte(char *data[]) {
+int envoiBeebotte(char *data[]) {
     char *host = "api.beebotte.com";
 
     char path[100] = "/v1/data/write/";

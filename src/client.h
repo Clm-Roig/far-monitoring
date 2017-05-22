@@ -31,13 +31,6 @@
 // ---- FONCTIONS ---- //
 
 /**
-  @brief Initialisation du client
-  @param int addrIp, Le tableau des adresses IP des robots
-  @return int, 1 si tout s'est bien passé, 0 sinon
-*/
-int creerClient(char** addrIp);
-
-/**
   @brief Envoi des logs de coordonnées sur dweet.io
   @param x, Les coordonnées saisies pour x
   @param y, les coordonnées saisies pour y
@@ -63,7 +56,7 @@ int envoiRobot(char* donnees, char* addrRobot);
           => case 3 : data
     @return int, 0 si tout s'est bien passé
 */
-int sendToBeBotte(char *data[]);
+int envoiBeebotte(char *data[]);
 
 /**
     @brief Vérifie si la partie a commencé

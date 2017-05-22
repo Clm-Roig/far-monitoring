@@ -13,9 +13,7 @@ int main(int argc,char* args[]) {
 	// nc -l localhost 1234
 
 	// Test socket
-    // initSocket(80,"54445","google.com");
-
-
+/*
 	char* tableauIPs[6];
 
 	tableauIPs[0] = "128.42.42.32";
@@ -25,6 +23,9 @@ int main(int argc,char* args[]) {
 	tableauIPs[4] = "132.42.42.32";
 	tableauIPs[5] = "133.42.42.32";
 	creerFils(tableauIPs);
+*/
+	char* data [4] = {"3","SP","1","1,1,123.5.5.5"};
+	envoiBeebotte(data);
 
     return 0;
 }
