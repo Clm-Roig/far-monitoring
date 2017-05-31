@@ -59,8 +59,8 @@ int envoiRobot(char* donnees, char* addrRobot);
 int envoiBeebotte(char *data[]);
 
 /**
-    @brief Reçois un tableau de données depuis Beebotte
-    @param char* typedonnee, le nom de la donnée à reçevoir depuis Beebotte (type_msg, type_ent, num, data)
+    @brief Reçois le tableau de caractères situé dans data depuis Beebotte
+    @param char* typedonnee, le nom du message à comparer avec ce qui est situé dans les derbuers message de type_msg sur Beebotte. Si les deux sont égaux, renvoie ce qui est dans data.
     @return int, 0 si tout s'est bien passé
 */
 
