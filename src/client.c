@@ -281,7 +281,7 @@ char* recepBeebotte(char* typedonnee)
     // TODO : à changer
     char response[50000];
 
-    
+
     memset(response,0,sizeof(response));
     total = sizeof(response)-1;
     received = 0;
@@ -301,21 +301,20 @@ char* recepBeebotte(char* typedonnee)
 
     /* Traitement du message reçu*/
     printf("%s", response);
-    char* compar[200]="type_msg=";
-    strcat(compar,typedonnee);
-    char* verif =strstr(response, compar);
-    char* verif2;
-    char* data[200]="";
-    if (strcmp(verif,"")==0)
-    {
+    char typeMsg[200]="type_msg=";
+    strcat(typeMsg,typedonnee);
+
+    char* verifType = strstr(response, typeMsg);
+
+    char* verifData;
+    char* data;
+    data = malloc(200*sizeof(char));
+    if (verifType == NULL) {
         printf("Pas de message trouvé");
     }
-    else
-    {
-        verif2 = strstr(verif, "data=");
-
-        data = strtok(verif2,"\"");
-
+    else {
+        verifData = strstr(verifType, "data=");
+        data = strtok(verifData,"\"");
         printf("%s", data);
     }
     return data;
