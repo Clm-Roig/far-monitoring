@@ -23,27 +23,10 @@
 #include "util.h"
 
 // ---- CONSTANTES ---- //
-const int PORT;
-const char* IPMONITOR;
+
 
 // ---- FONCTIONS ---- //
 
-/**
-  @brief Obtient les identifiants des robots puis initialise le père et le serveur et leur fournit les addresses ip
-  @return int, 1 si tout s'est bien passé, 0 sinon
-*/
-int init();
 
-/**
-  @brief Crée le processus père et lui fournit les addresses ip des robots
-  @return int, 1 si tout s'est bien passé, 0 sinon
-*/
-int initPere(char** addrIp);
-
-/**
-  @brief Crée le serveur de communication et lui fournit les addresses ip des robots
-  @return int, 1 si tout s'est bien passé, 0 sinon
-*/
-int initServeur(char** addrIp);
 
 #endif
