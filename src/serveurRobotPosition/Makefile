@@ -9,7 +9,7 @@ EXEC=$(bin_dir)serveurRobotPosition.exe
 
 all: $(EXEC)
 
-$(bin_dir)serveurRobotPosition.exe: $(obj_dir)serveurRobotPosition.o  $(obj_dir)serveurRobotPositionUtil.o
+$(bin_dir)serveurRobotPosition.exe: $(obj_dir)serveurRobotPosition.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(obj_dir)%.o: $(src_dir)%.c
