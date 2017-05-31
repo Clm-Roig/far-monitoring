@@ -26,15 +26,13 @@ int main(int argc,char* args[]) {
 */
 
 	// Test envoi Beebotte
-	/*
-	char* data [4] = {"COORD","SP","1","1,1,123.5.5.5"};
-	envoiBeebotte(data);
 
 	// Test réception Beebotte
-	char* donnees = malloc(512*sizeof(char));
+	char* donnees = malloc(4096*sizeof(char));
 	donnees = recepBeebotte("COORD");
-*/
+	printf("\nDonnées reçues : %s",donnees);
 
+/*
 	// ===================== "VRAI" CODE ========================== //
 
 	// Récupération des IPs des robots (sur Beebotte)
@@ -60,6 +58,6 @@ int main(int argc,char* args[]) {
 
 	// Création du token ring et lancement de la partie
 	creerFils(tableauIPs);
-
+*/
     return 0;
 }

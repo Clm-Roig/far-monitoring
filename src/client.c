@@ -13,7 +13,7 @@ char* canal = "testVB";
 
     /* Par convention dans FAR on parle sur ressource "msg"
       sur laquelle on envoie une chaine contenant les couples clef:valeur separes par des virgules */
-char* ressource = "msg"; 
+char* ressource = "msg";
 char* ressource2 = "msg?time-range=1hour";
 
     // !! TO DO : mettre ci-dessous le token du canal !!
@@ -103,7 +103,7 @@ int envoiDweet(int x, int y, char* adrIpEnvoi) {
     printf("Requete : \n%s", buffer);
 
     // TO DO : test whether this suceeds or Erorr("write error on socket")
-    send(sock, buffer, 1024, 0);
+    send(sock, buffer, strlen(buffer), 0);
 
     // Fermeture de la socket client
     close(sock);
@@ -128,11 +128,11 @@ int envoiBeebotte(char *data[]) {
 
     // Necessaire pour envoyer des donnees sur beebotte.com (noter le token du canal a la fin) :
     char headers[300] ="Host: api.beebotte.com\r\nContent-Type: application/json\r\nX-Auth-Token: ";
-    strcat(headers,clefCanal);strcat(headers,"\r\n"); 
-    
+    strcat(headers,clefCanal);strcat(headers,"\r\n");
+
     char donnees[4096] = "{\"data\":\""; // "data" est impose par beebotte.com
 
-    // Norme d'envoi projet FAR 
+    // Norme d'envoi projet FAR
     strcat(donnees,"type_msg=");
     strcat(donnees,data[0]);
     strcat(donnees,",");
@@ -152,16 +152,16 @@ int envoiBeebotte(char *data[]) {
     /* How big is the whole HTTP message? (POST) */
     message_size=0;
     message_size+=strlen("%s %s HTTP/1.0\r\n")+strlen("POST")+strlen(path)+strlen(headers);
-    message_size+=strlen("Content-Length: %d\r\n")+10+strlen("\r\n")+strlen(donnees); 
+    message_size+=strlen("Content-Length: %d\r\n")+10+strlen("\r\n")+strlen(donnees);
 
     message=malloc(message_size);
 
     /* Construit le message POST */
-    sprintf(message,"POST %s HTTP/1.0\r\n",path); 
+    sprintf(message,"POST %s HTTP/1.0\r\n",path);
     sprintf(message+strlen(message), "%s",headers);
     sprintf(message+strlen(message),"Content-Length: %d\r\n",(int)strlen(donnees));
-    strcat(message,"\r\n");              // blank line     
-    strcat(message,donnees);             // body          
+    strcat(message,"\r\n");              // blank line
+    strcat(message,donnees);             // body
 
     printf("Request:\n%s\n-------------\n",message);
 
@@ -180,7 +180,7 @@ int envoiBeebotte(char *data[]) {
     /* fill in the structure (port 80)*/
     memset(&serv_addr,0,sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(80); 
+    serv_addr.sin_port = htons(80);
     memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
 
     /* connect the socket */
@@ -215,7 +215,7 @@ int envoiBeebotte(char *data[]) {
         Error("ERROR storing complete response from socket");
     }
 
-    close(sockfd); 
+    close(sockfd);
     printf("Response:\n%s\n",response);
     free(message);
 
@@ -225,17 +225,22 @@ int envoiBeebotte(char *data[]) {
 char* recepBeebotte(char* typedonnee)
 {
     //http://api.beebotte.com/v1/public/data/read/vberry/testVB/msg?limit=2&time-range=1hour
-        char *host = "api.beebotte.com";
+    char *host = "api.beebotte.com";
 
     char path[200] = "/v1/public/data/read/vberry/";
     strcat(path,canal); strcat(path,"/"); strcat(path,ressource2);
 
     struct hostent *server;
     struct sockaddr_in serv_addr;
-    int sockfd, bytes, sent, received, total, message_size;
-    char response[4096];
-    
-    sprintf(message,"GET %s HTTP/1.0\r\n",path);      
+    int sockfd, bytes, sent, received, total;
+    char* message = malloc(4096*sizeof(char));
+
+    strcat(message,"GET ");
+    strcat(message,path);
+    strcat(message," HTTP/1.0\r\n");
+    strcat(message,"Host: ");
+    strcat(message,host);
+    strcat(message,"\r\n\r\n");
 
     // Socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -252,7 +257,7 @@ char* recepBeebotte(char* typedonnee)
     /* fill in the structure (port 80)*/
     memset(&serv_addr,0,sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(80); 
+    serv_addr.sin_port = htons(80);
     memcpy(&serv_addr.sin_addr.s_addr,server->h_addr,server->h_length);
 
     /* connect the socket */
@@ -260,8 +265,8 @@ char* recepBeebotte(char* typedonnee)
         Error("ERROR connecting");
     }
 
+    printf("\nRequete : %s", message);
     /* receive the response */
-    
     total = strlen(message);
     sent = 0;
     do {
@@ -272,12 +277,17 @@ char* recepBeebotte(char* typedonnee)
             break;
         sent+=bytes;
     } while (sent < total);
+
+    // TODO : à changer
+    char response[50000];
+
     
-        memset(response,0,sizeof(response));
+    memset(response,0,sizeof(response));
     total = sizeof(response)-1;
     received = 0;
     do {
         bytes = read(sockfd,response+received,total-received);
+        printf("\n",bytes);
         if (bytes < 0) Error("ERROR reading response from socket");
         if (bytes == 0)
             break;
@@ -288,10 +298,9 @@ char* recepBeebotte(char* typedonnee)
         Error("ERROR storing complete response from socket");
     }
     close(sockfd);
-    
+
     /* Traitement du message reçu*/
-    
-    printf(%s, response);
+    printf("%s", response);
     return "";
 }
 int envoiRobot(char* donnees, char* addrRobot){
