@@ -8,23 +8,6 @@
 * Le fichier serveurRobotPosition.c instancie un serveur permettant de réceptionner les coordonnées envoyées depuis le Serveur de Position.
 */
 
-// Sockets / HTTP / IP
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-
-// Erreurs
-#include <errno.h>
-
-// Base
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "serveurRobotPositionUtil.h"
-
 // ---- FONCTIONS ---- //
 
 /**

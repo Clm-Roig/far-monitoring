@@ -1,5 +1,21 @@
 // Fichier serveurRobotPosition.c
 
+// Sockets / HTTP / IP
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <netdb.h>
+
+// Erreurs
+#include <errno.h>
+
+// Base
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 // ---- VARIABLES ---- //
 
 // Variables qui stockent en permanence les dernières données reçues.
@@ -7,32 +23,23 @@ int xSP = -1;
 int ySP = -1;
 char* diversSP;
 
-// ---- FONCTIONS ---- //
+/* !! TODO remplacer 'testVB' par le canal dans lequel publier (ex: partie12)
+    (ici msg est la "ressource" que ce canal attend */
+char* canal = "testVB";
 
-int lancerServeurPosition() {
-	// Récupération de l'id du SP
-	char* IPServeurPosition = recepBeebotte("IP_SP");
+    /* Par convention dans FAR on parle sur ressource "msg"
+      sur laquelle on envoie une chaine contenant les couples clef:valeur separes par des virgules */
+char* ressource = "msg";
+char* ressource2 = "msg?limit=15&time-range=1hour";
 
-	int sockServeurPos = initSocket(80,IPServeurPosition,"null");
+    // !! TO DO : mettre ci-dessous le token du canal !!
+    // canal partie0 : 1494793564147_KNl54g97mG89kQSZ
+    // canal testVB : 1494771555601_5SGQdxJaJ8O1HBj4
+char* clefCanal = "1494771555601_5SGQdxJaJ8O1HBj4";
 
-	char* data[3];
-	data[0] = malloc(32*sizeof(char));
-	data[1] = malloc(32*sizeof(char));
-	data[2] = malloc(256*sizeof(char));
+int sock;
+int PORTServeurPosition = 80;
 
-	diversSP = malloc(256*sizeof(char));
-	while(!checkFinPartie()) {
-		// Attente des coordonnées sur le socket
-		receiveFromSocket(sockServeurPos, data);
-
-		xSP = atoi(data[0]);
-		ySP = atoi(data[1]);
-		diversSP = data[2];
-	}
-	// fin de partie
-
-	return 0;
-}
 
 // ======= FONCTIONS UTILISEES ======= //
 
@@ -108,12 +115,21 @@ int receiveFromSocket(int socket, char** data) {
     return 0;
 }
 
+void Error(char *mess)
+{
+    fprintf(stderr,"%s\n",mess);
+    if(sock) close(sock);
+    exit(-1);
+}
+
 char* recepBeebotte(char* typedonnee) {
     //http://api.beebotte.com/v1/public/data/read/vberry/testVB/msg?limit=2&time-range=1hour
-    char *host = "api.beebotte.com";
+    char* host = "api.beebotte.com";
 
     char path[200] = "/v1/public/data/read/vberry/";
-    strcat(path,canal); strcat(path,"/"); strcat(path,ressource2);
+    strcat(path,canal);
+	strcat(path,"/");
+	strcat(path,ressource2);
 
     struct hostent *server;
     struct sockaddr_in serv_addr;
@@ -150,7 +166,6 @@ char* recepBeebotte(char* typedonnee) {
         Error("ERROR connecting");
     }
 
-    printf("\nRequete : %s", message);
     /* receive the response */
     total = strlen(message);
     sent = 0;
@@ -172,7 +187,6 @@ char* recepBeebotte(char* typedonnee) {
     received = 0;
     do {
         bytes = read(sockfd,response+received,total-received);
-        printf("\n");
         if (bytes < 0) Error("ERROR reading response from socket");
         if (bytes == 0)
             break;
@@ -185,7 +199,6 @@ char* recepBeebotte(char* typedonnee) {
     close(sockfd);
 
     /* Traitement du message reçu*/
-    printf("%s", response);
     char typeMsg[200]="type_msg=";
     strcat(typeMsg,typedonnee);
 
@@ -199,12 +212,39 @@ char* recepBeebotte(char* typedonnee) {
     }
     else {
         verifData = strstr(verifType, "data=");
+        verifData += strlen("data=");
         data = strtok(verifData,"\"");
-        printf("%s", data);
     }
     return data;
 }
 
 int checkFinPartie() {
     return 0;
+}
+
+// =========================================== //
+
+int lancerServeurPosition() {
+	// Récupération de l'id du SP
+	char* IPServeurPosition = recepBeebotte("IP_SP");
+
+	int sockServeurPos = initSocket(PORTServeurPosition,IPServeurPosition,"null");
+
+	char* data[3];
+	data[0] = malloc(32*sizeof(char));
+	data[1] = malloc(32*sizeof(char));
+	data[2] = malloc(256*sizeof(char));
+
+	diversSP = malloc(256*sizeof(char));
+	while(!checkFinPartie()) {
+		// Attente des coordonnées sur le socket
+		receiveFromSocket(sockServeurPos, data);
+
+		xSP = atoi(data[0]);
+		ySP = atoi(data[1]);
+		diversSP = data[2];
+	}
+	// fin de partie
+
+	return 0;
 }
