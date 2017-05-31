@@ -77,8 +77,7 @@ int receiveFromSocket(int socket, char** data) {
     return 0;
 }
 
-char* recepBeebotte(char* typedonnee)
-{
+char* recepBeebotte(char* typedonnee) {
     //http://api.beebotte.com/v1/public/data/read/vberry/testVB/msg?limit=2&time-range=1hour
     char *host = "api.beebotte.com";
 

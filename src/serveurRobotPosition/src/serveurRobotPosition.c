@@ -3,7 +3,6 @@
 #include "serveurRobotPosition.h"
 
 // ---- VARIABLES ---- //
-char* ipServeurPosition  = "127.0.0.42"; // TODO : à récupérer depuis Beeboot
 
 // Variables qui stockent en permanence les dernières données reçues.
 int xSP = -1;
@@ -14,10 +13,9 @@ char* diversSP;
 
 int main() {
 	// Récupération de l'id du SP
-	char* IP;
+	char* IPServeurPosition = recepBeebotte("IP_SP");
 
-
-	int sockServeurPos = initSocket(80,ipServeurPosition,"null");
+	int sockServeurPos = initSocket(80,IPServeurPosition,"null");
 
 	char* data[3];
 	data[0] = malloc(32*sizeof(char));

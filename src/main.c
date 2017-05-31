@@ -26,15 +26,16 @@ int main(int argc,char* args[]) {
 */
 
 	// Test envoi Beebotte
-	/*
-	char* data [4] = {"COORD","SP","1","1,1,123.5.5.5"};
+
+	char* data [4] = {"IP_SP","SP","1","128.42.123.42"};
   	envoiBeebotte(data);
-	*/
+
 	// Test réception Beebotte
+	/*
 	char* donnees = malloc(4096*sizeof(char));
 	donnees = recepBeebotte("COORD");
 	printf("\nDonnées reçues : %s",donnees);
-
+*/
 /*
 	// ===================== "VRAI" CODE ========================== //
 
