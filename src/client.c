@@ -14,6 +14,7 @@ char* canal = "testVB";
     /* Par convention dans FAR on parle sur ressource "msg"
       sur laquelle on envoie une chaine contenant les couples clef:valeur separes par des virgules */
 char* ressource = "msg"; 
+char* ressource2 = "msg?limit=1";
 
     // !! TO DO : mettre ci-dessous le token du canal !!
     // canal partie0 : 1494793564147_KNl54g97mG89kQSZ
@@ -221,6 +222,23 @@ int envoiBeebotte(char *data[]) {
     return 0;
 }
 
+char* recepBeebotte(char* typedonnee)
+{
+    //http://api.beebotte.com/v1/public/data/read/vberry/testVB/msg?limit=2&time-range=1hour
+        char *host = "api.beebotte.com";
+
+    char path[200] = "/v1/public/data/read/vberry/";
+    strcat(path,canal); strcat(path,"/"); strcat(path,ressource);
+
+    struct hostent *server;
+    struct sockaddr_in serv_addr;
+    int sockfd, bytes, sent, received, total, message_size;
+    char *message, response[4096];
+    
+
+    
+    return "";
+}
 int envoiRobot(char* donnees, char* addrRobot){
     return 1;
 }
