@@ -3,7 +3,10 @@
 | Auteurs : Clément ROIG & Hugo LECLER                                  |
  =======================================================================
 
-Pour faire fonctionner le serveur, ajoutez simplement la ligne #include "serveurRobotPosition.h" à votre programme
-et lancez la fonction main().
+Pour faire fonctionner le serveur :
+- ajoute simplement la ligne #include "serveurRobotPosition.h" à votre programme
+- compiler les fichiers serveurRobotPosition.c et serveurRobotPositionUtil.c
+- lancer la fonction lancerServeurPosition()
+
 A tout moment, vous pouvez lire les dernières coordonnées reçues dans xSP, ySP et diversSP.
 Le module se ferme tout seul automatiquement quand la fin de la partie est annoncée sur Beebotte.

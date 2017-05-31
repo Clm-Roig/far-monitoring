@@ -30,6 +30,6 @@
 /**
 	@brief Point d'entrée du programme.
 */
-int main();
+int lancerServeurPosition();
 
 #endif

@@ -11,7 +11,7 @@ char* diversSP;
 
 // ---- FONCTIONS ---- //
 
-int main() {
+int lancerServeurPosition() {
 	// Récupération de l'id du SP
 	char* IPServeurPosition = recepBeebotte("IP_SP");
 
