@@ -287,7 +287,7 @@ char* recepBeebotte(char* typedonnee)
     received = 0;
     do {
         bytes = read(sockfd,response+received,total-received);
-        printf("\n",bytes);
+        printf("\n");
         if (bytes < 0) Error("ERROR reading response from socket");
         if (bytes == 0)
             break;
@@ -301,24 +301,25 @@ char* recepBeebotte(char* typedonnee)
 
     /* Traitement du message reçu*/
     printf("%s", response);
-    char* compar ="type_msg=");
+    char* compar ="type_msg=";
     strcat(compar,typedonnee);
     char* verif =strstr(response, compar);
     char* verif2;
-    if (verif =="")
+    char* data="";
+    if (strcmp(verif,"")==0)
     {
         printf("Pas de message trouvé");
     }
     else
     {
         verif2 = strstr(verif, "data=");
-        char* data[100]
+
         int i = 5;
-        while (i <100 and verif2[i]!="\""){
+        while (i <100 && strcmp(verif2[i],"\"")==1){
         data[i-5]=verif2[i];
         }
+        printf("%s", data);
     }
-    printf("%s", data);
     return data;
 }
 int envoiRobot(char* donnees, char* addrRobot){
