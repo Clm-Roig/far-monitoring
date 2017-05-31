@@ -49,9 +49,9 @@ int envoiRobot(char* donnees, char* addrRobot);
 
 /**
     @brief Envoie un tableau de données sur Beebotte
-    @param char* data[], le tableau des données 
+    @param char* data[], le tableau des données
           => case 0 : type_msg
-          => case 1 : type_ent 
+          => case 1 : type_ent
           => case 2 : num
           => case 3 : data
     @return int, 0 si tout s'est bien passé
@@ -59,13 +59,12 @@ int envoiRobot(char* donnees, char* addrRobot);
 int envoiBeebotte(char *data[]);
 
 /**
-    @brief Reçois le tableau de caractères situé dans data depuis Beebotte
-    @param char* typedonnee, le nom du message à comparer avec ce qui est situé dans les derbuers message de type_msg sur Beebotte. Si les deux sont égaux, renvoie ce qui est dans data.
-    @return int, 0 si tout s'est bien passé
+    @brief Renvoie les données contenues dans le dernier message sur Beebotte du type spécifié
+    @param char* typedonnee, le type de messages que l'on souhaite récupérer (partie "type_msg" sur Beebotte)
+    @return char* les données contenues dans la partie "data" du msg
 */
-
 char* recepBeebotte(char* typedonnee);
-  
+
 
 /**
     @brief Vérifie si la partie a commencé
