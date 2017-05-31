@@ -59,9 +59,19 @@ int envoiRobot(char* donnees, char* addrRobot);
 int envoiBeebotte(char *data[]);
 
 /**
+    @brief Reçois un tableau de données depuis Beebotte
+    @param char* typedonnee, le nom de la donnée à reçevoir depuis Beebotte (type_msg, type_ent, num, data)
+    @return int, 0 si tout s'est bien passé
+*/
+
+char* recepBeebotte(char* typedonnee);
+  
+
+/**
     @brief Vérifie si la partie a commencé
     @return int, 1 si la partie a commencé, 0 sinon
 */
+
 int checkDebutPartie();
 
 /**
