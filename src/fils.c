@@ -17,7 +17,7 @@ const char* CHEMIN_COORDONNEES = "data/coordonnees.txt";
 char* tableauIPs[6];
 int keyboard;
 int* coordSaisies;
-pid_t childpid;  
+pid_t childpid;
 pid_t childSaisiePid;
 
 // ---- FONCTIONS ---- //
@@ -126,7 +126,7 @@ void act(int num, char* jeton) {
     strcpy(copyJeton,jeton);
     int c = 3;
 
-    while(c > 0){
+    while(!checkFinPartie()){
 
         // Attente de réception d'un jeton
         if(strcmp(copyJeton,"") == 0) {
@@ -172,7 +172,7 @@ void act(int num, char* jeton) {
         fprintf(stderr,"\n========================\n");
         exit(0);
     }
-       
+
 }
 
 
@@ -197,7 +197,7 @@ void lireFichierCoords() {
 
 void termChild() {
     fprintf(stderr,"\nProc %d stoppé.",getpid());
-    if(childpid != 0) {        
+    if(childpid != 0) {
         kill(childpid,SIGUSR2);
         wait(NULL);
         kill(childSaisiePid,SIGUSR2);
@@ -265,10 +265,10 @@ void saisirXY() {
 
         }
         if(coordSaisies[0] == -1 || coordSaisies[1] == -1) {
-            kill(childSaisiePid,SIGTERM); 
-            fprintf(stderr,"\nTemps écoulé, saisie stoppée.");        
+            kill(childSaisiePid,SIGTERM);
+            fprintf(stderr,"\nTemps écoulé, saisie stoppée.");
         }
-        wait(NULL);        
+        wait(NULL);
     }
 }
 
@@ -301,7 +301,7 @@ void signalDebutPartie() {
     fprintf(stderr,"\nEn attente du début de la partie...");
 
     // Vérification si la partie a commencé toutes les secondes
-    while (checkDebutPartie() == 0){
+    while (!checkDebutPartie()){
         waitFor(1);
     }
 }
