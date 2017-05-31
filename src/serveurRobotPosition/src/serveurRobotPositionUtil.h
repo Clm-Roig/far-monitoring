@@ -43,11 +43,3 @@ int initSocket(int port, char* IP);
     @return bool, 1 si ok, -1 sinon
 */
 int receiveFromSocket(int socket, char** buffer);
-
-
-// Communication Beebotte
-/**
-    @brief Vérifie si la partie est terminé
-    @return int, 1 si la partie est terminée, 0 sinon
-*/
-int checkFinPartie();

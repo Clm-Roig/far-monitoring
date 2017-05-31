@@ -57,7 +57,7 @@ int initSocket(int port, char* IP) {
 
     // Erreur connexion ?
     if (errno) {
-     printf("\nErreur initialisation socket (initSocket() dans util.c) sur %s",IP);
+     printf("\nErreur initialisation socket (initSocket() dans util) sur %s",IP);
      perror("");
      exit(-1);
     }
@@ -70,15 +70,9 @@ int receiveFromSocket(int socket, char** data) {
     recv(socket,&data,sizeof(&data)-1,0);
     // Erreur ?
     if(errno) {
-        printf("\nErreur reception données socket (receiveFromSocket() dans utilclient.c) par le socket %d", socket);
+        printf("\nErreur reception données socket (receiveFromSocket() dans util) par le socket %d", socket);
         perror("");
         exit(-1);
     }
-    return 0;
-}
-
-
-// Communication Beebotte
-int checkFinPartie() {
     return 0;
 }
