@@ -318,6 +318,7 @@ char* recepBeebotte(char* typedonnee)
         data[i-5]=verif2[i];
         }
     }
+    printf("%s", data);
     return data;
 }
 int envoiRobot(char* donnees, char* addrRobot){
