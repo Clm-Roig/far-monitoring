@@ -14,7 +14,7 @@ char* canal = "testVB";
     /* Par convention dans FAR on parle sur ressource "msg"
       sur laquelle on envoie une chaine contenant les couples clef:valeur separes par des virgules */
 char* ressource = "msg";
-char* ressource2 = "msg?limit=50&time-range=1hour";
+char* ressource2 = "msg?limit=15&time-range=1hour";
 
     // !! TO DO : mettre ci-dessous le token du canal !!
     // canal partie0 : 1494793564147_KNl54g97mG89kQSZ
