@@ -16,7 +16,7 @@ $(obj_dir)%.o: $(src_dir)%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -f $(obj_dir)* $(bin_dir)serverPosition/exe
+	rm -f $(obj_dir)* $(bin_dir)serverPosition.exe
 	touch $(obj_dir)objHolder
 
 start:
