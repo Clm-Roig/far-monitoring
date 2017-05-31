@@ -301,11 +301,11 @@ char* recepBeebotte(char* typedonnee)
 
     /* Traitement du message reçu*/
     printf("%s", response);
-    char* compar ="type_msg=";
+    char* compar[200]="type_msg=";
     strcat(compar,typedonnee);
     char* verif =strstr(response, compar);
     char* verif2;
-    char* data="";
+    char* data[200]="";
     if (strcmp(verif,"")==0)
     {
         printf("Pas de message trouvé");
