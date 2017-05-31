@@ -32,7 +32,7 @@ int main(int argc,char* args[]) {
 	*/
 	// Test réception Beebotte
 	char* donnees = malloc(4096*sizeof(char));
-	donnees = recepBeebotte("hugo");
+	donnees = recepBeebotte("COORD");
 	printf("\nDonnées reçues : %s",donnees);
 
 /*

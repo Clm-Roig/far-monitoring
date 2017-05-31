@@ -314,11 +314,12 @@ char* recepBeebotte(char* typedonnee)
     }
     else {
         verifData = strstr(verifType, "data=");
+        verifData += strlen("data=");
         data = strtok(verifData,"\"");
-        printf("%s", data);
     }
     return data;
 }
+
 int envoiRobot(char* donnees, char* addrRobot){
     return 1;
 }

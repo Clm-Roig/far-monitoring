@@ -14,7 +14,7 @@ char* diversSP;
 
 int main() {
 	// Récupération de l'id du SP
-
+	char* IP;
 
 
 	int sockServeurPos = initSocket(80,ipServeurPosition,"null");

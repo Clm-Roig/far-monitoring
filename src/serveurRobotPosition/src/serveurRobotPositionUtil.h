@@ -51,4 +51,12 @@ int receiveFromSocket(int socket, char** buffer);
 */
 int checkFinPartie();
 
+/**
+    @brief Renvoie les données contenues dans le dernier message sur Beebotte du type spécifié
+    @param char* typedonnee, le type de messages que l'on souhaite récupérer (partie "type_msg" sur Beebotte)
+    @return char* les données contenues dans la partie "data" du msg
+*/
+char* recepBeebotte(char* typedonnee);
+
+
 #endif
