@@ -5,7 +5,7 @@
 
 Pour faire fonctionner le serveur :
 - ajoute simplement la ligne #include "serveurRobotPosition.h" à votre programme
-- compiler les fichiers serveurRobotPosition.c et serveurRobotPositionUtil.c
+- compiler le fichier serveurRobotPosition
 - lancer la fonction lancerServeurPosition()
 
 A tout moment, vous pouvez lire les dernières coordonnées reçues dans xSP, ySP et diversSP.
