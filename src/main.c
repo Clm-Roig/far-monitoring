@@ -26,14 +26,40 @@ int main(int argc,char* args[]) {
 */
 
 	// Test envoi Beebotte
+	/*
 	char* data [4] = {"COORD","SP","1","1,1,123.5.5.5"};
 	envoiBeebotte(data);
 
 	// Test réception Beebotte
 	char* donnees = malloc(512*sizeof(char));
 	donnees = recepBeebotte("COORD");
+*/
 
+	// ===================== "VRAI" CODE ========================== //
 
+	// Récupération des IPs des robots (sur Beebotte)
+	// pour l'instant on saisit les IP à la main
+	char* tableauIPs[6];
+	int i = 0;
+	for (i = 0; i < 6; i++) {
+		printf("\nVeuillez saisir l'IP du robot %d : ",i);
+		char* IP = malloc(20*sizeof(char));
+	    fgets(IP, sizeof IP, stdin);
+	    char *p = strchr(IP, '\n');
+	    // Retrait saut de ligne
+	    if (p) {
+	        *p = 0;
+	    }
+	    // Purge du flux stdin si saisie trop grande
+	    else {
+	        int c2;
+	        while ((c2 = getchar()) != '\n' && c2 != EOF){}
+	    }
+		tableauIPs[i] = IP;
+	}
+
+	// Création du token ring et lancement de la partie
+	creerFils(tableauIPs);
 
     return 0;
 }
