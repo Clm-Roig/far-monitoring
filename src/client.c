@@ -301,7 +301,24 @@ char* recepBeebotte(char* typedonnee)
 
     /* Traitement du message reçu*/
     printf("%s", response);
-    return "";
+    char* compar ="type_msg=");
+    strcat(compar,typedonnee);
+    char* verif =strstr(response, compar);
+    char* verif2;
+    if (verif =="")
+    {
+        printf("Pas de message trouvé");
+    }
+    else
+    {
+        verif2 = strstr(verif, "data=");
+        char* data[100]
+        int i = 5;
+        while (i <100 and verif2[i]!="\""){
+        data[i-5]=verif2[i];
+        }
+    }
+    return data;
 }
 int envoiRobot(char* donnees, char* addrRobot){
     return 1;
