@@ -314,10 +314,8 @@ char* recepBeebotte(char* typedonnee)
     {
         verif2 = strstr(verif, "data=");
 
-        int i = 5;
-        while (i <100 && strcmp(verif2[i],"\"")==1){
-        data[i-5]=verif2[i];
-        }
+        data = strtok(verif2,"\"");
+
         printf("%s", data);
     }
     return data;
