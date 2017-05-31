@@ -5,7 +5,7 @@
 // ---- FONCTIONS ---- //
 
 // Socket
-int initSocket(int port, char* IP) {
+int initSocket(int port, char* IP, char* URL) {
     int sock;
     struct sockaddr_in sin;
 
@@ -74,5 +74,9 @@ int receiveFromSocket(int socket, char** data) {
         perror("");
         exit(-1);
     }
+    return 0;
+}
+
+int checkFinPartie() {
     return 0;
 }

@@ -5,7 +5,7 @@
 * \file serveurRobotPosition.h
 * \brief Header du fichier serveurRobotPosition.c
 *
-* Le fichier serveurRobotPosition.c instancie un serveur permettant de réceptionner les coordonnées envoyées depuis le Serveur de Position. 
+* Le fichier serveurRobotPosition.c instancie un serveur permettant de réceptionner les coordonnées envoyées depuis le Serveur de Position.
 */
 
 // Sockets / HTTP / IP
@@ -28,6 +28,8 @@
 // ---- FONCTIONS ---- //
 
 /**
-	@brief Point d'entrée du programme. 
+	@brief Point d'entrée du programme.
 */
 int main();
+
+#endif

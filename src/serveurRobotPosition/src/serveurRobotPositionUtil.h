@@ -1,4 +1,3 @@
-
 #ifndef DEF_SERVEUR_ROBOT_POSITION_UTIL
 #define DEF_SERVEUR_ROBOT_POSITION_UTIL
 
@@ -15,6 +14,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <netdb.h>
 
 // Erreurs
 #include <errno.h>
@@ -31,9 +31,10 @@
     @brief crée + connecte un socket sur le port demandé (protocole IP) par IP ou URL (l'un doit être  initialisé à "null" pour pouvoir utiliser l'autre)
     @param int port : le port sur lequel l'on doit se connecter
     @param char* IP : l'ip sur laquelle on veut se connecter
+    @param char* URL : l'url sur laquelle on souhaite se connecter
     @return int, le socket créé et connecté, -1 si la création échoue
 */
-int initSocket(int port, char* IP);
+int initSocket(int port, char* IP, char* URL);
 
 
 /**
@@ -43,3 +44,11 @@ int initSocket(int port, char* IP);
     @return bool, 1 si ok, -1 sinon
 */
 int receiveFromSocket(int socket, char** buffer);
+
+/**
+    @brief Vérifie si la partie est terminé
+    @return int, 1 si la partie est terminée, 0 sinon
+*/
+int checkFinPartie();
+
+#endif
