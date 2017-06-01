@@ -140,10 +140,11 @@ void act(int num, char* jeton) {
         fprintf(stderr,"\n\n=============================\nRobot n°%d (IP = %s) à ton tour !",num,tableauIPs[num]);
         saisirXY();
 
-        // Envoi des coordonnées au robot
+        // Envoi des coordonnées 
         if(coordSaisies[0] != -1 && coordSaisies[1] != -1) {
             fprintf(stderr,"\nJ'envoie x = %d et y = %d.",coordSaisies[0],coordSaisies[1]);
 
+            // Envoi Beebotte
             char* data = malloc(256*sizeof(char));
             sprintf(data,"%d",coordSaisies[0]);
             strcat(data,",");
@@ -151,7 +152,17 @@ void act(int num, char* jeton) {
             strcat(data,",");
             strcat(data,tableauIPs[num]);
             char* aEnvoyer [4] = {"COORD","SP","1",data};
+
             envoiBeebotte(aEnvoyer);
+
+            char* sendToBot = malloc(256*sizeof(char));
+            sprintf(sendToBot,"%d",coordSaisies[0]);
+            strcat(sendToBot,",");
+            sprintf(sendToBot,"%s%d",data,coordSaisies[1]);
+            
+            if(envoiRobot(data,tableauIPs[num] == 0) {
+                fprintf(stderr,"\nErreur d'envoi au robot, désolé...");
+            }
 
             coordSaisies[0] = -1;
             coordSaisies[1] = -1;

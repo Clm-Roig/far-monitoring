@@ -230,19 +230,20 @@ int lancerServeurPosition() {
 
 	int sockServeurPos = initSocket(PORTServeurPosition,IPServeurPosition,"null");
 
-	char* data[3];
-	data[0] = malloc(32*sizeof(char));
-	data[1] = malloc(32*sizeof(char));
-	data[2] = malloc(256*sizeof(char));
+	char* buffer;
+	buffer = malloc(512*sizeof(char));
 
 	diversSP = malloc(256*sizeof(char));
 	while(!checkFinPartie()) {
 		// Attente des coordonnées sur le socket
-		receiveFromSocket(sockServeurPos, data);
+		receiveFromSocket(sockServeurPos, buffer);
 
-		xSP = atoi(data[0]);
-		ySP = atoi(data[1]);
-		diversSP = data[2];
+        // Découpage du message reçu
+        /*
+		xSP = ;
+		ySP = ;
+		diversSP = ;
+        */
 	}
 	// fin de partie
 

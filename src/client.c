@@ -24,8 +24,7 @@ char* clefCanal = "1494771555601_5SGQdxJaJ8O1HBj4";
 // ---- FONCTIONS ---- //
 int sock;
 
-void Error(char *mess)
-{
+void Error(char *mess) {
     fprintf(stderr,"%s\n",mess);
     if (sock) close(sock);
     exit(-1);
@@ -109,10 +108,6 @@ int envoiDweet(int x, int y, char* adrIpEnvoi) {
     close(sock);
 
     return EXIT_SUCCESS;
-}
-
-int recvDweet(char* IP) {
-    return 1;
 }
 
 int envoiBeebotte(char *data[]) {
@@ -222,8 +217,7 @@ int envoiBeebotte(char *data[]) {
     return 0;
 }
 
-char* recepBeebotte(char* typedonnee)
-{
+char* recepBeebotte(char* typedonnee) {
     //http://api.beebotte.com/v1/public/data/read/vberry/testVB/msg?limit=2&time-range=1hour
     char *host = "api.beebotte.com";
 
@@ -321,7 +315,12 @@ char* recepBeebotte(char* typedonnee)
 }
 
 int envoiRobot(char* donnees, char* addrRobot){
-    return 1;
+    int res = 1;
+    int sockBot = initSocket(80, addrRobot,"null");
+    if(sendToSocket(sockBot,donnees) == -1) {
+        res = 0;
+    }
+    return res;
 }
 
 int checkDebutPartie() {
