@@ -25,6 +25,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "util.h"
+
 // ---- CONSTANTES ---- //
 
 
@@ -40,7 +42,7 @@
 int envoiDweet(int x, int y, char* AdrIpEnvoi);
 
 /**
-  @brief Envoi des donnes à un robot
+  @brief Envoi des donnes à un robot et ferme le socket utilisé après l'envoi
   @param int* donnees, les données à envoyer au robot
   @param char* addrRobot, l'adresse IP du robot auquel on envoie les coordonnées
   @return int, 1 si tout s'est bien passé, 0 sinon

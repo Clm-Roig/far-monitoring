@@ -160,7 +160,7 @@ void act(int num, char* jeton) {
             strcat(sendToBot,",");
             sprintf(sendToBot,"%s%d",data,coordSaisies[1]);
             
-            if(envoiRobot(data,tableauIPs[num] == 0) {
+            if(envoiRobot(data,tableauIPs[num]) == 0) {
                 fprintf(stderr,"\nErreur d'envoi au robot, désolé...");
             }
 

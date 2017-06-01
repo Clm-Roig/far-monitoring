@@ -13,7 +13,7 @@ int main(int argc,char* args[]) {
 	// nc -l localhost 1234
 
 	// Test socket
-
+/*
 	char* tableauIPs[6];
 
 	tableauIPs[0] = "128.42.42.32";
@@ -23,7 +23,7 @@ int main(int argc,char* args[]) {
 	tableauIPs[4] = "132.42.42.32";
 	tableauIPs[5] = "133.42.42.32";
 	creerFils(tableauIPs);
-
+*/
 
 	// Test envoi Beebotte
 /*
@@ -36,7 +36,7 @@ int main(int argc,char* args[]) {
 	donnees = recepBeebotte("COORD");
 	printf("\nDonnées reçues : %s",donnees);
 */
-/*
+
 	// ===================== "VRAI" CODE ========================== //
 
 	// Récupération des IPs des robots (sur Beebotte)
@@ -60,8 +60,10 @@ int main(int argc,char* args[]) {
 		tableauIPs[i] = IP;
 	}
 
+
 	// Création du token ring et lancement de la partie
 	creerFils(tableauIPs);
-*/
+
+
     return 0;
 }

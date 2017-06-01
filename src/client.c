@@ -5,6 +5,7 @@
 // ---- CONSTANTES ---- //
 const char* THING_NAME = "IG3FARLECLERROIG";
 const char* SEPARATION = ",";
+const int PORT_ROBOT = 2048;
 
 // ---- VARIABLES ---- //
 /* !! TODO remplacer 'testVB' par le canal dans lequel publier (ex: partie12)
@@ -316,10 +317,11 @@ char* recepBeebotte(char* typedonnee) {
 
 int envoiRobot(char* donnees, char* addrRobot){
     int res = 1;
-    int sockBot = initSocket(80, addrRobot,"null");
+    int sockBot = initSocket(PORT_ROBOT, addrRobot,"null");
     if(sendToSocket(sockBot,donnees) == -1) {
         res = 0;
     }
+    close(sockBot);
     return res;
 }
 
