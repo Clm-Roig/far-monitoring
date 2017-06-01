@@ -7,7 +7,7 @@
 // ---- FONCTIONS ---- //
 
 int main(int argc,char* args[]) {
-/*
+
 	// Pour créer un serveur en local sur le terminal :
 	// nc -l localhost "numDuPort"
 	// nc -l localhost 1234
@@ -23,15 +23,15 @@ int main(int argc,char* args[]) {
 	tableauIPs[4] = "132.42.42.32";
 	tableauIPs[5] = "133.42.42.32";
 	creerFils(tableauIPs);
-*/
+
 
 	// Test envoi Beebotte
-
+/*
 	char* data [4] = {"IP_SP","SP","1","128.42.123.42"};
   	envoiBeebotte(data);
 
 	// Test réception Beebotte
-	/*
+	
 	char* donnees = malloc(4096*sizeof(char));
 	donnees = recepBeebotte("COORD");
 	printf("\nDonnées reçues : %s",donnees);

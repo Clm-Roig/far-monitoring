@@ -144,7 +144,14 @@ void act(int num, char* jeton) {
         if(coordSaisies[0] != -1 && coordSaisies[1] != -1) {
             fprintf(stderr,"\nJ'envoie x = %d et y = %d.",coordSaisies[0],coordSaisies[1]);
 
-            envoiDweet(coordSaisies[0],coordSaisies[1],tableauIPs[num]);
+            char* data = malloc(256*sizeof(char));
+            sprintf(data,"%d",coordSaisies[0]);
+            strcat(data,",");
+            sprintf(data,"%s%d",data,coordSaisies[1]);
+            strcat(data,",");
+            strcat(data,tableauIPs[num]);
+            char* aEnvoyer [4] = {"COORD","SP","1",data};
+            envoiBeebotte(aEnvoyer);
 
             coordSaisies[0] = -1;
             coordSaisies[1] = -1;
