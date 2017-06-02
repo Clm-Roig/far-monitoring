@@ -15,9 +15,6 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-// Threads
-#include <pthread.h>
-
 // Base
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,7 +22,6 @@
 
 // Autres fichiers du projet
 #include "fils.h"
-#include "init.h"
 #include "client.h"
 #include "util.h"
 

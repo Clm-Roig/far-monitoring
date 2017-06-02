@@ -16,12 +16,9 @@
 #include <unistd.h>
 #include <netdb.h>
 
-// Threads
-#include <pthread.h>
-
 // Pipes
-#include <sys/stat.h> // mkfifo
-#include <fcntl.h> // open()
+#include <sys/stat.h> 
+#include <fcntl.h>
 
 // Erreurs
 #include <errno.h>

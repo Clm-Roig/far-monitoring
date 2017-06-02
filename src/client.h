@@ -17,9 +17,6 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-// Threads
-#include <pthread.h>
-
 // Base
 #include <stdio.h>
 #include <stdlib.h>
