@@ -18,8 +18,10 @@ char* ressource2 = "msg?limit=15&time-range=1hour";
 
     // !! TO DO : mettre ci-dessous le token du canal !!
     // canal partie0 : 1494793564147_KNl54g97mG89kQSZ
+    // canal GPpartie0 : 1496739734657_0fJejrx6NNqf6L5Q
     // canal testVB : 1494771555601_5SGQdxJaJ8O1HBj4
-char* clefCanal = "1494771555601_5SGQdxJaJ8O1HBj4";
+    
+char* clefCanal = "1496739734657_0fJejrx6NNqf6L5Q";
 
 // ---- FONCTIONS ---- //
 int sock;
