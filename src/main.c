@@ -31,10 +31,9 @@ int main(int argc,char* args[]) {
 		tabIPs[i] = malloc(20*sizeof(char));
 		strcpy(tabIPs[i],IP);
 	}
-
 	// Envoi de l'IP sur beebotte
-	char* data [4] = {"IP_SP","SP","1",IP_SP};
-  	envoiBeebotte(data);
+	char* data [4] = {"test_GP","SP","1",IP_SP};
+  	envoiBeebotte(data, "testVB");
 
 	// Création du token ring et lancement de la partie
 	creerFils(tabIPs);

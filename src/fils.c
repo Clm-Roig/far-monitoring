@@ -17,6 +17,7 @@ const char* CHEMIN_COORDONNEES = "data/coordonnees.txt";
 char* tableauIPs[6];
 int keyboard;
 int* coordSaisies;
+char* diversSaisi;
 pid_t childpid;
 pid_t childSaisiePid;
 
@@ -121,7 +122,6 @@ int creerFils(char** tab) {
 void act(int num, char* jeton) {
     char* copyJeton = malloc(TAILLE_JETON*sizeof(char));
     strcpy(copyJeton,jeton);
-    int c = 3;
 
     while(!checkFinPartie()){
 
@@ -133,28 +133,23 @@ void act(int num, char* jeton) {
             }
         }
 
-        // saisirXY() est bloquant et gère le temps écoulé
+        // saisirInfos() est bloquant et gère le temps écoulé
         fprintf(stderr,"\n\n=============================\nRobot n°%d (IP = %s) à ton tour !",num,tableauIPs[num]);
-        saisirXY();
+        saisirInfos();
 
         // Envoi des coordonnées 
         if(coordSaisies[0] != -1 && coordSaisies[1] != -1) {
-            fprintf(stderr,"\nJ'envoie x = %d et y = %d.",coordSaisies[0],coordSaisies[1]);
+            fprintf(stderr,"\nJ'envoie x = %d, y = %d et divers = %s.",coordSaisies[0],coordSaisies[1],diversSaisi);
 
             // Envoi Beebotte
             char* data = malloc(256*sizeof(char));
-            sprintf(data,"%d",coordSaisies[0]);
-            strcat(data,",");
-            sprintf(data,"%s%d",data,coordSaisies[1]);
-            strcat(data,",");
-            strcat(data,tableauIPs[num]);
+            sprintf(data,"%d,%d,%s,%s",coordSaisies[0],coordSaisies[1],diversSaisi,tableauIPs[num]);
             char* aEnvoyer [4] = {"COORD","SP","1",data};
 
             envoiBeebotte(aEnvoyer);
 
             char* sendToBot = malloc(256*sizeof(char));
-            sprintf(sendToBot,"%d,%d",coordSaisies[0],coordSaisies[1]);
-
+            sprintf(sendToBot,"%d,%d,%s",coordSaisies[0],coordSaisies[1],diversSaisi);
            
             if(envoiRobot(sendToBot,tableauIPs[num]) == 0) {
                 fprintf(stderr,"\nErreur d'envoi au robot, désolé...");
@@ -171,9 +166,6 @@ void act(int num, char* jeton) {
         }
 
         strcpy(copyJeton,"");
-
-        // TODO : à supprimer, là juste pour les tests
-        c = c-1;
     }
 
     // Le num 0 arrête les autres process
@@ -191,7 +183,7 @@ void act(int num, char* jeton) {
 
 
 // ==== SIGNAUX ====/
-// Fonction de traitement du signal dans saisirXY()
+// Fonction de traitement du signal dans saisirInfos()
 void lireFichierCoords() {
     // lire fichier
     FILE* fichierCoord = fopen(CHEMIN_COORDONNEES,"r");
@@ -200,6 +192,8 @@ void lireFichierCoords() {
     coordSaisies[0] = atoi(x);
     char* y = lireLigne(fichierCoord,2);
     coordSaisies[1] = atoi(y);
+    char* divers = lireLigne(fichierCoord,3);
+    diversSaisi = divers;
 
     fclose(fichierCoord);
 
@@ -223,7 +217,7 @@ void termChild() {
 // ==== fin Signaux ==== //
 
 
-void saisirXY() {
+void saisirInfos() {
     int pid = fork();
 
     coordSaisies[0] = -1;
@@ -243,6 +237,10 @@ void saisirXY() {
             fprintf(stderr,"Veuillez entrer la coordonnée Y : ");
             int y = saisirInt();
 
+            // Coord Y
+            fprintf(stderr,"Veuillez entrer une information diverse : ");
+            char* divers = saisirString();
+
             // Contrôle des valeurs
             if(x<0 || x > LONGUEUR_GRILLE) {
                 fprintf(stderr,"\nErreur, la coordonnées x saisie est hors grille.");
@@ -253,12 +251,13 @@ void saisirXY() {
             else {
                 coordSaisies[0] = x;
                 coordSaisies[1] = y;
+                diversSaisi = divers;
             }
         } while(coordSaisies[0]==-1 || coordSaisies[1]==-1);
 
         // formatage des données
-        char buffer[128] = "";
-        sprintf(buffer,"%d\n%d",coordSaisies[0],coordSaisies[1]);
+        char buffer[512] = "";
+        sprintf(buffer,"%d\n%d\n%s",coordSaisies[0],coordSaisies[1],diversSaisi);
 
         // écriture dans le fichier
         FILE* fichierCoord = fopen(CHEMIN_COORDONNEES,"w");
@@ -310,6 +309,28 @@ int saisirInt() {
     }
 
     return atoi(x);
+}
+
+char* saisirString() {
+    /*  Saisie sécurisée par fgets()
+        Voir https://openclassrooms.com/courses/realiser-des-saisies-securisees-grace-a-fgets
+        pour plus d'informations.
+    */
+
+    char* x = malloc(128*sizeof(char));
+    fgets(x, sizeof x, stdin);
+    char *pY = strchr(x, '\n');
+    // Retrait saut de ligne
+    if (pY) {
+        *pY = 0;
+    }
+    // Purge du flux stdin si saisie trop grand
+    else {
+        int c2;
+        while ((c2 = getchar()) != '\n' && c2 != EOF){}
+    }
+
+    return x;
 }
 
 void signalDebutPartie() {

@@ -65,7 +65,7 @@ void act(int num, char* jeton);
 void unFilsTermine();
 
 /**
-    @brief Traitement du signal SIGUSR1 envoyé depuis saisirXY()
+    @brief Traitement du signal SIGUSR1 envoyé depuis saisirInfos()
 */
 void lireFichierCoords();
 
@@ -77,15 +77,21 @@ void termChild();
 // ==== Fin signaux ==== //
 
 /**
-    @brief permet la saisie pendant DELAI_SAISIE secondes de deux entiers dans coordSaisies
+    @brief permet la saisie pendant DELAI_SAISIE secondes de deux entiers et d'une information diverse
 */
-void saisirXY();
+void saisirInfos();
 
 /**
     @brief permet la saisie d'un entier au clavier
     @return int, l'entier saisi au clavier
 */
 int saisirInt();
+
+/**
+    @brief permet la saisie d'une string au clavier
+    @return string, la string saisie au clavier
+*/
+char* saisirString();
 
 /**
     @brief créer un jeton permettant de saisir des coordonnées
