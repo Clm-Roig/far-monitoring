@@ -29,14 +29,6 @@
 
 // ---- FONCTIONS ---- //
 
-/**
-  @brief Envoi des logs de coordonnées sur dweet.io
-  @param x, Les coordonnées saisies pour x
-  @param y, les coordonnées saisies pour y
-  @param AddrIpEnvoi, l'adresse IP correspondant au robot
-  @return int, 1 si tout s'est bien passé, 0 sinon
-*/
-int envoiDweet(int x, int y, char* AdrIpEnvoi);
 
 /**
   @brief Envoi des donnes à un robot et ferme le socket utilisé après l'envoi
@@ -55,14 +47,14 @@ int envoiRobot(char* donnees, char* addrRobot);
           => case 3 : data
     @return int, 0 si tout s'est bien passé
 */
-int envoiBeebotte(char *data[]);
+int envoiBeebotte(char *data[], char* canal);
 
 /**
     @brief Renvoie les données contenues dans le dernier message sur Beebotte du type spécifié
     @param char* typedonnee, le type de messages que l'on souhaite récupérer (partie "type_msg" sur Beebotte)
     @return char* les données contenues dans la partie "data" du msg
 */
-char* recepBeebotte(char* typedonnee);
+char* recepBeebotte(char* typedonnee, char* canal);
 
 
 /**
