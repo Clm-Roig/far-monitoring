@@ -11,3 +11,9 @@ Développement du serveur de position (projet FAR IG3 2017, Polytech Montpellier
 - obj       : Fichier compilés .o
 - bin       : Exécutable du projet
 - doc       : Documentation du projet
+
+# Utilisation
+ - Ouvrir un terminal et se placer dans le même répértoire que le fichier compressé
+ - Décompresser le fichier
+ - Compiler le programme et le lancer avec la commande "make start"
+ 
