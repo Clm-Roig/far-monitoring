@@ -21,7 +21,7 @@ char* diversSaisi;
 pid_t childpid;
 pid_t childSaisiePid;
 
-char* canalBeebotteCoord = "testVB";
+char* canalBeebotteCoord = "GPpartie0";
 
 // ---- FONCTIONS ---- //
 
@@ -153,11 +153,11 @@ void act(int num, char* jeton) {
 
             char* sendToBot = malloc(256*sizeof(char));
             sprintf(sendToBot,"%d,%d,%s",coordSaisies[0],coordSaisies[1],diversSaisi);
-            
+            /*
             if(envoiRobot(sendToBot,tableauIPs[num]) == 0) {
                 fprintf(stderr,"\nErreur d'envoi au robot, désolé...");
             }            
-
+            */
             coordSaisies[0] = -1;
             coordSaisies[1] = -1;
         }

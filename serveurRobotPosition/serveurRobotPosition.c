@@ -74,5 +74,5 @@ int lancerServeurPosition() {
 
         close(csock); 
     }
-	return 0;
+    return 0;
 }
