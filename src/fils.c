@@ -26,10 +26,8 @@ int creerFils(char** tab) {
     // Initialisation des variables
     int i = 0;
     for(i=0; i<NOMBRE_JOUEURS ; i++) {
-        tableauIPs[i] = malloc(NOMBRE_JOUEURS*20*sizeof(char));
-        memcpy(tableauIPs[i], tab[i], strlen(tab[i])+1);
+        tableauIPs[i] = tab[i];
     }
-
 
     coordSaisies = malloc(2*sizeof(int));
     coordSaisies[0] = -1;
@@ -108,7 +106,6 @@ int creerFils(char** tab) {
     // Les autres fils act() (en attente de jeton)
     if (i == 0) {
         char* jeton = genererJeton();
-        fprintf(stderr,"\nJeton : %s",jeton);
         //signalDebutPartie();
         act(i,jeton);
     }
@@ -156,13 +153,12 @@ void act(int num, char* jeton) {
             envoiBeebotte(aEnvoyer);
 
             char* sendToBot = malloc(256*sizeof(char));
-            sprintf(sendToBot,"%d",coordSaisies[0]);
-            strcat(sendToBot,",");
-            sprintf(sendToBot,"%s%d",data,coordSaisies[1]);
-            
-            if(envoiRobot(data,tableauIPs[num]) == 0) {
+            sprintf(sendToBot,"%d,%d",coordSaisies[0],coordSaisies[1]);
+
+           
+            if(envoiRobot(sendToBot,tableauIPs[num]) == 0) {
                 fprintf(stderr,"\nErreur d'envoi au robot, désolé...");
-            }
+            }            
 
             coordSaisies[0] = -1;
             coordSaisies[1] = -1;
@@ -275,7 +271,9 @@ void saisirXY() {
     }
     else {  // Le père contrôle le temps passé
         childSaisiePid = pid;
-        fprintf(stderr,"\nCPID = %d et FSaisiePID = %d",childpid,pid);
+
+        // fprintf(stderr,"\nCPID = %d et FSaisiePID = %d",childpid,pid);
+
         signal(SIGUSR1,lireFichierCoords);
         // Wait for avec vérification
         unsigned int retTime = time(0) + DELAI_SAISIE;

@@ -2,17 +2,21 @@
 
 #include "main.h"
 
+// ---- VARIABLES ---- //
+char* IP_SP = "128.42.42.42"; // TODO : IP du serveur de position
+
 // ---- FONCTIONS ---- //
 
 int main(int argc,char* args[]) {
 	// Récupération des IPs des robots (sur Beebotte)
 	// pour l'instant on saisit les IP à la main
-	char* tableauIPs[6];
+	char* tabIPs[6];
 	int i = 0;
 	for (i = 0; i < 6; i++) {
 		printf("\nVeuillez saisir l'IP du robot %d : ",i);
-		char* IP = malloc(20*sizeof(char));
+		char IP[20];
 	    fgets(IP, sizeof IP, stdin);
+
 	    char *p = strchr(IP, '\n');
 	    // Retrait saut de ligne
 	    if (p) {
@@ -20,18 +24,20 @@ int main(int argc,char* args[]) {
 	    }
 	    // Purge du flux stdin si saisie trop grande
 	    else {
-	        int c2;
-	        while ((c2 = getchar()) != '\n' && c2 != EOF){}
+	        int c;
+	        while ((c = getchar()) != '\n' && c != EOF){}
 	    }
-		tableauIPs[i] = IP;
+
+		tabIPs[i] = malloc(20*sizeof(char));
+		strcpy(tabIPs[i],IP);
 	}
 
 	// Envoi de l'IP sur beebotte
-	char* data [4] = {"IP_SP","SP","1","128.42.123.42"};
+	char* data [4] = {"IP_SP","SP","1",IP_SP};
   	envoiBeebotte(data);
 
 	// Création du token ring et lancement de la partie
-	creerFils(tableauIPs);
+	creerFils(tabIPs);
 
     return 0;
 }

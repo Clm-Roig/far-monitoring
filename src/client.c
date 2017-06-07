@@ -3,7 +3,6 @@
 #include "client.h"
 
 // ---- CONSTANTES ---- //
-const char* THING_NAME = "IG3FARLECLERROIG";
 const char* SEPARATION = ",";
 const int PORT_ROBOT = 2048;
 
@@ -100,7 +99,8 @@ int envoiDweet(int x, int y, char* adrIpEnvoi) {
     strcat(buffer, " HTTP/1.1\nHost: ");
     strcat(buffer, host);
     strcat(buffer, "\n\n");
-    printf("Requete : \n%s", buffer);
+    
+    // printf("Requete : \n%s", buffer);
 
     // TO DO : test whether this suceeds or Erorr("write error on socket")
     send(sock, buffer, strlen(buffer), 0);
@@ -159,7 +159,7 @@ int envoiBeebotte(char *data[]) {
     strcat(message,"\r\n");              // blank line
     strcat(message,donnees);             // body
 
-    printf("Request:\n%s\n-------------\n",message);
+    // printf("Request:\n%s\n-------------\n",message);
 
     // Socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -212,7 +212,9 @@ int envoiBeebotte(char *data[]) {
     }
 
     close(sockfd);
-    printf("Response:\n%s\n",response);
+
+    // printf("Response:\n%s\n",response);
+    
     free(message);
 
     return 0;

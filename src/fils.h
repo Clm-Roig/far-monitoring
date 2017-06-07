@@ -45,9 +45,10 @@ const char* CHEMIN_COORDONNEES;
 
 /**
     @brief génère un token ring de 6 modules fils. Les fils écrivent dans fd[1] et lisent dans fd[0].
+    @param tabIPs, le tableau des IPs des robot
     @return int, 1 si tout s'est bien passé, 0 sinon
 */
-int creerFils(char** tab);
+int creerFils(char** tabIPs);
 
 /**
     @brief Algorithme de comportement d'un fils

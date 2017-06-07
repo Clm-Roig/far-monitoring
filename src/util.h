@@ -28,6 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <time.h>
+
 
 // ---- CONSTANTES ---- //
 const char* CHEMIN_PIPE;
@@ -60,17 +62,6 @@ int sendToSocket(int socket, char* data);
     @return bool, 1 si ok, -1 sinon
 */
 int receiveFromSocket(int socket, char** buffer);
-
-
-// PIPES
-
-/**
-    @brief lit dans un pipe nommé ouvert en lecture au préalable (voir fonction openPipe ci-dessus)
-    @param int descPipe, le descripteur du pipe dans lequel on veut lire
-    @param char* data, les données dans lesquelles on stockera le message lu
-    @return int, le nombre d'octets lu, sinon, en cas d'erreur, -1
-*/
-int readInPipe(int descPipe, char* data);
 
 // FICHIERS
 
