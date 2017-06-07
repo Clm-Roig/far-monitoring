@@ -10,6 +10,7 @@ char* IP_SP = "128.42.42.42"; // TODO : IP du serveur de position
 int main(int argc,char* args[]) {
 	// Récupération des IPs des robots (sur Beebotte)
 	// pour l'instant on saisit les IP à la main
+
 	char* tabIPs[6];
 	int i = 0;
 	for (i = 0; i < 6; i++) {

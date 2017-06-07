@@ -73,26 +73,24 @@ int initSocket(int port, char* IP, char* URL) {
 }
 
  int sendToSocket(int socket, char* data) {
-     send(socket,data,sizeof(data),0);
-     // Erreur ?
-     if(errno) {
-         printf("\nErreur envoi données socket (sendToSocket() dans util.c) par le socket %d", socket);
-         perror("");
-         exit(-1);
-     }
-     return 0;
+    send(socket,data,strlen(data),0);
+    if(errno) {
+        printf("\nErreur envoi données socket (sendToSocket() dans util.c) par le socket %d", socket);
+        perror("");
+        exit(-1);
+    }
+    return 0;
  }
 
  int receiveFromSocket(int socket, char** data) {
-     recv(socket,&data,sizeof(&data)-1,0);
-     // Erreur ?
-     if(errno) {
-         printf("\nErreur reception données socket (receiveFromSocket() dans util.c) par le socket %d", socket);
-         perror("");
-         exit(-1);
-     }
-     return 0;
- }
+    recv(socket,&data,sizeof(&data)-1,0);
+    if(errno) {
+        printf("\nErreur reception données socket (receiveFromSocket() dans util.c) par le socket %d", socket);
+        perror("");
+        exit(-1);
+    }
+    return 0;
+}
 
 
 // FICHIERS

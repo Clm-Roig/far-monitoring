@@ -21,6 +21,8 @@ char* diversSaisi;
 pid_t childpid;
 pid_t childSaisiePid;
 
+char* canalBeebotteCoord = "testVB";
+
 // ---- FONCTIONS ---- //
 
 int creerFils(char** tab) {
@@ -128,6 +130,7 @@ void act(int num, char* jeton) {
         // Attente de réception d'un jeton
         if(strcmp(copyJeton,"") == 0) {
             read(STDIN_FILENO,copyJeton,TAILLE_JETON*sizeof(char)+1);
+            fprintf(stderr,"\nn°%d a reçu un jeton.",num);
             if(errno != 0) {
                 perror("\nErreur réception jeton");
             }
@@ -146,11 +149,11 @@ void act(int num, char* jeton) {
             sprintf(data,"%d,%d,%s,%s",coordSaisies[0],coordSaisies[1],diversSaisi,tableauIPs[num]);
             char* aEnvoyer [4] = {"COORD","SP","1",data};
 
-            envoiBeebotte(aEnvoyer);
+            envoiBeebotte(aEnvoyer,canalBeebotteCoord);
 
             char* sendToBot = malloc(256*sizeof(char));
             sprintf(sendToBot,"%d,%d,%s",coordSaisies[0],coordSaisies[1],diversSaisi);
-           
+            
             if(envoiRobot(sendToBot,tableauIPs[num]) == 0) {
                 fprintf(stderr,"\nErreur d'envoi au robot, désolé...");
             }            
@@ -161,6 +164,7 @@ void act(int num, char* jeton) {
 
         // Envoi du jeton au fils suivant
         write(STDOUT_FILENO,copyJeton,TAILLE_JETON*sizeof(char)+1);
+        fprintf(stderr,"\nn°%d a envoyé son jeton.",num);
         if(errno != 0) {
             perror("Erreur envoi jeton");
         }
@@ -185,7 +189,6 @@ void act(int num, char* jeton) {
 // ==== SIGNAUX ====/
 // Fonction de traitement du signal dans saisirInfos()
 void lireFichierCoords() {
-    // lire fichier
     FILE* fichierCoord = fopen(CHEMIN_COORDONNEES,"r");
 
     char* x = lireLigne(fichierCoord,1);
