@@ -147,7 +147,7 @@ void act(int num, char* jeton) {
             // Envoi Beebotte
             char* data = malloc(256*sizeof(char));
             sprintf(data,"%d,%d,%s,%s",coordSaisies[0],coordSaisies[1],diversSaisi,tableauIPs[num]);
-            char* aEnvoyer [4] = {"COORD","SP","1",data};
+            char* aEnvoyer [4] = {"COORD","GP","1",data};
 
             envoiBeebotte(aEnvoyer,canalBeebotteCoord);
 
