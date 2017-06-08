@@ -21,7 +21,9 @@ char* ressource2 = "msg?limit=15&time-range=1hour";
     // canal GPpartie0 : 1496739734657_0fJejrx6NNqf6L5Q
     // canal testVB : 1494771555601_5SGQdxJaJ8O1HBj4
     
-char* clefCanal = "1496739734657_0fJejrx6NNqf6L5Q";
+char* clefCanal = "1494793564147_KNl54g97mG89kQSZ";
+char* clefCanalGP = "1496739734657_0fJejrx6NNqf6L5Q";
+
 
 // ---- FONCTIONS ---- //
 int sock;
@@ -36,7 +38,9 @@ int envoiBeebotte(char *data[], char* canal) {
     char *host = "api.beebotte.com";
 
     char path[100] = "/v1/data/write/";
-    strcat(path,canal); strcat(path,"/"); strcat(path,ressource);
+    strcat(path,canal); 
+    strcat(path,"/"); 
+    strcat(path,ressource);
 
     struct hostent *server;
     struct sockaddr_in serv_addr;
@@ -45,7 +49,14 @@ int envoiBeebotte(char *data[], char* canal) {
 
     // Necessaire pour envoyer des donnees sur beebotte.com (noter le token du canal a la fin) :
     char headers[300] ="Host: api.beebotte.com\r\nContent-Type: application/json\r\nX-Auth-Token: ";
-    strcat(headers,clefCanal);strcat(headers,"\r\n");
+    if(strcmp(canal,"GPpartie0") == 0) {
+        strcat(headers,clefCanalGP);
+    }   
+    else {
+        strcat(headers,clefCanal);
+    }
+
+    strcat(headers,"\r\n");
 
     char donnees[4096] = "{\"data\":\""; // "data" est impose par beebotte.com
 
