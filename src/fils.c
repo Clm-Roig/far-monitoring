@@ -8,7 +8,7 @@ const int LONGUEUR_GRILLE = 11; // TODO : taille de la grille de jeu, pour évit
 const int LARGEUR_GRILLE = 7; // TODO
 
 const int TAILLE_JETON = 32;
-const int DELAI_SAISIE = 10; // Délai avant de passer le jeton à un frère
+const int DELAI_SAISIE = 20; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
 const char* CHEMIN_COORDONNEES = "data/coordonnees.txt";
