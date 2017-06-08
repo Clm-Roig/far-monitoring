@@ -3,7 +3,7 @@
 #include "main.h"
 
 // ---- VARIABLES ---- //
-char* IP_SP = "128.42.42.42"; // TODO : IP du serveur de position
+char* IP_SP = "162.38.111.44"; // TODO : IP du serveur de position
 
 // ---- FONCTIONS ---- //
 

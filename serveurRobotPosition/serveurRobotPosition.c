@@ -76,8 +76,3 @@ int lancerServeurPosition() {
     }
     return 0;
 }
-
-int main() {
-    lancerServeurPosition();
-    return 0;
-}
