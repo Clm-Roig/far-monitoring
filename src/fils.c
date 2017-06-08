@@ -8,7 +8,7 @@ const int LONGUEUR_GRILLE = 11; // TODO : taille de la grille de jeu, pour évit
 const int LARGEUR_GRILLE = 7; // TODO
 
 const int TAILLE_JETON = 32;
-const int DELAI_SAISIE = 4; // Délai avant de passer le jeton à un frère
+const int DELAI_SAISIE = 10; // Délai avant de passer le jeton à un frère
 const int NOMBRE_JOUEURS = 6;
 
 const char* CHEMIN_COORDONNEES = "data/coordonnees.txt";
@@ -35,6 +35,7 @@ int creerFils(char** tab) {
     coordSaisies = malloc(2*sizeof(int));
     coordSaisies[0] = -1;
     coordSaisies[1] = -1;
+    diversSaisi = malloc(64*sizeof(char));
 
     // Mise en place du Token Ring
     // cf "Unix Systems Programming", chapitre 7, page 286
@@ -130,7 +131,6 @@ void act(int num, char* jeton) {
         // Attente de réception d'un jeton
         if(strcmp(copyJeton,"") == 0) {
             read(STDIN_FILENO,copyJeton,TAILLE_JETON*sizeof(char)+1);
-            fprintf(stderr,"\nn°%d a reçu un jeton.",num);
             if(errno != 0) {
                 perror("\nErreur réception jeton");
             }
@@ -153,18 +153,17 @@ void act(int num, char* jeton) {
 
             char* sendToBot = malloc(256*sizeof(char));
             sprintf(sendToBot,"%d,%d,%s",coordSaisies[0],coordSaisies[1],diversSaisi);
-            /*
+            
             if(envoiRobot(sendToBot,tableauIPs[num]) == 0) {
                 fprintf(stderr,"\nErreur d'envoi au robot, désolé...");
             }            
-            */
+            
             coordSaisies[0] = -1;
             coordSaisies[1] = -1;
         }
 
         // Envoi du jeton au fils suivant
         write(STDOUT_FILENO,copyJeton,TAILLE_JETON*sizeof(char)+1);
-        fprintf(stderr,"\nn°%d a envoyé son jeton.",num);
         if(errno != 0) {
             perror("Erreur envoi jeton");
         }
@@ -279,8 +278,15 @@ void saisirInfos() {
         signal(SIGUSR1,lireFichierCoords);
         // Wait for avec vérification
         unsigned int retTime = time(0) + DELAI_SAISIE;
+        int affichage = 0;
         while (time(0) < retTime && coordSaisies[0] == -1 && coordSaisies[1] == -1) {
+            if(time(0) == (retTime - 5) && !affichage) {
+                fprintf(stderr,"\nAttention il ne vous reste plus que 5 secondes !\n\n");
+                affichage = 1;                
+                fprintf(stderr,"Veuillez entrer la dernière information demandée plus haut : ");
+               
 
+            }
         }
         if(coordSaisies[0] == -1 || coordSaisies[1] == -1) {
             kill(childSaisiePid,SIGTERM);

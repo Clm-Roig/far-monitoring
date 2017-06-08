@@ -239,6 +239,8 @@ char* recepBeebotte(char* typedonnee, char* canal) {
 }
 
 int envoiRobot(char* donnees, char* addrRobot){
+    /* CE CODE FAIT TOUT PLANTER
+
     int res = 1;
     int sockBot = initSocket(PORT_ROBOT, addrRobot,"null");
     if(sendToSocket(sockBot,donnees) == -1) {
@@ -246,6 +248,13 @@ int envoiRobot(char* donnees, char* addrRobot){
     }
     close(sockBot);
     return res;
+    */
+
+    // On passe par un appel système plutôt
+    char* commande = malloc(256*sizeof(char));
+    sprintf(commande,"echo \"%s\" | nc %s %d",donnees,addrRobot,PORT_ROBOT);
+    system(commande);
+    return 1;
 }
 
 int checkDebutPartie() {
