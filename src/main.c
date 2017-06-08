@@ -34,7 +34,7 @@ int main(int argc,char* args[]) {
 	}
 	// Envoi de l'IP sur beebotte
 	char* data [4] = {"IP","GP","1",IP_SP};
-  	envoiBeebotte(data, "partie0");
+  	envoiBeebotte(data, "partie1");
 
 	// Création du token ring et lancement de la partie
 	creerFils(tabIPs);

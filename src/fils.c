@@ -21,7 +21,7 @@ char* diversSaisi;
 pid_t childpid;
 pid_t childSaisiePid;
 
-char* canalBeebotteCoord = "GPpartie0";
+char* canalBeebotteCoord = "GPpartie1";
 
 // ---- FONCTIONS ---- //
 

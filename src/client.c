@@ -17,12 +17,12 @@ char* ressource = "msg";
 char* ressource2 = "msg?limit=15&time-range=1hour";
 
     // !! TO DO : mettre ci-dessous le token du canal !!
-    // canal partie0 : 1494793564147_KNl54g97mG89kQSZ
-    // canal GPpartie0 : 1496739734657_0fJejrx6NNqf6L5Q
+    // canal partie1 : 1496910572272_aS7IrPZzKJEARkIm
+    // canal GPpartie1 : 1496739734657_0fJejrx6NNqf6L5Q
     // canal testVB : 1494771555601_5SGQdxJaJ8O1HBj4
     
 char* clefCanal = "1494793564147_KNl54g97mG89kQSZ";
-char* clefCanalGP = "1496739734657_0fJejrx6NNqf6L5Q";
+char* clefCanalGP = "1496910685059_uvgRhRg7UKmOUtfU";
 
 
 // ---- FONCTIONS ---- //
@@ -49,7 +49,7 @@ int envoiBeebotte(char *data[], char* canal) {
 
     // Necessaire pour envoyer des donnees sur beebotte.com (noter le token du canal a la fin) :
     char headers[300] ="Host: api.beebotte.com\r\nContent-Type: application/json\r\nX-Auth-Token: ";
-    if(strcmp(canal,"GPpartie0") == 0) {
+    if(strcmp(canal,"GPpartie1") == 0) {
         strcat(headers,clefCanalGP);
     }   
     else {
