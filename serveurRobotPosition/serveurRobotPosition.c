@@ -47,7 +47,7 @@ int lancerServeurPosition() {
     sin.sin_family = AF_INET;
     sin.sin_port = htons(strtoul(PORTRobotSP,NULL,10));
     bind(sock,(struct sockaddr*)&sin, recsize);
-    printf("\nconfig ok");
+    printf("\nConfig du serveur de position ok");
 
     /* Demarrage du listage (mode serveur) */
     listen(sock, 5);
@@ -63,7 +63,7 @@ int lancerServeurPosition() {
         // Récupération de la requete du client
         char* requete = malloc(1024*sizeof(char));
         int res;
-        recv(csock,requete,strlen(requete)-1,0);
+        recv(csock,requete,1024,0);
 
         printf("\nJe reçois la requete : %s",requete);
 
@@ -74,5 +74,10 @@ int lancerServeurPosition() {
 
         close(csock); 
     }
+    return 0;
+}
+
+int main() {
+    lancerServeurPosition();
     return 0;
 }
